@@ -1,12 +1,5 @@
 import { css } from "styled-components";
-import { media } from "styled-bootstrap-grid";
-import colors from "./colors";
 
-// Color finder utility func
-export const findColor = (colorName) => {
-  const foundColorKey = Object.keys(colors).filter((colorKey) => colorKey === colorName);
-  return (foundColorKey && foundColorKey.length > 0) ? colors[foundColorKey] : colorName;
-}
 
 const mixins = {
 
@@ -68,12 +61,12 @@ const mixins = {
 
 
   // Typography
-  color: (value) => css`color: ${findColor(value)};`,
+  color: (value) => css`color: ${value};`,
   fontSize: (value) => css`font-size: ${value};`,
   fontWeight: (value) => css`font-weight: ${value};`,
   textAlign: (value) => css`text-align: ${value};`,
   textDecoration: (value) => css`text-decoration: ${value};`,
-  hoverColor: (value) => css`&&{&:hover{color: ${findColor(value)};}}`,
+  hoverColor: (value) => css`&&{&:hover{color: ${value};}}`,
   lineHeight: (value) => css`line-height: ${value};`,
   letterSpacing: (value) => css`letter-spacing: ${value};`,
   light: () => css`font-weight: 300;`,
@@ -93,7 +86,7 @@ const mixins = {
   borderBottom: (value) => css`border-bottom: ${value};`,
   borderRight: (value) => css`border-right: ${value};`,
   borderLeft: (value) => css`border-left: ${value};`,
-  borderColor: (value) => css`border-color: ${findColor(value)};`,
+  borderColor: (value) => css`border-color: ${value};`,
   borderRadius: (value) => css`border-radius: ${value};`,
 
 
@@ -102,7 +95,7 @@ const mixins = {
   backgroundPosition: (value) => css`background-position: ${value};`,
   backgroundSize: (value) => css`background-size: ${value};`,
   backgroundImage: (value) => css`background-image: url(${value});`,
-  backgroundColor: (value) => css`background-color: ${findColor(value)};`,
+  backgroundColor: (value) => css`background-color: ${value};`,
   backgroundCover: () => css`background-size: cover;`,
 
 
@@ -141,15 +134,89 @@ const mixins = {
   zIndex: (value) => css`z-index: ${value};`,
 }
 
-const mediaMixins = {
-  _xl: media.xl,
-  _lg: media.lg,
-  _md: media.md,
-  _sm: media.sm,
-  _xs: media.xs,
+const mediaDown = {
+  xs: (...args) => css`
+    @media (max-width: 575px) {
+      ${css(...args)}
+    }
+  `,
+  sm: (...args) => css`
+    @media (max-width: 768px) {
+      ${css(...args)}
+    }
+  `,
+  md: (...args) => css`
+    @media (max-width: 992px) {
+      ${css(...args)}
+    }
+  `,
+  lg: (...args) => css`
+    @media (max-width: 1200px) {
+      ${css(...args)}
+    }
+  `,
+  xl: (...args) => css`
+    @media (min-width: 1200px) {
+      ${css(...args)}
+    }
+  `,  
 }
 
-const mixinMapper = (props) => {
+const mediaUp = {
+  xs: (...args) => css`
+    @media (max-width: 575px) {
+      ${css(...args)}
+    }
+  `,
+  sm: (...args) => css`
+    @media (min-width: 576px) {
+      ${css(...args)}
+    }
+  `,
+  md: (...args) => css`
+    @media (min-width: 768px) {
+      ${css(...args)}
+    }
+  `,
+  lg: (...args) => css`
+    @media (min-width: 992px) {
+      ${css(...args)}
+    }
+  `,
+  xl: (...args) => css`
+    @media (min-width: 1200px) {
+      ${css(...args)}
+    }
+  `,    
+};
+
+const mediaUpMixins = {
+  _xlUp: mediaUp.xl,
+  _lgUp: mediaUp.lg,
+  _mdUp: mediaUp.md,
+  _smUp: mediaUp.sm,
+  _xsUp: mediaUp.xs,
+};
+
+const mediaDownMixins = {
+  _xlDown: mediaDown.xl,
+  _lgDown: mediaDown.lg,
+  _mdDown: mediaDown.md,
+  _smDown: mediaDown.sm,
+  _xsDown: mediaDown.xs,
+};
+
+const defaultMediaMixin = (reverseMedia) => {
+  return {
+    _xl: reverseMedia ? mediaUpMixins.xl : mediaDownMixins.xl,
+    _lg: reverseMedia ? mediaUpMixins.lfg : mediaDownMixins.lfg,
+    _md: reverseMedia ? mediaUpMixins.md : mediaDownMixins.md,
+    _sm: reverseMedia ? mediaUpMixins.sm : mediaDownMixins.sm,
+    _xs: reverseMedia ? mediaUpMixins.xs : mediaDownMixins.xs,
+  };
+};
+
+const mixinMapper = (props, reverseMedia) => {
 
   let stylesArray = [];
 
@@ -157,19 +224,22 @@ const mixinMapper = (props) => {
   Object.keys(props).forEach((propKey) => {
 
     const mixinProp = mixins[propKey];
-    const mediaProp = mediaMixins[propKey]
+    const mediaProp = defaultMediaMixin(reverseMedia)[propKey];
+    const mediaUpProp = mediaUpMixins[propKey];
+    const mediaDownProp = mediaDownMixins[propKey];
     const propValue = props[propKey];
 
     // find mixin property that matches key
     if(mixinProp){
       stylesArray.push(mixinProp(propValue));
-    } else if(mediaProp){
-      stylesArray.push(mediaProp`${mixinMapper(propValue)}`);
+    } else if(mediaProp || mediaUpProp || mediaDownProp){
+      const currentMediaMixin = mediaProp || mediaUpProp || mediaDownProp;
+      stylesArray.push(currentMediaMixin`${mixinMapper(propValue)}`);
     }
   });
 
   // Return all applicable styles
   return css`${stylesArray}`;
-}
+};
 
 export default mixinMapper;

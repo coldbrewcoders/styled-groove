@@ -77,10 +77,10 @@ const Title = styled.h1`
 
 The applyGroove() function loops through the Component props and maps them to the applicable styles so you don't have to.
 
-The intent is to remove the repition of adding styles to component declarations and make applying styles dynamic based on the UI/UX needs.
+The intent is to remove the repitition of adding styles to component declarations and make applying styles dynamic based on the UI/UX needs.
 
 ## Before & After
-Allowing styles to be applied in-line to the Components, there becomes less of a need to define new components 
+By allowing styles to be applied in-line to the Components, there becomes less of a need to define new components 
 ### Before
 ```jsx
 const PrimaryButton1 = styled(PrimaryButton)`

@@ -93,6 +93,20 @@ const PrimaryButton2 = styled(PrimaryButton)`
 
 
 ## Flexbox
+Basic Flexbox
+
+Horizontally Centered Flexbox
+![image](https://cloud.githubusercontent.com/assets/3068563/21835499/a49b94bc-d7a4-11e6-9cf3-ab41519cd962.png)
+```jsx
+```
+
+Vertically Centered Flexbox
+```jsx
+```
+
+Centered Flexbox
+```jsx
+```
 
 ## Common
 

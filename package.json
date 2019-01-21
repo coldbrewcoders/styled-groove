@@ -1,0 +1,50 @@
+{
+  "name": "to-be-named",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "url": "https://bitbucket.org"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js --display-error-details",
+    "watch": "webpack --config webpack.config.js --display-error-details --watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "author": "Cold Brew Coders WAT UP",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "styled-components": "4.1.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.1.5",
+    "@babel/core": "7.1.6",
+    "@babel/plugin-proposal-class-properties": "7.1.0",
+    "@babel/plugin-proposal-export-default-from": "7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0",
+    "@babel/plugin-transform-object-set-prototype-of-to-assign": "7.0.0",
+    "@babel/plugin-transform-regenerator": "7.0.0",
+    "@babel/polyfill": "7.0.0",
+    "@babel/preset-env": "7.2.0",
+    "@babel/preset-react": "7.0.0",
+    "babel-eslint": "9.0.0",
+    "babel-loader": "8.0.0",
+    "babel-plugin-styled-components": "1.5.1",
+    "css-loader": "2.0.2",
+    "eslint": "5.9.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-import-resolver-webpack": "0.10.0",
+    "eslint-loader": "2.1.1",
+    "eslint-plugin-babel": "5.3.0",
+    "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-jsx": "0.0.2",
+    "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-react": "7.11.1",
+    "validator": "10.10.0",
+    "webpack": "4.27.1",
+    "webpack-cli": "3.1.2"
+  },
+  "peerDependencies": {
+    "styled-components": ">= 4.1.1"
+  }
+}

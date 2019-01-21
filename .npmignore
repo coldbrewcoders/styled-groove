@@ -1,0 +1,10 @@
+# these items will be ignored when creating package
+.storybook/
+stories/
+storybook-static/
+package-lock.json
+webpack*.js
+.babelrc.js
+.eslintrc.js
+dist/
+todo.md

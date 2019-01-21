@@ -61,12 +61,13 @@ const Title = styled.h1`
 `;
 ```
 
+
 ## How It Works
 `styled-groove` in its simplest form is an object that contains CSS properties for use in components.
 
 The applyGroove() function loops through the Component props and maps them to the applicable styles so you don't have to.
 
-The intent is to remove the repetition of adding styles to component declarations and make applying styles dynamic based on the UI/UX needs.
+The intent is to remove the repitition of adding styles to component declarations and make applying styles dynamic based on the UI/UX needs.
 
 # Examples 
 ## Before & After
@@ -324,7 +325,6 @@ const PyramidBlock = styled.div`
 
 ## Flexbox
 ### Basic Flexbox
-
 A basic `display: flex` Flexbox in a container.
 
 ![](assets/BasicFlexbox.png)
@@ -356,11 +356,11 @@ function App() {
 }
 ```
 
-###Horizontally Centered Flexbox
-
+### Horizontally Centered Flexbox
 Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `justify-content` being "center".
 
 ![](assets/HorizontalCenterFlexbox.png)
+
 #### How its achieved: 
 
 ```jsx
@@ -373,10 +373,11 @@ return (
 );
 ```
 
+### Vertically Centered Flexbox
 Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `align-items` being "center".
 
-###Vertically Centered Flexbox
-![](assets/VerticalCenterFlexbox.png)
+![](assets/VerticalCenterFlexbox.png
+
 #### How its achieved: 
 
 ```jsx
@@ -389,7 +390,7 @@ return (
 );
 ```
 
-###Centered Flexbox
+### Centered Flexbox
 Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of justify-content and `align-items` being "center".
 
 ![](assets/CenteredFlexbox.png)
@@ -405,7 +406,17 @@ return (
 );
 ```
 
+## Common
+
 ## Responsive Groove
+
+
+
+
+
+
+
+
 
 
 

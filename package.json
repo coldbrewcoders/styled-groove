@@ -1,16 +1,33 @@
 {
   "name": "styled-groove",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A library that provides dynamic, component-level, styling via React props. The intent is to build atop styled-components and make styling a component easier and more robust.",
   "repository": {
+    "type": "git",
     "url": "https://github.com/coldbrewcoders/styled-groove"
   },
+  "bugs": {
+    "url": "https://github.com/coldbrewcoders/styled-groove/issues"
+  },
   "scripts": {
-    "build": "npx babel src --out-dir dist"
+    "build": "npx babel src --out-dir dist",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish"
   },
   "main": "./index.js",
-  "author": "Cold Brew Coders WAT UP",
-  "license": "UNLICENSED",
+  "author": "Stimulated Nerds",
+  "license": "MIT",
+  "keywords": [
+    "styled-components",
+    "styled",
+    "style",
+    "theme",
+    "theming",
+    "react",
+    "styled-groove",
+    "groove"
+  ],
   "devDependencies": {
     "styled-components": "4.1.1",
     "@babel/cli": "7.1.5",

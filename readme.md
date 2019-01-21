@@ -93,19 +93,86 @@ const PrimaryButton2 = styled(PrimaryButton)`
 
 
 ## Flexbox
-Basic Flexbox
+### Basic Flexbox
 
-Horizontally Centered Flexbox
-![image](https://cloud.githubusercontent.com/assets/3068563/21835499/a49b94bc-d7a4-11e6-9cf3-ab41519cd962.png)
+A basic `display: flex` Flexbox in a container.
+
+![](assets/BasicFlexbox.png)
+#### How its achieved: 
+
 ```jsx
+import applyGroove from "styled-groove";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: #eee;
+  padding: 30px;
+  color: #fff;
+  font-size: 30px;
+`;
+
+const Flexbox = styled.div`
+  background-color: #c95eeb;
+  width: 200px;
+  height: 200px;
+`;
+
+function App() {
+  return (
+    <Container backgroundColor="#eee">
+      <Flexbox isFlex>Groovy</Flexbox>
+    </Container>
+  );
+}
 ```
 
-Vertically Centered Flexbox
+###Horizontally Centered Flexbox
+
+Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `justify-content` being "center".
+
+![](assets/HorizontalCenterFlexbox.png)
+#### How its achieved: 
+
 ```jsx
+return (
+  <Container fontSize="30px" backgroundColor="#eee">
+    <Flexbox isFlex hCentered>
+      Groovy
+    </Flexbox>
+  </Container>
+);
 ```
 
-Centered Flexbox
+Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `align-items` being "center".
+
+###Vertically Centered Flexbox
+![](assets/VerticalCenterFlexbox.png)
+#### How its achieved: 
+
 ```jsx
+return (
+  <Container fontSize="30px" backgroundColor="#eee">
+    <Flexbox isFlex vCentered>
+      Groovy
+    </Flexbox>
+  </Container>
+);
+```
+
+###Centered Flexbox
+Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of justify-content and `align-items` being "center".
+
+![](assets/CenteredFlexbox.png)
+#### How its achieved: 
+
+```jsx
+return (
+  <Container fontSize="30px" backgroundColor="#eee">
+    <Flexbox isFlex centered>
+      Groovy
+    </Flexbox>
+  </Container>
+);
 ```
 
 ## Common

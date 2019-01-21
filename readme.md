@@ -95,6 +95,157 @@ const PrimaryButton2 = styled(PrimaryButton)`
 
 ## Common
 
+### Display
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| display       | (value) => css``display: ${value};``         |
+| position      | (value) => css``position: ${value};``        |
+| float         | (value) => css``float: ${value};``           |
+| overflow      | (value) => css``overflow: ${value};``        |
+| overflowX     | (value) => css``overflow-x: ${value};``      |
+| overflowY     | (value) => css``overflow-y: ${value};``      |
+
+### Sizing
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| width         | (value) => css`width: ${value};`             |
+| minHeight     | (value) => css`min-height: ${value};`        | 
+| height        | (value) => css`height: ${value};`            |
+| minWidth      | (value) => css`min-width: ${value};`         |
+| maxHeight     | (value) => css`max-height: ${value};`        |
+| maxWidth      | (value) => css`max-width: ${value};`         |
+
+### Margin/Padding
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| margin        | (value) => css`margin: ${value};`            |
+| marginTop     | (value) => css`margin-top: ${value};`        |
+| marginBottom  | (value) => css`margin-bottom: ${value};`     | 
+| marginLeft    | (value) => css`margin-left: ${value};`       |
+| marginRight   | (value) => css`margin-right: ${value};`      |
+| padding       | (value) => css`padding: ${value};`           |
+| paddingTop    | (value) => css`padding-top: ${value};`       |
+| paddingBottom | (value) => css`padding-bottom: ${value};`    |  
+| paddingLeft   | (value) => css`padding-left: ${value};`      | 
+
+### Positioning
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| top           | (value) => css`top: ${value};`               |
+| bottom        | (value) => css`bottom: ${value};`            |
+| left          | (value) => css`left: ${value};`              |
+| right         | (value) => css`right: ${value};`             |
+
+### Typography
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| color         | (value) => css`color: ${value};`             |
+| fontSize      | (value) => css`font-size: ${value};`         |
+| fontWeight    | (value) => css`font-weight: ${value};`       |
+| textAlign     | (value) => css`text-align: ${value};`        |
+| textDecoration| (value) => css`text-decoration: ${value};`   |
+| hoverColor    | (value) => css`&&{&:hover{color: ${value};}}`|
+| lineHeight    | (value) => css`line-height: ${value};`       |
+| letterSpacing | (value) => css`letter-spacing: ${value};`    |
+
+#### Typography extra
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| light         | () => css`font-weight: 300;`                 |
+| bold          | () => css`font-weight: bold;`                |
+| underline     | () => css`text-decoration: underline;`       |
+| normal        | () => css`font-weight: normal;`              |
+| ellipsis      | () => css`text-overflow: ellipsis;`          |
+
+### Border
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| border        | (value) => css`border: ${value};`            |
+| borderTop     | (value) => css`border-top: ${value};`        |
+| borderBottom  | (value) => css`border-bottom: ${value};`     |
+| borderRight   | (value) => css`border-right: ${value};`      |
+| borderLeft    | (value) => css`border-left: ${value};`       |
+| borderColor   | (value) => css`border-color: ${value};`      |
+| borderRadius  | (value) => css`border-radius: ${value};`     |
+
+### Background
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| background         | (value) => css`background: ${value};`           |
+| backgroundPosition | (value) => css`background-position: ${value};`  |
+| backgroundSize     | (value) => css`background-size: ${value};`      |
+| backgroundImage    | (value) => css`background-image: url(${value});`|
+| backgroundColor    | (value) => css`background-color: ${value};`     |
+| backgroundCover    | () => css`background-size: cover;`              |
+
+
+### Misc and custom Props
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| cursor        | (value) => css`cursor: ${value};`            |
+| hide          | () => css`display: none !important;`         |
+| whiteSpace    | (value) => css`white-space: ${value};`       |
+| zIndex        | (value) => css`z-index: ${value};`           |
+| isTall        | () => css`height: 100%;`                     |
+| isWide        | () => css`width: 100%;`                      |
+| marginX       | (value) => css`                              |
+|               | margin-left: ${value};                       |
+|               | margin-right: ${value};                      |
+| marginY       | (value) => css`                              |
+|               | margin-top: ${value};                        |
+|               | margin-bottom: ${value}; `                   |
+| paddingX         | (value) => css`                           |
+|                  | padding-left: ${value};                   |
+|                  | padding-right: ${value}; `                |
+| paddingY         | (value) => css`                           |
+|                  | padding-top: ${value};                    |
+|                  | padding-bottom: ${value}; `               |
+| fill             | () => css` position: absolute;            |
+|                  | top: 0; bottom: 0; left: 0; right: 0;`    |  
+| noWrap           | () => css`                                |
+|                  | white-space: nowrap;                      |
+|                  | overflow: hidden;                         |
+|                  | text-overflow: ellipsis;`                 |
+
+## Flexbox Props
+
+| Prop (key)    | Template Literal CSS Fn (value)              |
+| --------------|:---------------------------------------------:
+| isFlex        | () => css`                                   |
+|               | display: flex;                               |
+|               | flex-wrap: wrap;`                            |
+| direction     | (value) => css`flex-direction: ${value};`    |
+| wrap          | (value) => css`flex-wrap: ${value};`         |
+| justifyContent| (value) => css`justify-content: ${value};`   |
+| spaced        | () => css`justify-content: space-between;`   |
+| around        | () => css`justify-content: space-around;`    |
+| alignItems    | (value) => css`align-items: ${value};`       |
+| alignContent  | (value) => css`align-content: ${value};`     |
+| order         | (value) => css`order: ${value};`             |
+| grow          | (value) => css`flex-grow: ${value};`         |
+| shrink        | (value) => css`flex-shrink: ${value};`       |
+| basis         | (value) => css`flex-basis: ${value};`        |
+| alignSelf     | (value) => css`align-self: ${value};`        |
+| centered      | () => css`                                   |
+|               | align-content: center;                       |
+|               | align-items: center;                         |
+|               | justify-content: center; `                   |
+| hCentered     | () => css`justify-content: center;`          |
+| vCentered     | () => css`align-items: center;`              |
+
+## Responsive Props
+
+
+
 ## Responsive Groove
 
 

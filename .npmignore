@@ -3,4 +3,5 @@ package-lock.json
 .babelrc.js
 .eslintrc.js
 src/
+assets/
 .gitignore

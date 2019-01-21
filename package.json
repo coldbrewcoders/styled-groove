@@ -1,6 +1,6 @@
 {
   "name": "styled-groove",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A library that provides dynamic, component-level, styling via React props. The intent is to build atop styled-components and make styling a component easier and more robust.",
   "repository": {
     "type": "git",

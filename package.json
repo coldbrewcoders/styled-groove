@@ -6,11 +6,14 @@
     "url": "https://github.com/coldbrewcoders/styled-groove"
   },
   "scripts": {
-    "build": "npx babel src --out-dir dist"
+    "build": "npx babel src --out-dir dist",
+    "patch": "npm version patch && npm publish",
+    "minor": "npm version minor && npm publish",
+    "major": "npm version major && npm publish"
   },
   "main": "./index.js",
   "author": "Cold Brew Coders WAT UP",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dependencies": {
     "styled-components": "4.1.1"
   },

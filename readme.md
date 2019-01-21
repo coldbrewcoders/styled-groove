@@ -61,12 +61,13 @@ const Title = styled.h1`
 `;
 ```
 
+
 ## How It Works
 `styled-groove` in its simplest form is an object that contains CSS properties for use in components.
 
 The applyGroove() function loops through the Component props and maps them to the applicable styles so you don't have to.
 
-The intent is to remove the repetition of adding styles to component declarations and make applying styles dynamic based on the UI/UX needs.
+The intent is to remove the repitition of adding styles to component declarations and make applying styles dynamic based on the UI/UX needs.
 
 # Examples 
 ## Before & After
@@ -91,88 +92,8 @@ const PrimaryButton2 = styled(PrimaryButton)`
 ```
 
 
-
-## Common Uses
-
-Example 1:
-
-```jsx
-import styled from "styled-components";
-import applyGroove from "styled-groove";
-
-
-const color1 = "#DA78F4";
-const color2 = "#252025";
-
-const Text = styled.p`
-  font-size: 20px;
-  margin: 0;
-  font-family: 'Arial, sans-serif';
-  ${props => applyGroove(props)}
-`;
-
-const Div = styled.div`
-  ${props => applyGroove(props)}
-`;
-
-.
-.
-.
-
-<Div width="300px">
-  <Div backgroundColor={color2}>
-    <Text color={color1}>Start</Text>
-  </Div>
-  <Div textAlign="center" backgroundColor={color1}>
-    <Text color={color2}>Groovin'</Text>
-  </Div>
-  <Div textAlign="right" backgroundColor={color2}>
-    <Text color={color1}>Now!</Text>
-  </Div>
-</Div>
-```
-
-![Example 1](./assets/common-example-1.png)
-
-
-
-Example 2: 
-
-```jsx
-import styled from "styled-components";
-import applyGroove from "styled-groove";
-
-const Container = styled.div`
-  background-color: #DA78F4;
-  width: 500px;
-`;
-
-const PyramidBlock = styled.div`
-  background-color: #252025;
-  height: 50px;
-  margin: auto;
-  ${props => applyGroove(props)}
-`;
-
-.
-.
-.
-
-<Container width="300px">
-  <PyramidBlock width="25%" />
-  <PyramidBlock width="40%" />
-  <PyramidBlock width="55%" />
-  <PyramidBlock width="70%" />
-  <PyramidBlock width="85%" />
-  <PyramidBlock width="100%" />
-</Container>
-```
-![Example 2](./assets/common-example-2.png)
-
-
 ## Flexbox
 ### Basic Flexbox
-
 A basic `display: flex` Flexbox in a container.
 
 ![](assets/BasicFlexbox.png)
@@ -204,11 +125,11 @@ function App() {
 }
 ```
 
-###Horizontally Centered Flexbox
-
+### Horizontally Centered Flexbox
 Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `justify-content` being "center".
 
 ![](assets/HorizontalCenterFlexbox.png)
+
 #### How its achieved: 
 
 ```jsx
@@ -221,10 +142,11 @@ return (
 );
 ```
 
+### Vertically Centered Flexbox
 Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `align-items` being "center".
 
-###Vertically Centered Flexbox
-![](assets/VerticalCenterFlexbox.png)
+![](assets/VerticalCenterFlexbox.png
+
 #### How its achieved: 
 
 ```jsx
@@ -237,7 +159,7 @@ return (
 );
 ```
 
-###Centered Flexbox
+### Centered Flexbox
 Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of justify-content and `align-items` being "center".
 
 ![](assets/CenteredFlexbox.png)
@@ -253,7 +175,17 @@ return (
 );
 ```
 
+## Common
+
 ## Responsive Groove
+
+
+
+
+
+
+
+
 
 
 

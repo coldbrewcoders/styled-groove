@@ -31,11 +31,12 @@ const Title = styled.h1`
 ## Implementation with Theme
 https://www.styled-components.com/docs/advanced#theming
 ```jsx
+import { ThemeProvider } from "styled-components";
 import applyGroove from "styled-groove";
 
 // Define what props.theme will look like
 const theme = {
-  applyGroove: (props) => applyGroove(props)
+  applyGroove
 };
 
 ...
@@ -268,9 +269,7 @@ const Div = styled.div`
   ${props => applyGroove(props)}
 `;
 
-.
-.
-.
+...
 
 <Div width="300px">
   <Div backgroundColor={color2}>
@@ -307,9 +306,7 @@ const PyramidBlock = styled.div`
   ${props => applyGroove(props)}
 `;
 
-.
-.
-.
+...
 
 <Container width="300px">
   <PyramidBlock width="25%" />

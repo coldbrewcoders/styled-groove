@@ -11,9 +11,9 @@
   },
   "scripts": {
     "build": "npx babel src --out-dir dist",
-    "patch": "npm version patch && npm publish",
-    "minor": "npm version minor && npm publish",
-    "major": "npm version major && npm publish"
+    "patch": "npm run build && npm version patch && npm publish",
+    "minor": "npm run build && npm version minor && npm publish",
+    "major": "npm run build && npm version major && npm publish"
   },
   "main": "./index.js",
   "author": "Stimulated Nerds",

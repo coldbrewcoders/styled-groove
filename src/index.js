@@ -1,12 +1,6 @@
 import { css } from "styled-components";
 
 
-// Color finder utility func
-export const findColor = (colorName) => {
-  const foundColorKey = Object.keys(colors).filter((colorKey) => colorKey === colorName);
-  return (foundColorKey && foundColorKey.length > 0) ? colors[foundColorKey] : colorName;
-}
-
 const mixins = {
 
   // Display
@@ -67,12 +61,12 @@ const mixins = {
 
 
   // Typography
-  color: (value) => css`color: ${findColor(value)};`,
+  color: (value) => css`color: ${value};`,
   fontSize: (value) => css`font-size: ${value};`,
   fontWeight: (value) => css`font-weight: ${value};`,
   textAlign: (value) => css`text-align: ${value};`,
   textDecoration: (value) => css`text-decoration: ${value};`,
-  hoverColor: (value) => css`&&{&:hover{color: ${findColor(value)};}}`,
+  hoverColor: (value) => css`&&{&:hover{color: ${value};}}`,
   lineHeight: (value) => css`line-height: ${value};`,
   letterSpacing: (value) => css`letter-spacing: ${value};`,
   light: () => css`font-weight: 300;`,
@@ -92,7 +86,7 @@ const mixins = {
   borderBottom: (value) => css`border-bottom: ${value};`,
   borderRight: (value) => css`border-right: ${value};`,
   borderLeft: (value) => css`border-left: ${value};`,
-  borderColor: (value) => css`border-color: ${findColor(value)};`,
+  borderColor: (value) => css`border-color: ${value};`,
   borderRadius: (value) => css`border-radius: ${value};`,
 
 
@@ -101,7 +95,7 @@ const mixins = {
   backgroundPosition: (value) => css`background-position: ${value};`,
   backgroundSize: (value) => css`background-size: ${value};`,
   backgroundImage: (value) => css`background-image: url(${value});`,
-  backgroundColor: (value) => css`background-color: ${findColor(value)};`,
+  backgroundColor: (value) => css`background-color: ${value};`,
   backgroundCover: () => css`background-size: cover;`,
 
 

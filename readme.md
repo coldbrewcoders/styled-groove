@@ -91,6 +91,7 @@ const PrimaryButton2 = styled(PrimaryButton)`
 <PrimaryButton2 marginLeft="4px">Button 2</PrimaryButton2>
 ```
 
+
 ## Flexbox
 
 ## Common

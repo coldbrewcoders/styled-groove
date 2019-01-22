@@ -4,7 +4,6 @@ const plugins = [
   "@babel/plugin-transform-object-set-prototype-of-to-assign",
   "@babel/plugin-transform-regenerator",
   "@babel/plugin-proposal-export-default-from",
-  "@quickbaseoss/babel-plugin-styled-components-css-namespace",
   "babel-plugin-styled-components"
 ];
 const presets =  [

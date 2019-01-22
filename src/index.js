@@ -188,7 +188,7 @@ const mediaUp = {
       ${css(...args)}
     }
   `,    
-}
+};
 
 const mediaUpMixins = {
   _xlUp: mediaUp.xl,
@@ -196,7 +196,7 @@ const mediaUpMixins = {
   _mdUp: mediaUp.md,
   _smUp: mediaUp.sm,
   _xsUp: mediaUp.xs,
-}
+};
 
 const mediaDownMixins = {
   _xlDown: mediaDown.xl,
@@ -204,17 +204,17 @@ const mediaDownMixins = {
   _mdDown: mediaDown.md,
   _smDown: mediaDown.sm,
   _xsDown: mediaDown.xs,
-}
+};
 
 const defaultMediaMixin = (reverseMedia) => {
   return {
-    _xl: reverseMedia ? mediaUpMixins.xl : mediaDownMixins.xl,
-    _lg: reverseMedia ? mediaUpMixins.lfg : mediaDownMixins.lfg,
-    _md: reverseMedia ? mediaUpMixins.md : mediaDownMixins.md,
-    _sm: reverseMedia ? mediaUpMixins.sm : mediaDownMixins.sm,
-    _xs: reverseMedia ? mediaUpMixins.xs : mediaDownMixins.xs,
+    _xl: reverseMedia ? mediaUpMixins._xlUp : mediaDownMixins._xlDown,
+    _lg: reverseMedia ? mediaUpMixins._lgUp : mediaDownMixins._lgDown,
+    _md: reverseMedia ? mediaUpMixins._mdUp : mediaDownMixins._mdDown,
+    _sm: reverseMedia ? mediaUpMixins._smUp : mediaDownMixins._smDown,
+    _xs: reverseMedia ? mediaUpMixins._xsUp : mediaDownMixins._xsDown,
   };
-}
+};
 
 const mixinMapper = (props, reverseMedia) => {
 
@@ -240,6 +240,6 @@ const mixinMapper = (props, reverseMedia) => {
 
   // Return all applicable styles
   return css`${stylesArray}`;
-}
+};
 
 export default mixinMapper;

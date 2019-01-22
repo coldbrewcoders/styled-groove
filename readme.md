@@ -373,7 +373,7 @@ return (
 ### Vertically Centered Flexbox
 Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `align-items` being "center".
 
-![](assets/VerticalCenterFlexbox.png
+![](assets/VerticalCenterFlexbox.png)
 
 #### How its achieved: 
 
@@ -403,27 +403,4 @@ return (
 );
 ```
 
-## Common
-
 ## Responsive Groove
-
-
-
-
-
-
-
-
-
-
-
-
-## Available styles to apply via props
-### Display
-
-| Prop (key)    | Template Literal CSS Fn (value)     |
-| --------------|:------------------------------------:
-| display       | (value) => css`display: ${value};`  |
-|               | right-aligned                       |
-| col 2 is      | centered                            |
-| zebra stripes | are neat                            |

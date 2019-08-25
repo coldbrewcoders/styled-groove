@@ -132,114 +132,199 @@ const mixins = {
   hide: () => css`display: none !important;`,
   whiteSpace: (value) => css`white-space: ${value};`,
   zIndex: (value) => css`z-index: ${value};`,
-}
+};
 
-const mediaDown = {
-  xs: (...args) => css`
-    @media (max-width: 575px) {
-      ${css(...args)}
-    }
-  `,
-  sm: (...args) => css`
-    @media (max-width: 768px) {
-      ${css(...args)}
-    }
-  `,
-  md: (...args) => css`
-    @media (max-width: 992px) {
-      ${css(...args)}
-    }
-  `,
-  lg: (...args) => css`
-    @media (max-width: 1200px) {
-      ${css(...args)}
-    }
-  `,
-  xl: (...args) => css`
-    @media (min-width: 1200px) {
-      ${css(...args)}
-    }
-  `,  
-}
+// Default media size ranges for media up strategy
+const DEFAULT_MEDIA_UP_SIZES = {
+  xl: 1200,
+  lg: 992,
+  md: 768,
+  sm: 576,
+  xs: 575
+};
 
-const mediaUp = {
-  xs: (...args) => css`
-    @media (max-width: 575px) {
+const mediaUpMixins = {
+  _xs: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_UP_SIZES.xs}px) {
       ${css(...args)}
     }
   `,
-  sm: (...args) => css`
-    @media (min-width: 576px) {
+  _sm: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.sm}px) {
       ${css(...args)}
     }
   `,
-  md: (...args) => css`
-    @media (min-width: 768px) {
+  _md: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.md}px) {
       ${css(...args)}
     }
   `,
-  lg: (...args) => css`
-    @media (min-width: 992px) {
+  _lg: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.lg}px) {
       ${css(...args)}
     }
   `,
-  xl: (...args) => css`
-    @media (min-width: 1200px) {
+  _xl: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.xl}px) {
       ${css(...args)}
     }
   `,    
 };
 
-const mediaUpMixins = {
-  _xlUp: mediaUp.xl,
-  _lgUp: mediaUp.lg,
-  _mdUp: mediaUp.md,
-  _smUp: mediaUp.sm,
-  _xsUp: mediaUp.xs,
+// Default media size ranges for media down strategy
+const DEFAULT_MEDIA_DOWN_SIZES = {
+  xl: 1200,
+  lg: 1199,
+  md: 991,
+  sm: 767,
+  xs: 575
 };
 
 const mediaDownMixins = {
-  _xlDown: mediaDown.xl,
-  _lgDown: mediaDown.lg,
-  _mdDown: mediaDown.md,
-  _smDown: mediaDown.sm,
-  _xsDown: mediaDown.xs,
-};
+  _xs: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.xs}px) {
+      ${css(...args)}
+    }
+  `,
+  _sm: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.sm}px) {
+      ${css(...args)}
+    }
+  `,
+  _md: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.md}px) {
+      ${css(...args)}
+    }
+  `,
+  _lg: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.lg}px) {
+      ${css(...args)}
+    }
+  `,
+  _xl: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_DOWN_SIZES.xl}px) {
+      ${css(...args)}
+    }
+  `,  
+}
 
-const defaultMediaMixin = (reverseMedia) => {
-  return {
-    _xl: reverseMedia ? mediaUpMixins._xlUp : mediaDownMixins._xlDown,
-    _lg: reverseMedia ? mediaUpMixins._lgUp : mediaDownMixins._lgDown,
-    _md: reverseMedia ? mediaUpMixins._mdUp : mediaDownMixins._mdDown,
-    _sm: reverseMedia ? mediaUpMixins._smUp : mediaDownMixins._smDown,
-    _xs: reverseMedia ? mediaUpMixins._xsUp : mediaDownMixins._xsDown,
-  };
-};
 
-const mixinMapper = (props, reverseMedia) => {
+const mixinMapperIgnoreMediaProps = (props = {}) => {
+  
+  // Get all prop keys
+  const propKeys = Object.keys(props);
 
-  let stylesArray = [];
+  // If no passed props, short-circuit
+  if(propKeys.length === 0) return;
 
-  // Loop through all props and find associate key-value style to apply
-  Object.keys(props).forEach((propKey) => {
+  // List for storage of all applied styles
+  const stylesList = [];
 
-    const mixinProp = mixins[propKey];
-    const mediaProp = defaultMediaMixin(reverseMedia)[propKey];
-    const mediaUpProp = mediaUpMixins[propKey];
-    const mediaDownProp = mediaDownMixins[propKey];
+  // Iterate through all props and find associated key-value style to apply (if applicable)
+  propKeys.forEach((propKey) => {
+
+    // Get prop value
     const propValue = props[propKey];
 
-    // find mixin property that matches key
-    if(mixinProp){
-      stylesArray.push(mixinProp(propValue));
-    } else if(mediaProp || mediaUpProp || mediaDownProp){
-      const currentMediaMixin = mediaProp || mediaUpProp || mediaDownProp;
-      stylesArray.push(currentMediaMixin`${mixinMapper(propValue)}`);
+    // If falsy prop value found that isn't 'number: 0', short-circuit
+    if(!propValue && propValue !== 0) return;
+
+    // Check if prop key matches a style mixin prop
+    const mixinProp = mixins[propKey];
+
+    // If prop key matches style mixin prop, apply value
+    if(mixinProp) {
+      stylesList.push(mixinProp(propValue));
     }
+
   });
 
-  // Return all applicable styles
-  return css`${stylesArray}`;
+  // Return all applicable styles as injected css
+  return css`${stylesList}`;
+}
+
+const mixinMapper = (props = {}, isMediaStrategyDown = false) => {
+
+  // Get all prop keys
+  const propKeys = Object.keys(props);
+
+  // If no passed props, short-circuit
+  if(propKeys.length === 0) return;
+  
+  // Get media mixin object based on up or down media strategy (default is media strategy is up)
+  const mediaMixins = isMediaStrategyDown ? mediaDownMixins : mediaUpMixins;
+
+  // List for storage of all applied styles
+  const stylesList = [];
+  const mediaStylesMap = {};
+
+  // Iterate through all props and find associated key-value style to apply (if applicable)
+  propKeys.forEach((propKey) => {
+
+    // Short-circuit if prop key is for a built in component prop
+    if(propKey === "children" || propKey === "forwardedComponent" || propKey === "forwardedRef") return;
+
+    // Get prop value
+    const propValue = props[propKey];
+
+    // If falsy prop value found that isn't 'number: 0', short-circuit
+    if(!propValue && propValue !== 0) return;
+
+    // Check if prop key matches a style mixin prop
+    const mixinProp = mixins[propKey];
+
+    // If prop key matches a style mixin prop...
+    if(mixinProp) {
+      // Calculate CSS for style mixin prop and add value to styles list
+      stylesList.push(mixinProp(propValue));
+      return;
+    }
+
+    // Check if prop key matches media mixin prop
+    const mediaProp = mediaMixins[propKey];
+
+    // If prop key matches a media mixin prop...
+    if(mediaProp) {
+      // Calculate CSS for all style mixin props within the media mixin prop value and add to media styles map
+      mediaStylesMap[propKey] = mediaProp`${mixinMapperIgnoreMediaProps(propValue)}`;
+    }
+    
+  });
+
+  // If component contained media mixin props...
+  if(Object.keys(mediaStylesMap).length) {
+
+    /** NOTE: Media styles must be applied in a specific order to work properly due to the nature of CSS media queries.
+     *  For up media strategy, apply styles in xs -> xl order (default media strategy)
+     *  For down media strategy, apply styles in xl -> xs order
+    **/
+
+    if(isMediaStrategyDown) {
+
+      // Apply media styles to styles list (down media strategy)
+      mediaStylesMap._xl && stylesList.push(mediaStylesMap._xl);
+      mediaStylesMap._lg && stylesList.push(mediaStylesMap._lg);
+      mediaStylesMap._md && stylesList.push(mediaStylesMap._md);
+      mediaStylesMap._sm && stylesList.push(mediaStylesMap._sm);
+      mediaStylesMap._xs && stylesList.push(mediaStylesMap._xs);
+
+    }
+    else {
+
+      // Apply media styles to styles list (up media strategy)
+      mediaStylesMap._xs && stylesList.push(mediaStylesMap._xs);
+      mediaStylesMap._sm && stylesList.push(mediaStylesMap._sm);
+      mediaStylesMap._md && stylesList.push(mediaStylesMap._md);
+      mediaStylesMap._lg && stylesList.push(mediaStylesMap._lg);
+      mediaStylesMap._xl && stylesList.push(mediaStylesMap._xl);
+
+    }
+
+  }
+
+  // Return all applicable styles as injected css
+  return css`${stylesList}`;
 };
 
+// Aka 'applyGroove'
 export default mixinMapper;

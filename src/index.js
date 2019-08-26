@@ -7,21 +7,20 @@ const mixins = {
   display: (value) => css`display: ${value};`,
   position: (value) => css`position: ${value};`,
   float: (value) => css`float: ${value};`,
+  clear: (value) => css`clear: ${value};`,
   overflow: (value) => css`overflow: ${value};`,
   overflowX: (value) => css`overflow-x: ${value};`,
   overflowY: (value) => css`overflow-y: ${value};`,
-
+  visibility: (value) => css`visibility: ${value};`,
+  zIndex: (value) => css`z-index: ${value};`,
 
   // Sizing
   height: (value) => css`height: ${value};`,
   width: (value) => css`width: ${value};`,
-  isTall: () => css`height: 100%;`,
-  isWide: () => css`width: 100%;`,
   minHeight: (value) => css`min-height: ${value};`,
   minWidth: (value) => css`min-width: ${value};`,
   maxHeight: (value) => css`max-height: ${value};`,
   maxWidth: (value) => css`max-width: ${value};`,
-
 
   // Margin
   margin: (value) => css`margin: ${value};`,
@@ -31,11 +30,12 @@ const mixins = {
   marginRight: (value) => css`margin-right: ${value};`,
   marginX: (value) => css`
     margin-left: ${value};
-    margin-right: ${value}; `,
+    margin-right: ${value};
+  `,
   marginY: (value) => css`
     margin-top: ${value};
-    margin-bottom: ${value}; `,
-
+    margin-bottom: ${value};
+  `,
 
   // Padding
   padding: (value) => css`padding: ${value};`,
@@ -45,30 +45,34 @@ const mixins = {
   paddingRight: (value) => css`padding-right: ${value};`,
   paddingX: (value) => css`
     padding-left: ${value};
-    padding-right: ${value}; `,
+    padding-right: ${value};
+  `,
   paddingY: (value) => css`
     padding-top: ${value};
-    padding-bottom: ${value}; `,
-
+    padding-bottom: ${value};
+  `,
 
   // Positioning
   top: (value) => css`top: ${value};`,
   bottom: (value) => css`bottom: ${value};`,
   left: (value) => css`left: ${value};`,
   right: (value) => css`right: ${value};`,
-  fill: () => css` position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;`,
-
 
   // Typography
   color: (value) => css`color: ${value};`,
   fontSize: (value) => css`font-size: ${value};`,
   fontWeight: (value) => css`font-weight: ${value};`,
+  fontFamily: (value) => css`font-family: ${value};`,
+  fontStyle: (value) => css`font-style: ${value};`,
   textAlign: (value) => css`text-align: ${value};`,
   textDecoration: (value) => css`text-decoration: ${value};`,
   hoverColor: (value) => css`&&{&:hover{color: ${value};}}`,
   lineHeight: (value) => css`line-height: ${value};`,
   letterSpacing: (value) => css`letter-spacing: ${value};`,
+  hyphens: (value) => css`hyphens: ${value};`,
+  textOverflow: (value) => css`text-overflow: ${value};`,
+  textShadow: (value) => css`text-shadow: ${value};`,
+  textTransform: (value) => css`text-transform: ${value};`,
   light: () => css`font-weight: 300;`,
   bold: () => css`font-weight: bold;`,
   underline: () => css`text-decoration: underline;`,
@@ -77,8 +81,8 @@ const mixins = {
   noWrap: () => css`
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;`,
-
+    text-overflow: ellipsis;
+  `,
 
   // Border
   border: (value) => css`border: ${value};`,
@@ -88,50 +92,68 @@ const mixins = {
   borderLeft: (value) => css`border-left: ${value};`,
   borderColor: (value) => css`border-color: ${value};`,
   borderRadius: (value) => css`border-radius: ${value};`,
-
+  borderTopLeftRadius: (value) => css`border-top-left-radius: ${value};`,
+  borderTopRightRadius: (value) => css`border-top-right-radius: ${value};`,
+  borderBottomRightRadius: (value) => css`border-bottom-right-radius: ${value};`,
+  borderBottomLeftRadius: (value) => css`border-bottom-left-radius: ${value};`,
+  borderRightRadius: (value) => css`
+    border-top-right-radius: ${value};
+    border-bottom-right-radius: ${value};
+  `,
+  borderLeftRadius: (value) => css`
+    border-top-left-radius: ${value};
+    border-bottom-left-radius: ${value};
+  `,
+  borderTopRadius: (value) => css`
+    border-top-left-radius: ${value};
+    border-top-right-radius: ${value};
+  `,
+  borderBottomRadius: (value) => css`
+    border-bottom-left-radius: ${value};
+    border-bottom-right-radius: ${value};
+  `,
+  boxShadow: (value) => css`box-shadow: ${value};`,
 
   // Background
   background: (value) => css`background: ${value};`,
   backgroundPosition: (value) => css`background-position: ${value};`,
+  backgroundRepeat: (value) => css`background-repeat: ${value};`,
   backgroundSize: (value) => css`background-size: ${value};`,
   backgroundImage: (value) => css`background-image: url(${value});`,
   backgroundColor: (value) => css`background-color: ${value};`,
-  backgroundCover: () => css`background-size: cover;`,
+  backgroundColorHover: (value) => css`&&{&:hover{background-color: ${value};}}`,
+  backgroundAttachment: (value) => css`background-attachment: ${value};`,
+  backgroundClip: (value) => css`background-clip: ${value};`,
+  backgroundOrigin: (value) => css`background-origin: ${value};`,
+  objectFit: (value) => css`object-fit: ${value};`,
 
-
-  // Flex https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-  isFlex: () => css`
-    display: flex;
-    flex-wrap: wrap;`,
-  direction: (value) => css`flex-direction: ${value};`,
-  wrap: (value) => css`flex-wrap: ${value};`,
-
+  // Flex
+  isFlex: () => css`display: flex;`,
+  flex: (value) => css`flex: ${value};`,
+  flexDirection: (value) => css`flex-direction: ${value};`,
+  flexWrap: (value) => css`flex-wrap: ${value};`,
   justifyContent: (value) => css`justify-content: ${value};`,
-  spaced: () => css`justify-content: space-between;`,
-  around: () => css`justify-content: space-around;`,
   alignItems: (value) => css`align-items: ${value};`,
   alignContent: (value) => css`align-content: ${value};`,
-
-  order: (value) => css`order: ${value};`,
-  grow: (value) => css`flex-grow: ${value};`,
-  shrink: (value) => css`flex-shrink: ${value};`,
-  basis: (value) => css`flex-basis: ${value};`,
   alignSelf: (value) => css`align-self: ${value};`,
-
-
-  // Centering
-  centered: () => css`
-    align-content: center;
-    align-items: center;
-    justify-content: center; `,
-  hCentered: () => css`justify-content: center;`,
-  vCentered: () => css`align-items: center;`,
+  order: (value) => css`order: ${value};`,
+  flexGrow: (value) => css`flex-grow: ${value};`,
+  flexShrink: (value) => css`flex-shrink: ${value};`,
+  flexBasis: (value) => css`flex-basis: ${value};`,
 
   // Misc
   cursor: (value) => css`cursor: ${value};`,
-  hide: () => css`display: none !important;`,
+  direction: (value) => css`direction: ${value};`,
+  opacity: (value) => css`opacity: ${value};`,
+  overflowWrap: (value) => css`overflow-wrap: ${value};`,
+  pointerEvents: (value) => css`pointer-events: ${value};`,
+  transform: (value) => css`transform: ${value};`,
+  transition: (value) => css`transition: ${value};`,
+  transitionDelay: (value) => css`transition-delay: ${value};`,
+  userSelect: (value) => css`user-select: ${value};`,
   whiteSpace: (value) => css`white-space: ${value};`,
-  zIndex: (value) => css`z-index: ${value};`,
+  wordSpacing: (value) => css`word-spacing: ${value};`,
+  wordWrap: (value) => css`word-wrap: ${value};`
 };
 
 // Default media size ranges for media up strategy

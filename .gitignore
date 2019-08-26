@@ -6,6 +6,9 @@
 # production
 /dist
 
+# storybook
+/storybook-static
+
 # misc
 .DS_Store
 *.env*

@@ -7,21 +7,20 @@ const mixins = {
   display: (value) => css`display: ${value};`,
   position: (value) => css`position: ${value};`,
   float: (value) => css`float: ${value};`,
+  clear: (value) => css`clear: ${value};`,
   overflow: (value) => css`overflow: ${value};`,
   overflowX: (value) => css`overflow-x: ${value};`,
   overflowY: (value) => css`overflow-y: ${value};`,
-
+  visibility: (value) => css`visibility: ${value};`,
+  zIndex: (value) => css`z-index: ${value};`,
 
   // Sizing
   height: (value) => css`height: ${value};`,
   width: (value) => css`width: ${value};`,
-  isTall: () => css`height: 100%;`,
-  isWide: () => css`width: 100%;`,
   minHeight: (value) => css`min-height: ${value};`,
   minWidth: (value) => css`min-width: ${value};`,
   maxHeight: (value) => css`max-height: ${value};`,
   maxWidth: (value) => css`max-width: ${value};`,
-
 
   // Margin
   margin: (value) => css`margin: ${value};`,
@@ -31,11 +30,12 @@ const mixins = {
   marginRight: (value) => css`margin-right: ${value};`,
   marginX: (value) => css`
     margin-left: ${value};
-    margin-right: ${value}; `,
+    margin-right: ${value};
+  `,
   marginY: (value) => css`
     margin-top: ${value};
-    margin-bottom: ${value}; `,
-
+    margin-bottom: ${value};
+  `,
 
   // Padding
   padding: (value) => css`padding: ${value};`,
@@ -45,30 +45,34 @@ const mixins = {
   paddingRight: (value) => css`padding-right: ${value};`,
   paddingX: (value) => css`
     padding-left: ${value};
-    padding-right: ${value}; `,
+    padding-right: ${value};
+  `,
   paddingY: (value) => css`
     padding-top: ${value};
-    padding-bottom: ${value}; `,
-
+    padding-bottom: ${value};
+  `,
 
   // Positioning
   top: (value) => css`top: ${value};`,
   bottom: (value) => css`bottom: ${value};`,
   left: (value) => css`left: ${value};`,
   right: (value) => css`right: ${value};`,
-  fill: () => css` position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;`,
-
 
   // Typography
   color: (value) => css`color: ${value};`,
   fontSize: (value) => css`font-size: ${value};`,
   fontWeight: (value) => css`font-weight: ${value};`,
+  fontFamily: (value) => css`font-family: ${value};`,
+  fontStyle: (value) => css`font-style: ${value};`,
   textAlign: (value) => css`text-align: ${value};`,
   textDecoration: (value) => css`text-decoration: ${value};`,
   hoverColor: (value) => css`&&{&:hover{color: ${value};}}`,
   lineHeight: (value) => css`line-height: ${value};`,
   letterSpacing: (value) => css`letter-spacing: ${value};`,
+  hyphens: (value) => css`hyphens: ${value};`,
+  textOverflow: (value) => css`text-overflow: ${value};`,
+  textShadow: (value) => css`text-shadow: ${value};`,
+  textTransform: (value) => css`text-transform: ${value};`,
   light: () => css`font-weight: 300;`,
   bold: () => css`font-weight: bold;`,
   underline: () => css`text-decoration: underline;`,
@@ -77,8 +81,8 @@ const mixins = {
   noWrap: () => css`
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;`,
-
+    text-overflow: ellipsis;
+  `,
 
   // Border
   border: (value) => css`border: ${value};`,
@@ -88,158 +92,261 @@ const mixins = {
   borderLeft: (value) => css`border-left: ${value};`,
   borderColor: (value) => css`border-color: ${value};`,
   borderRadius: (value) => css`border-radius: ${value};`,
-
+  borderTopLeftRadius: (value) => css`border-top-left-radius: ${value};`,
+  borderTopRightRadius: (value) => css`border-top-right-radius: ${value};`,
+  borderBottomRightRadius: (value) => css`border-bottom-right-radius: ${value};`,
+  borderBottomLeftRadius: (value) => css`border-bottom-left-radius: ${value};`,
+  borderRightRadius: (value) => css`
+    border-top-right-radius: ${value};
+    border-bottom-right-radius: ${value};
+  `,
+  borderLeftRadius: (value) => css`
+    border-top-left-radius: ${value};
+    border-bottom-left-radius: ${value};
+  `,
+  borderTopRadius: (value) => css`
+    border-top-left-radius: ${value};
+    border-top-right-radius: ${value};
+  `,
+  borderBottomRadius: (value) => css`
+    border-bottom-left-radius: ${value};
+    border-bottom-right-radius: ${value};
+  `,
+  boxShadow: (value) => css`box-shadow: ${value};`,
 
   // Background
   background: (value) => css`background: ${value};`,
   backgroundPosition: (value) => css`background-position: ${value};`,
+  backgroundRepeat: (value) => css`background-repeat: ${value};`,
   backgroundSize: (value) => css`background-size: ${value};`,
   backgroundImage: (value) => css`background-image: url(${value});`,
   backgroundColor: (value) => css`background-color: ${value};`,
-  backgroundCover: () => css`background-size: cover;`,
+  backgroundColorHover: (value) => css`&&{&:hover{background-color: ${value};}}`,
+  backgroundAttachment: (value) => css`background-attachment: ${value};`,
+  backgroundClip: (value) => css`background-clip: ${value};`,
+  backgroundOrigin: (value) => css`background-origin: ${value};`,
+  objectFit: (value) => css`object-fit: ${value};`,
 
-
-  // Flex https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-  isFlex: () => css`
-    display: flex;
-    flex-wrap: wrap;`,
-  direction: (value) => css`flex-direction: ${value};`,
-  wrap: (value) => css`flex-wrap: ${value};`,
-
+  // Flex
+  isFlex: () => css`display: flex;`,
+  flex: (value) => css`flex: ${value};`,
+  flexDirection: (value) => css`flex-direction: ${value};`,
+  flexWrap: (value) => css`flex-wrap: ${value};`,
   justifyContent: (value) => css`justify-content: ${value};`,
-  spaced: () => css`justify-content: space-between;`,
-  around: () => css`justify-content: space-around;`,
   alignItems: (value) => css`align-items: ${value};`,
   alignContent: (value) => css`align-content: ${value};`,
-
-  order: (value) => css`order: ${value};`,
-  grow: (value) => css`flex-grow: ${value};`,
-  shrink: (value) => css`flex-shrink: ${value};`,
-  basis: (value) => css`flex-basis: ${value};`,
   alignSelf: (value) => css`align-self: ${value};`,
-
-
-  // Centering
-  centered: () => css`
-    align-content: center;
-    align-items: center;
-    justify-content: center; `,
-  hCentered: () => css`justify-content: center;`,
-  vCentered: () => css`align-items: center;`,
+  order: (value) => css`order: ${value};`,
+  flexGrow: (value) => css`flex-grow: ${value};`,
+  flexShrink: (value) => css`flex-shrink: ${value};`,
+  flexBasis: (value) => css`flex-basis: ${value};`,
 
   // Misc
   cursor: (value) => css`cursor: ${value};`,
-  hide: () => css`display: none !important;`,
+  direction: (value) => css`direction: ${value};`,
+  opacity: (value) => css`opacity: ${value};`,
+  overflowWrap: (value) => css`overflow-wrap: ${value};`,
+  pointerEvents: (value) => css`pointer-events: ${value};`,
+  transform: (value) => css`transform: ${value};`,
+  transition: (value) => css`transition: ${value};`,
+  transitionDelay: (value) => css`transition-delay: ${value};`,
+  userSelect: (value) => css`user-select: ${value};`,
   whiteSpace: (value) => css`white-space: ${value};`,
-  zIndex: (value) => css`z-index: ${value};`,
-}
+  wordSpacing: (value) => css`word-spacing: ${value};`,
+  wordWrap: (value) => css`word-wrap: ${value};`
+};
 
-const mediaDown = {
-  xs: (...args) => css`
-    @media (max-width: 575px) {
-      ${css(...args)}
-    }
-  `,
-  sm: (...args) => css`
-    @media (max-width: 768px) {
-      ${css(...args)}
-    }
-  `,
-  md: (...args) => css`
-    @media (max-width: 992px) {
-      ${css(...args)}
-    }
-  `,
-  lg: (...args) => css`
-    @media (max-width: 1200px) {
-      ${css(...args)}
-    }
-  `,
-  xl: (...args) => css`
-    @media (min-width: 1200px) {
-      ${css(...args)}
-    }
-  `,  
-}
+// Default media size ranges for media up strategy
+const DEFAULT_MEDIA_UP_SIZES = {
+  xl: 1200,
+  lg: 992,
+  md: 768,
+  sm: 576,
+  xs: 575
+};
 
-const mediaUp = {
-  xs: (...args) => css`
-    @media (max-width: 575px) {
+const mediaUpMixins = {
+  _xs: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_UP_SIZES.xs}px) {
       ${css(...args)}
     }
   `,
-  sm: (...args) => css`
-    @media (min-width: 576px) {
+  _sm: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.sm}px) {
       ${css(...args)}
     }
   `,
-  md: (...args) => css`
-    @media (min-width: 768px) {
+  _md: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.md}px) {
       ${css(...args)}
     }
   `,
-  lg: (...args) => css`
-    @media (min-width: 992px) {
+  _lg: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.lg}px) {
       ${css(...args)}
     }
   `,
-  xl: (...args) => css`
-    @media (min-width: 1200px) {
+  _xl: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.xl}px) {
       ${css(...args)}
     }
   `,    
 };
 
-const mediaUpMixins = {
-  _xlUp: mediaUp.xl,
-  _lgUp: mediaUp.lg,
-  _mdUp: mediaUp.md,
-  _smUp: mediaUp.sm,
-  _xsUp: mediaUp.xs,
+// Default media size ranges for media down strategy
+const DEFAULT_MEDIA_DOWN_SIZES = {
+  xl: 1200,
+  lg: 1199,
+  md: 991,
+  sm: 767,
+  xs: 575
 };
 
 const mediaDownMixins = {
-  _xlDown: mediaDown.xl,
-  _lgDown: mediaDown.lg,
-  _mdDown: mediaDown.md,
-  _smDown: mediaDown.sm,
-  _xsDown: mediaDown.xs,
-};
+  _xs: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.xs}px) {
+      ${css(...args)}
+    }
+  `,
+  _sm: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.sm}px) {
+      ${css(...args)}
+    }
+  `,
+  _md: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.md}px) {
+      ${css(...args)}
+    }
+  `,
+  _lg: (...args) => css`
+    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.lg}px) {
+      ${css(...args)}
+    }
+  `,
+  _xl: (...args) => css`
+    @media (min-width: ${DEFAULT_MEDIA_DOWN_SIZES.xl}px) {
+      ${css(...args)}
+    }
+  `,  
+}
 
-const defaultMediaMixin = (reverseMedia) => {
-  return {
-    _xl: reverseMedia ? mediaUpMixins._xlUp : mediaDownMixins._xlDown,
-    _lg: reverseMedia ? mediaUpMixins._lgUp : mediaDownMixins._lgDown,
-    _md: reverseMedia ? mediaUpMixins._mdUp : mediaDownMixins._mdDown,
-    _sm: reverseMedia ? mediaUpMixins._smUp : mediaDownMixins._smDown,
-    _xs: reverseMedia ? mediaUpMixins._xsUp : mediaDownMixins._xsDown,
-  };
-};
 
-const mixinMapper = (props, reverseMedia) => {
+const mixinMapperIgnoreMediaProps = (props = {}) => {
+  
+  // Get all prop keys
+  const propKeys = Object.keys(props);
 
-  let stylesArray = [];
+  // If no passed props, short-circuit
+  if(propKeys.length === 0) return;
 
-  // Loop through all props and find associate key-value style to apply
-  Object.keys(props).forEach((propKey) => {
+  // List for storage of all applied styles
+  const stylesList = [];
 
-    const mixinProp = mixins[propKey];
-    const mediaProp = defaultMediaMixin(reverseMedia)[propKey];
-    const mediaUpProp = mediaUpMixins[propKey];
-    const mediaDownProp = mediaDownMixins[propKey];
+  // Iterate through all props and find associated key-value style to apply (if applicable)
+  propKeys.forEach((propKey) => {
+
+    // Get prop value
     const propValue = props[propKey];
 
-    // find mixin property that matches key
-    if(mixinProp){
-      stylesArray.push(mixinProp(propValue));
-    } else if(mediaProp || mediaUpProp || mediaDownProp){
-      const currentMediaMixin = mediaProp || mediaUpProp || mediaDownProp;
-      stylesArray.push(currentMediaMixin`${mixinMapper(propValue)}`);
+    // If falsy prop value found that isn't 'number: 0', short-circuit
+    if(!propValue && propValue !== 0) return;
+
+    // Check if prop key matches a style mixin prop
+    const mixinProp = mixins[propKey];
+
+    // If prop key matches style mixin prop, apply value
+    if(mixinProp) {
+      stylesList.push(mixinProp(propValue));
     }
+
   });
 
-  // Return all applicable styles
-  return css`${stylesArray}`;
+  // Return all applicable styles as injected css
+  return css`${stylesList}`;
+}
+
+const mixinMapper = (props = {}, isMediaStrategyDown = false) => {
+
+  // Get all prop keys
+  const propKeys = Object.keys(props);
+
+  // If no passed props, short-circuit
+  if(propKeys.length === 0) return;
+  
+  // Get media mixin object based on up or down media strategy (default is media strategy is up)
+  const mediaMixins = isMediaStrategyDown ? mediaDownMixins : mediaUpMixins;
+
+  // List for storage of all applied styles
+  const stylesList = [];
+  const mediaStylesMap = {};
+
+  // Iterate through all props and find associated key-value style to apply (if applicable)
+  propKeys.forEach((propKey) => {
+
+    // Short-circuit if prop key is for a built in component prop
+    if(propKey === "children" || propKey === "forwardedComponent" || propKey === "forwardedRef") return;
+
+    // Get prop value
+    const propValue = props[propKey];
+
+    // If falsy prop value found that isn't 'number: 0', short-circuit
+    if(!propValue && propValue !== 0) return;
+
+    // Check if prop key matches a style mixin prop
+    const mixinProp = mixins[propKey];
+
+    // If prop key matches a style mixin prop...
+    if(mixinProp) {
+      // Calculate CSS for style mixin prop and add value to styles list
+      stylesList.push(mixinProp(propValue));
+      return;
+    }
+
+    // Check if prop key matches media mixin prop
+    const mediaProp = mediaMixins[propKey];
+
+    // If prop key matches a media mixin prop...
+    if(mediaProp) {
+      // Calculate CSS for all style mixin props within the media mixin prop value and add to media styles map
+      mediaStylesMap[propKey] = mediaProp`${mixinMapperIgnoreMediaProps(propValue)}`;
+    }
+    
+  });
+
+  // If component contained media mixin props...
+  if(Object.keys(mediaStylesMap).length) {
+
+    /** NOTE: Media styles must be applied in a specific order to work properly due to the nature of CSS media queries.
+     *  For up media strategy, apply styles in xs -> xl order (default media strategy)
+     *  For down media strategy, apply styles in xl -> xs order
+    **/
+
+    if(isMediaStrategyDown) {
+
+      // Apply media styles to styles list (down media strategy)
+      mediaStylesMap._xl && stylesList.push(mediaStylesMap._xl);
+      mediaStylesMap._lg && stylesList.push(mediaStylesMap._lg);
+      mediaStylesMap._md && stylesList.push(mediaStylesMap._md);
+      mediaStylesMap._sm && stylesList.push(mediaStylesMap._sm);
+      mediaStylesMap._xs && stylesList.push(mediaStylesMap._xs);
+
+    }
+    else {
+
+      // Apply media styles to styles list (up media strategy)
+      mediaStylesMap._xs && stylesList.push(mediaStylesMap._xs);
+      mediaStylesMap._sm && stylesList.push(mediaStylesMap._sm);
+      mediaStylesMap._md && stylesList.push(mediaStylesMap._md);
+      mediaStylesMap._lg && stylesList.push(mediaStylesMap._lg);
+      mediaStylesMap._xl && stylesList.push(mediaStylesMap._xl);
+
+    }
+
+  }
+
+  // Return all applicable styles as injected css
+  return css`${stylesList}`;
 };
 
+// Aka 'applyGroove'
 export default mixinMapper;

@@ -1,8 +1,19 @@
-# these items will be ignored when creating package
+# Source Files
+src/
+assets/
+testing/
+TODO.md
+
+# Storybook
+.storybook/
+stories/
+storybook-static/
+
+# Miscellaneous
+.gitignore
 package-lock.json
 .babelrc.js
 .eslintrc.js
-src/
-assets/
-.gitignore
-TODO.md
+.DS_Store
+*.env*
+.vscode

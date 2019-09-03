@@ -1,234 +1,13 @@
 import { css } from "styled-components";
 
+// Mixins
+import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "./mixins";
 
-const mixins = {
+// Utils
+import { processConfigObject } from "./utils";
 
-  // Display
-  display: (value) => css`display: ${value};`,
-  position: (value) => css`position: ${value};`,
-  float: (value) => css`float: ${value};`,
-  clear: (value) => css`clear: ${value};`,
-  overflow: (value) => css`overflow: ${value};`,
-  overflowX: (value) => css`overflow-x: ${value};`,
-  overflowY: (value) => css`overflow-y: ${value};`,
-  visibility: (value) => css`visibility: ${value};`,
-  zIndex: (value) => css`z-index: ${value};`,
-
-  // Sizing
-  height: (value) => css`height: ${value};`,
-  width: (value) => css`width: ${value};`,
-  minHeight: (value) => css`min-height: ${value};`,
-  minWidth: (value) => css`min-width: ${value};`,
-  maxHeight: (value) => css`max-height: ${value};`,
-  maxWidth: (value) => css`max-width: ${value};`,
-
-  // Margin
-  margin: (value) => css`margin: ${value};`,
-  marginTop: (value) => css`margin-top: ${value};`,
-  marginBottom: (value) => css`margin-bottom: ${value};`,
-  marginLeft: (value) => css`margin-left: ${value};`,
-  marginRight: (value) => css`margin-right: ${value};`,
-  marginX: (value) => css`
-    margin-left: ${value};
-    margin-right: ${value};
-  `,
-  marginY: (value) => css`
-    margin-top: ${value};
-    margin-bottom: ${value};
-  `,
-
-  // Padding
-  padding: (value) => css`padding: ${value};`,
-  paddingTop: (value) => css`padding-top: ${value};`,
-  paddingBottom: (value) => css`padding-bottom: ${value};`,
-  paddingLeft: (value) => css`padding-left: ${value};`,
-  paddingRight: (value) => css`padding-right: ${value};`,
-  paddingX: (value) => css`
-    padding-left: ${value};
-    padding-right: ${value};
-  `,
-  paddingY: (value) => css`
-    padding-top: ${value};
-    padding-bottom: ${value};
-  `,
-
-  // Positioning
-  top: (value) => css`top: ${value};`,
-  bottom: (value) => css`bottom: ${value};`,
-  left: (value) => css`left: ${value};`,
-  right: (value) => css`right: ${value};`,
-
-  // Typography
-  color: (value) => css`color: ${value};`,
-  fontSize: (value) => css`font-size: ${value};`,
-  fontWeight: (value) => css`font-weight: ${value};`,
-  fontFamily: (value) => css`font-family: ${value};`,
-  fontStyle: (value) => css`font-style: ${value};`,
-  textAlign: (value) => css`text-align: ${value};`,
-  textDecoration: (value) => css`text-decoration: ${value};`,
-  hoverColor: (value) => css`&&{&:hover{color: ${value};}}`,
-  lineHeight: (value) => css`line-height: ${value};`,
-  letterSpacing: (value) => css`letter-spacing: ${value};`,
-  hyphens: (value) => css`hyphens: ${value};`,
-  textOverflow: (value) => css`text-overflow: ${value};`,
-  textShadow: (value) => css`text-shadow: ${value};`,
-  textTransform: (value) => css`text-transform: ${value};`,
-  light: () => css`font-weight: 300;`,
-  bold: () => css`font-weight: bold;`,
-  underline: () => css`text-decoration: underline;`,
-  normal: () => css`font-weight: normal;`,
-  ellipsis: () => css`text-overflow: ellipsis;`,
-  noWrap: () => css`
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `,
-
-  // Border
-  border: (value) => css`border: ${value};`,
-  borderTop: (value) => css`border-top: ${value};`,
-  borderBottom: (value) => css`border-bottom: ${value};`,
-  borderRight: (value) => css`border-right: ${value};`,
-  borderLeft: (value) => css`border-left: ${value};`,
-  borderColor: (value) => css`border-color: ${value};`,
-  borderRadius: (value) => css`border-radius: ${value};`,
-  borderTopLeftRadius: (value) => css`border-top-left-radius: ${value};`,
-  borderTopRightRadius: (value) => css`border-top-right-radius: ${value};`,
-  borderBottomRightRadius: (value) => css`border-bottom-right-radius: ${value};`,
-  borderBottomLeftRadius: (value) => css`border-bottom-left-radius: ${value};`,
-  borderRightRadius: (value) => css`
-    border-top-right-radius: ${value};
-    border-bottom-right-radius: ${value};
-  `,
-  borderLeftRadius: (value) => css`
-    border-top-left-radius: ${value};
-    border-bottom-left-radius: ${value};
-  `,
-  borderTopRadius: (value) => css`
-    border-top-left-radius: ${value};
-    border-top-right-radius: ${value};
-  `,
-  borderBottomRadius: (value) => css`
-    border-bottom-left-radius: ${value};
-    border-bottom-right-radius: ${value};
-  `,
-  boxShadow: (value) => css`box-shadow: ${value};`,
-
-  // Background
-  background: (value) => css`background: ${value};`,
-  backgroundPosition: (value) => css`background-position: ${value};`,
-  backgroundRepeat: (value) => css`background-repeat: ${value};`,
-  backgroundSize: (value) => css`background-size: ${value};`,
-  backgroundImage: (value) => css`background-image: url(${value});`,
-  backgroundColor: (value) => css`background-color: ${value};`,
-  backgroundColorHover: (value) => css`&&{&:hover{background-color: ${value};}}`,
-  backgroundAttachment: (value) => css`background-attachment: ${value};`,
-  backgroundClip: (value) => css`background-clip: ${value};`,
-  backgroundOrigin: (value) => css`background-origin: ${value};`,
-  objectFit: (value) => css`object-fit: ${value};`,
-
-  // Flex
-  isFlex: () => css`display: flex;`,
-  flex: (value) => css`flex: ${value};`,
-  flexDirection: (value) => css`flex-direction: ${value};`,
-  flexWrap: (value) => css`flex-wrap: ${value};`,
-  justifyContent: (value) => css`justify-content: ${value};`,
-  alignItems: (value) => css`align-items: ${value};`,
-  alignContent: (value) => css`align-content: ${value};`,
-  alignSelf: (value) => css`align-self: ${value};`,
-  order: (value) => css`order: ${value};`,
-  flexGrow: (value) => css`flex-grow: ${value};`,
-  flexShrink: (value) => css`flex-shrink: ${value};`,
-  flexBasis: (value) => css`flex-basis: ${value};`,
-
-  // Misc
-  cursor: (value) => css`cursor: ${value};`,
-  direction: (value) => css`direction: ${value};`,
-  opacity: (value) => css`opacity: ${value};`,
-  overflowWrap: (value) => css`overflow-wrap: ${value};`,
-  pointerEvents: (value) => css`pointer-events: ${value};`,
-  transform: (value) => css`transform: ${value};`,
-  transition: (value) => css`transition: ${value};`,
-  transitionDelay: (value) => css`transition-delay: ${value};`,
-  userSelect: (value) => css`user-select: ${value};`,
-  whiteSpace: (value) => css`white-space: ${value};`,
-  wordSpacing: (value) => css`word-spacing: ${value};`,
-  wordWrap: (value) => css`word-wrap: ${value};`
-};
-
-// Default media size ranges for media up strategy
-const DEFAULT_MEDIA_UP_SIZES = {
-  xl: 1200,
-  lg: 992,
-  md: 768,
-  sm: 576,
-  xs: 575
-};
-
-const mediaUpMixins = {
-  _xs: (...args) => css`
-    @media (max-width: ${DEFAULT_MEDIA_UP_SIZES.xs}px) {
-      ${css(...args)}
-    }
-  `,
-  _sm: (...args) => css`
-    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.sm}px) {
-      ${css(...args)}
-    }
-  `,
-  _md: (...args) => css`
-    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.md}px) {
-      ${css(...args)}
-    }
-  `,
-  _lg: (...args) => css`
-    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.lg}px) {
-      ${css(...args)}
-    }
-  `,
-  _xl: (...args) => css`
-    @media (min-width: ${DEFAULT_MEDIA_UP_SIZES.xl}px) {
-      ${css(...args)}
-    }
-  `,    
-};
-
-// Default media size ranges for media down strategy
-const DEFAULT_MEDIA_DOWN_SIZES = {
-  xl: 1200,
-  lg: 1199,
-  md: 991,
-  sm: 767,
-  xs: 575
-};
-
-const mediaDownMixins = {
-  _xs: (...args) => css`
-    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.xs}px) {
-      ${css(...args)}
-    }
-  `,
-  _sm: (...args) => css`
-    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.sm}px) {
-      ${css(...args)}
-    }
-  `,
-  _md: (...args) => css`
-    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.md}px) {
-      ${css(...args)}
-    }
-  `,
-  _lg: (...args) => css`
-    @media (max-width: ${DEFAULT_MEDIA_DOWN_SIZES.lg}px) {
-      ${css(...args)}
-    }
-  `,
-  _xl: (...args) => css`
-    @media (min-width: ${DEFAULT_MEDIA_DOWN_SIZES.xl}px) {
-      ${css(...args)}
-    }
-  `,  
-}
+// Definitions
+import { MEDIA_STRATEGIES } from "./definitions";
 
 
 const mixinMapperIgnoreMediaProps = (props = {}) => {
@@ -252,7 +31,7 @@ const mixinMapperIgnoreMediaProps = (props = {}) => {
     if(!propValue && propValue !== 0) return;
 
     // Check if prop key matches a style mixin prop
-    const mixinProp = mixins[propKey];
+    const mixinProp = styleMixins[propKey];
 
     // If prop key matches style mixin prop, apply value
     if(mixinProp) {
@@ -265,16 +44,19 @@ const mixinMapperIgnoreMediaProps = (props = {}) => {
   return css`${stylesList}`;
 }
 
-const mixinMapper = (props = {}, isMediaStrategyDown = false) => {
+const mixinMapper = (props = {}, config) => {
 
-  // Get all prop keys
+  // Process config object to get configurable values
+  const { ignoreMediaMixins, mediaStrategy, mediaSizes } = processConfigObject(config);
+
+  // Get all prop keys from component
   const propKeys = Object.keys(props);
 
   // If no passed props, short-circuit
   if(propKeys.length === 0) return;
   
   // Get media mixin object based on up or down media strategy (default is media strategy is up)
-  const mediaMixins = isMediaStrategyDown ? mediaDownMixins : mediaUpMixins;
+  const mediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(mediaSizes) : getMediaMixinsDown(mediaSizes);
 
   // List for storage of all applied styles
   const stylesList = [];
@@ -283,7 +65,7 @@ const mixinMapper = (props = {}, isMediaStrategyDown = false) => {
   // Iterate through all props and find associated key-value style to apply (if applicable)
   propKeys.forEach((propKey) => {
 
-    // Short-circuit if prop key is for a built in component prop
+    // Short-circuit if prop key is for a react built in component prop
     if(propKey === "children" || propKey === "forwardedComponent" || propKey === "forwardedRef") return;
 
     // Get prop value
@@ -293,7 +75,7 @@ const mixinMapper = (props = {}, isMediaStrategyDown = false) => {
     if(!propValue && propValue !== 0) return;
 
     // Check if prop key matches a style mixin prop
-    const mixinProp = mixins[propKey];
+    const mixinProp = styleMixins[propKey];
 
     // If prop key matches a style mixin prop...
     if(mixinProp) {
@@ -301,6 +83,9 @@ const mixinMapper = (props = {}, isMediaStrategyDown = false) => {
       stylesList.push(mixinProp(propValue));
       return;
     }
+
+    // If config object specifies to ignore media mixins, short circuit
+    if(ignoreMediaMixins) return;
 
     // Check if prop key matches media mixin prop
     const mediaProp = mediaMixins[propKey];
@@ -313,15 +98,15 @@ const mixinMapper = (props = {}, isMediaStrategyDown = false) => {
     
   });
 
-  // If component contained media mixin props...
-  if(Object.keys(mediaStylesMap).length) {
+  // If not ignoring media mixins and component contained media mixin props...
+  if(!ignoreMediaMixins && Object.keys(mediaStylesMap).length) {
 
     /** NOTE: Media styles must be applied in a specific order to work properly due to the nature of CSS media queries.
      *  For up media strategy, apply styles in xs -> xl order (default media strategy)
      *  For down media strategy, apply styles in xl -> xs order
     **/
 
-    if(isMediaStrategyDown) {
+    if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
 
       // Apply media styles to styles list (down media strategy)
       mediaStylesMap._xl && stylesList.push(mediaStylesMap._xl);

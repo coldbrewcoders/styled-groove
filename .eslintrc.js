@@ -5,12 +5,14 @@ module.exports = {
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "plugins": [
     "babel",
     "import",
-    "react"
+    "react",
+    "jest"
   ],
   "extends": [
     "eslint:recommended",
@@ -31,7 +33,12 @@ module.exports = {
     "no-debugger": 0,
     "react/no-typos": 1,
     "react/no-unescaped-entities": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   },
   "settings": {
     "import/resolver": {

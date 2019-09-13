@@ -1,12 +1,15 @@
 import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "./definitions";
 
 
-// Define default config parameters
+// ** Default Config Parameters **/
 const defaultConfig = { 
   ignoreMediaMixins: false,
   mediaStrategy: MEDIA_STRATEGIES.UP,
   mediaSizes: DEFAULT_MEDIA_SIZES_UP
 };
+
+
+/** Helper Methods **/
 
 // Validate custom media width ranges
 const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
@@ -35,6 +38,8 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
   }
 
 }
+
+
 
 /**
  * Config options:

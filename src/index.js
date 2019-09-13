@@ -1,4 +1,5 @@
 import { css } from "styled-components";
+import isPlainObject from "is-plain-object";
 
 // Mixins
 import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "./mixins";
@@ -46,15 +47,18 @@ const mixinMapperIgnoreMediaProps = (props = {}) => {
 
 const mixinMapper = (props = {}, config) => {
 
-  // Process config object to get configurable values
-  const { ignoreMediaMixins, mediaStrategy, mediaSizes } = processConfigObject(config);
+  // Short-circuit if not props isn't strictly and object
+  if(!isPlainObject(props)) return;
 
   // Get all prop keys from component
   const propKeys = Object.keys(props);
 
   // If no passed props, short-circuit
   if(propKeys.length === 0) return;
-  
+
+  // Process config object to get configurable values
+  const { ignoreMediaMixins, mediaStrategy, mediaSizes } = processConfigObject(config);
+
   // Get media mixin object based on up or down media strategy (default is media strategy is up)
   const mediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(mediaSizes) : getMediaMixinsDown(mediaSizes);
 

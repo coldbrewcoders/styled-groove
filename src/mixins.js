@@ -128,7 +128,6 @@ export const styleMixins = {
   objectFit: (value) => css`object-fit: ${value};`,
 
   // Flex
-  isFlex: () => css`display: flex;`,
   flex: (value) => css`flex: ${value};`,
   flexDirection: (value) => css`flex-direction: ${value};`,
   flexWrap: (value) => css`flex-wrap: ${value};`,
@@ -181,7 +180,7 @@ export const getMediaMixinsUp = ({ xl, lg, md, sm, xs }) => ({
     @media (min-width: ${xl}px) {
       ${css(...args)}
     }
-  `,    
+  `,
 });
 
 export const getMediaMixinsDown = ({ xl, lg, md, sm, xs }) => ({
@@ -209,5 +208,5 @@ export const getMediaMixinsDown = ({ xl, lg, md, sm, xs }) => ({
     @media (min-width: ${xl}px) {
       ${css(...args)}
     }
-  `,  
+  `,
 });

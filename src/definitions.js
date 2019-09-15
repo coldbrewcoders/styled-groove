@@ -21,4 +21,3 @@ export const DEFAULT_MEDIA_SIZES_DOWN = {
   sm: 767,
   xs: 575
 };
-

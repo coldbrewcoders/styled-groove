@@ -12,6 +12,7 @@ module.exports = {
     "babel",
     "import",
     "react",
+    "react-hooks",
     "jest"
   ],
   "extends": [
@@ -29,11 +30,35 @@ module.exports = {
     "sourceType": "module"
   },
   "rules": {
+    // General Rules
     "no-console": 0,
     "no-debugger": 0,
+    "eqeqeq": ["error","always"],
+    "spaced-comment": ["error", "always"],
+    "arrow-spacing": ["error", { "before": true, "after": true }],
+    "no-var": "error",
+    "no-extra-semi": "error",
+    "no-unused-vars": "error",
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+    "no-multi-spaces": "error",
+    "no-multi-str": "error",
+    "no-self-assign": "error",
+    "no-self-compare": "error",
+    "jsx-quotes":["error", "prefer-double"],
+    "no-mixed-spaces-and-tabs": "error",
+
+    // React rules
     "react/no-typos": 1,
-    "react/no-unescaped-entities": 0,
+    "react/no-unescaped-entities": 1,
     "react/prop-types": 0,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+
+    // React-hooks rules
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": 0,
+    
+    // Jest rules
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
     "jest/no-identical-title": "error",
@@ -41,7 +66,12 @@ module.exports = {
     "jest/valid-expect": "error"
   },
   "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect",
+    },
     "import/resolver": {
+      "babel-module": {},
       "node": {
         "extensions": [
           ".js",

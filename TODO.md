@@ -5,9 +5,7 @@
 ### add config option documentation section
 
 # Development
-### Add minification to build (use terser)
-### Add blacklist array to to config object (also add optional ability to rename a style prop to avoid prop-name conflict)
-### Set up eslint (add important rules)
+### Built curried non-default export version of media mapper, this would allow you to create an overridden instance of apply groove to pass around entire application (rather than applying config each time)
 ### convert to Typescript (first learn typescript lol)
 ### when ready for legit release production release, publish to version 1.0.0
 

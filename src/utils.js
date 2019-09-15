@@ -1,8 +1,8 @@
-import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "./definitions";
+import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "src/definitions";
 
 
 // ** Default Config Parameters **/
-const defaultConfig = { 
+const defaultConfig = {
   ignoreMediaMixins: false,
   mediaStrategy: MEDIA_STRATEGIES.UP,
   mediaSizes: DEFAULT_MEDIA_SIZES_UP
@@ -17,23 +17,23 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
   // Check that outer boundaries are one px apart (sm -> xs for down media strategy, lg -> xl for up media strategy)
   if(mediaStrategy === MEDIA_STRATEGIES.UP) {
     if((sm - xs) !== 1) {
-      console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. For up media strategy, sm must be equal to xs + 1. Passed values: sm -> ${sm}, xs -> ${xs}.`);
+      console.warn(`Styled-Groove: Invalid config.mediaSizes, using defaults. For up media strategy, sm must be equal to xs + 1. Passed values: sm -> ${sm}, xs -> ${xs}.`);
       return false;
     }
   }
   else if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
     if((xl - lg) !== 1) {
-      console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
+      console.warn(`Styled-Groove: Invalid custom config.mediaSizes, using defaults. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
       return false;
     }
   }
 
   // Check that sizes are in proper order
-  if((xl > lg) && (lg > md) && (md > sm)  && (sm > xs)) {
+  if((xl > lg) && (lg > md) && (md > sm) && (sm > xs)) {
     return true;
   }
   else {
-    console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
+    console.warn(`Styled-Groove: Invalid custom config.mediaSizes, using defaults. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
     return false;
   }
 
@@ -42,17 +42,17 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
 
 
 /**
- * Config options:
- * 
+ * Config Options:
+ *
  *  ignoreMediaMixins: bool (default false)
  *    - If set to true, media mixin prop check will be skipped (optimization if not using media mixins)
- * 
+ *
  *  mediaStrategy: "up", "down" (default up)
  *    - Change direction of media strategy from up to down
- * 
+ *
  *  mediaSizes: obj -> { xl, lg, md, sm, xs }
  *    - will override default media width ranges
- * 
+ *
  **/
 
 export const processConfigObject = (config) => {

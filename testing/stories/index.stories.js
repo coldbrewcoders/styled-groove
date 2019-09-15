@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { storiesOf } from "@storybook/react";
 
 // Styled Groove
-import applyGroove from "../../src";
+import applyGroove from "/src";
 
 
 storiesOf("Style Prop Tests", module)
@@ -18,13 +18,13 @@ storiesOf("Style Prop Tests", module)
     );
   });
 
+
 storiesOf("Responsive Tests", module)
  .add("Responsive Color Test", () => {
 
     const BoxWithResponsiveColors = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -41,7 +41,8 @@ storiesOf("Responsive Tests", module)
     );
  });
 
- storiesOf("Custom Config Test", module)
+ 
+storiesOf("Custom Config Test", module)
   .add("Ignore media mixins", () => {
 
     const Box = styled.div`
@@ -58,7 +59,6 @@ storiesOf("Responsive Tests", module)
     const BoxWithUpMediaStrategy = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -71,7 +71,6 @@ storiesOf("Responsive Tests", module)
     const BoxWithDownMediaStrategy = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -94,7 +93,6 @@ storiesOf("Responsive Tests", module)
     const BoxWithUpMediaStrategy = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -113,7 +111,6 @@ storiesOf("Responsive Tests", module)
     const BoxWithDownMediaStrategy = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -132,7 +129,6 @@ storiesOf("Responsive Tests", module)
     const BoxWithInvalidCustomMediaSizes = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -154,7 +150,6 @@ storiesOf("Responsive Tests", module)
     const BoxWithInvalidCustomMediaSizes = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -176,7 +171,6 @@ storiesOf("Responsive Tests", module)
     const BoxWithInvalidCustomMediaSizes = styled.div`
       width: 200px;
       height: 200px;
-      maxHeight: 200px;
       margin: auto;
       text-align: center;
       color: white;
@@ -192,5 +186,5 @@ storiesOf("Responsive Tests", module)
       <BoxWithInvalidCustomMediaSizes _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaSizes>
     );
 
-  })
+  });
 

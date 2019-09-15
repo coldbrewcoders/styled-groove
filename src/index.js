@@ -2,13 +2,13 @@ import { css } from "styled-components";
 import isPlainObject from "is-plain-object";
 
 // Mixins
-import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "./mixins";
+import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "src/mixins";
 
 // Utils
-import { processConfigObject } from "./utils";
+import { processConfigObject } from "src/utils";
 
 // Definitions
-import { MEDIA_STRATEGIES } from "./definitions";
+import { MEDIA_STRATEGIES } from "src/definitions";
 
 
 const mixinMapperIgnoreMediaProps = (props = {}) => {

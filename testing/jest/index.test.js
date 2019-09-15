@@ -1,24 +1,24 @@
-// index.js Methods
-import mixinMapper from "src/"
+import applyGroove from "src/";
 
 
-/** Unit Tests for 'mixinMapper' aka 'applyGroove' **/
+/** Unit Tests for applyGroove **/
 
 test("mixinMapper() Invalid values for Arg1: -> props object", () => {
-  expect(mixinMapper()).toBeUndefined();
-  expect(mixinMapper(undefined)).toBeUndefined();
-  expect(mixinMapper(null)).toBeUndefined();
-  expect(mixinMapper([])).toBeUndefined();
-  expect(mixinMapper(NaN)).toBeUndefined();
-  expect(mixinMapper(7)).toBeUndefined();
-  expect(mixinMapper("str")).toBeUndefined();
-  expect(mixinMapper(() => {})).toBeUndefined();
-  expect(mixinMapper(new String("test"))).toBeUndefined();
-  expect(mixinMapper({})).toBeUndefined();
+  expect(applyGroove()).toBeUndefined();
+  expect(applyGroove(undefined)).toBeUndefined();
+  expect(applyGroove(null)).toBeUndefined();
+  expect(applyGroove([])).toBeUndefined();
+  expect(applyGroove(NaN)).toBeUndefined();
+  expect(applyGroove(7)).toBeUndefined();
+  expect(applyGroove("str")).toBeUndefined();
+  expect(applyGroove(() => {})).toBeUndefined();
+  expect(applyGroove(new String("test"))).toBeUndefined();
+  expect(applyGroove({})).toBeUndefined();
 });
 
-test("mixinMapper() style props for Arg1: -> props object", () => {
-  expect(mixinMapper({ fontSize: "12px" })).toEqual(["font-size:", "12px", ";"]);
+test("applyGroove() style props for Arg1: -> props object", () => {
+  // Display
+  expect(applyGroove({ display: "block" })).toEqual(["display:", "block", ";"]);
+  expect(applyGroove({ position: "relative" })).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ float: "right" })).toEqual(["float:", "right", ";"]);
 });
-
-// TODO write much more unit tests

@@ -2,6 +2,7 @@
 src/
 assets/
 testing/
+coverage/
 TODO.md
 
 # Storybook

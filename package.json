@@ -10,7 +10,7 @@
     "url": "https://github.com/coldbrewcoders/styled-groove/issues"
   },
   "scripts": {
-    "build": "npx babel src --out-dir dist",
+    "build": "jest && npx babel src --out-dir dist",
     "patch": "npm run build && npm version patch && npm publish",
     "minor": "npm run build && npm version minor && npm publish",
     "major": "npm run build && npm version major && npm publish",

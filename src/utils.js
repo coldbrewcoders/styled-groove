@@ -1,3 +1,6 @@
+import isPlainObject from "is-plain-object";
+
+// Definitions
 import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "src/definitions";
 
 
@@ -21,7 +24,9 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
       return false;
     }
   }
-  else if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
+
+  // If media strategy is down
+  else {
     if((xl - lg) !== 1) {
       console.warn(`Styled-Groove: Invalid custom config.mediaSizes, using defaults. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
       return false;
@@ -38,7 +43,6 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
   }
 
 }
-
 
 
 /**
@@ -63,7 +67,7 @@ export const processConfigObject = (config) => {
   }
 
   // If config parameter was passed, but is not an object
-  if(typeof config !== "object" || Array.isArray(config)) {
+  if(!isPlainObject(config)) {
     console.warn(`Styled-Groove: config parameter must be an object, ignoring invalid config param. Passed config parameter: ${config}.`);
     return defaultConfig;
   }
@@ -100,7 +104,7 @@ export const processConfigObject = (config) => {
   if(Object.prototype.hasOwnProperty.call(config, "mediaSizes")) {
 
     // Check if custom media styles param is an object
-    if(typeof config.mediaSizes !== "object") {
+    if(!isPlainObject(config.mediaSizes)) {
       console.warn("Styled-Groove: Invalid mediaSizes value passed in config object. Value must be an object.");
     }
     else {

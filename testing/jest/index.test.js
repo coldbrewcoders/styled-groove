@@ -14,6 +14,7 @@ test("applyGroove(): Invalid values", () => {
   expect(applyGroove(() => {})).toBeUndefined();
   expect(applyGroove(new String("test"))).toBeUndefined();
   expect(applyGroove({})).toBeUndefined();
+  expect(applyGroove(Infinity)).toBeUndefined();
 });
 
 test("applyGroove(): Style Props (no config obj)", () => {
@@ -42,7 +43,7 @@ test("applyGroove(): Style Props (no config obj)", () => {
   expect(applyGroove({ marginBottom: "22px" })).toEqual(["margin-bottom:", "22px", ";"]);
   expect(applyGroove({ marginLeft: "82px" })).toEqual(["margin-left:", "82px", ";"]);
   expect(applyGroove({ marginRight: "74px" })).toEqual(["margin-right:", "74px", ";"]);
-  expect(applyGroove({ marginX: "30px" })).toEqual(["margin-left:", "30px", ";margin-right:", "30px", ";"]);
+  expect(applyGroove({ marginX: 0 })).toEqual(["margin-left:", "0", ";margin-right:", "0", ";"]);
   expect(applyGroove({ marginY: "30px" })).toEqual(["margin-top:", "30px", ";margin-bottom:", "30px", ";"]);
 
   // Padding
@@ -136,6 +137,8 @@ test("applyGroove(): Style Props (no config obj)", () => {
   expect(applyGroove({ wordSpacing: "2px" })).toEqual(["word-spacing:", "2px", ";"]);
   expect(applyGroove({ wordWrap: "initial" })).toEqual(["word-wrap:", "initial", ";"]);
 
+  // Style prop edge case
+  expect(applyGroove({ minHeight: false })).toEqual([]);
 
   // Multiple Style props
   expect(applyGroove({ textAlign: "right", opacity: 0.5, width: "500px", height: "500px" })).toEqual(["text-align:", "right", ";", "opacity:", "0.5", ";", "width:", "500px", ";", "height:", "500px", ";"]);
@@ -249,4 +252,22 @@ test("applyGroove(): Config -> Ignore Media Mixins", () => {
 
   expect(applyGroove({ position: "relative", _xs: { opacity: 0.2 } }, config)).toEqual(["position:", "relative", ";"]);
   expect(applyGroove({ zIndex: "-20", _xs: { opacity: 0.2 }, _sm: { color: "#fff" }, _md: { opacity: 0.2, position: "relative" }, _lg: { textAlign: "center" }, _xl: { visibility: "initial" } }, config)).toEqual(["z-index:", "-20", ";"]);
+});
+
+test("applyGroove(): Media prop edge cases", () => {
+  expect(applyGroove({ _xs: {}, _sm: {}, _md: {}, _lg: {}, _xl: {} })).toEqual([]);
+  expect(applyGroove({ _xs: 0, _sm: null, _md: undefined, _lg: NaN, _xl: Infinity })).toEqual([]);
+  expect(applyGroove({ _xs: { invalidProp: "asdf" }, _sm: { opacity: 0 } })).toEqual(["@media (min-width:", "576", "px){", "opacity:", "0", ";", "}"]);
+  expect(applyGroove({ _xs: { marginRight: false } })).toEqual([]);
+});
+
+test("applyGroove(): config edge cases and errors", () => {
+  expect(applyGroove({ position: "relative" }, [])).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { ignoreMediaMixins: false })).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaStrategy: "invalidValue" })).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaSizes: 7 })).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaSizes: { invalidProp: "blah" } })).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaSizes: { xs: 300, sm: 302 } })).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaStrategy: "down", mediaSizes: { xl: 1000, lg: 950 } })).toEqual(["position:", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaSizes: { xl: 1000, lg: 1200 } })).toEqual(["position:", "relative", ";"]);
 });

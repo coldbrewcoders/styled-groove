@@ -1,5 +1,7 @@
+// Definitions
 import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "./definitions";
-
+// Interaces
+import { IMediaBreakpoints, IConfig } from "./definitions";
 
 // ** Default Config Parameters **/
 const defaultConfig = { 
@@ -12,7 +14,7 @@ const defaultConfig = {
 /** Helper Methods **/
 
 // Validate custom media width ranges
-const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
+const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }: IMediaBreakpoints, mediaStrategy: string): boolean => {
 
   // Check that outer boundaries are one px apart (sm -> xs for down media strategy, lg -> xl for up media strategy)
   if(mediaStrategy === MEDIA_STRATEGIES.UP) {
@@ -31,12 +33,10 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
   // Check that sizes are in proper order
   if((xl > lg) && (lg > md) && (md > sm)  && (sm > xs)) {
     return true;
-  }
-  else {
+  } else {
     console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
     return false;
   }
-
 }
 
 
@@ -55,32 +55,34 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
  * 
  **/
 
-export const processConfigObject = (config) => {
+export const processConfigObject = (config: IConfig): IConfig => {
 
   // If no config parameter passed, return default config values
-  if(typeof config === "undefined") {
+  if (typeof config === "undefined") {
     return defaultConfig;
   }
 
   // If config parameter was passed, but is not an object
-  if(typeof config !== "object" || Array.isArray(config)) {
+  if (typeof config !== "object" || Array.isArray(config)) {
     console.warn(`Styled-Groove: config parameter must be an object, ignoring invalid config param. Passed config parameter: ${config}.`);
     return defaultConfig;
   }
 
   // Get keys of config object
-  const configKeys = Object.keys(config)
+  const configKeys = Object.keys(config);
 
   // Short-circuit if no config props passed
-  if(configKeys.length === 0) return defaultConfig;
+  if (configKeys.length === 0) return defaultConfig;
 
   // Check if we are ignoring media mixins. (If this is the case, the other config params do not matter)
-  if(Object.prototype.hasOwnProperty.call(config, "ignoreMediaMixins")) {
-    if(config.ignoreMediaMixins === true) return { ignoreMediaMixins: true, mediaStrategy: null, mediaSizes: {} };
+  if (Object.prototype.hasOwnProperty.call(config, "ignoreMediaMixins")) {
+    if(config.ignoreMediaMixins === true) {
+      return { ignoreMediaMixins: true, mediaStrategy: undefined, mediaSizes: undefined };
+    }
   }
 
   // Store custom config properties
-  let customConfig = {};
+  let customConfig: IConfig = {};
 
   // Check if custom media strategy is passed
   if(Object.prototype.hasOwnProperty.call(config, "mediaStrategy")) {

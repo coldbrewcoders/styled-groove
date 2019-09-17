@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["es6", "dom", "es2017"],
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "types": ["react", "jest"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "__tests__"]
+}

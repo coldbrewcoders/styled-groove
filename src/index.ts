@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css, FlattenSimpleInterpolation } from "styled-components";
 import isPlainObject from "is-plain-object";
 
 // Mixins
@@ -10,8 +10,12 @@ import { processConfigObject } from "./utils";
 // Definitions
 import { MEDIA_STRATEGIES } from "./definitions";
 
+// Interfaces
+import { IConfig } from "./definitions";
 
-const mixinMapperIgnoreMediaProps = (props = {}) => {
+
+// TODO: Is prop: any valid here, or do we want to be more specific with a special prop interface
+const mixinMapperIgnoreMediaProps = (props: any = {}) => {
   
   // Get all prop keys
   const propKeys = Object.keys(props);
@@ -20,10 +24,10 @@ const mixinMapperIgnoreMediaProps = (props = {}) => {
   if(propKeys.length === 0) return;
 
   // List for storage of all applied styles
-  const stylesList = [];
+  const stylesList: FlattenSimpleInterpolation[] = []; // FIXME: Is this the right type?
 
   // Iterate through all props and find associated key-value style to apply (if applicable)
-  propKeys.forEach((propKey) => {
+  propKeys.forEach((propKey: string) => {
 
     // Get prop value
     const propValue = props[propKey];
@@ -32,7 +36,7 @@ const mixinMapperIgnoreMediaProps = (props = {}) => {
     if(!propValue && propValue !== 0) return;
 
     // Check if prop key matches a style mixin prop
-    const mixinProp = styleMixins[propKey];
+    const mixinProp = styleMixins[propKey]; // FIXME: Figure out how to dynamically access styleMixins
 
     // If prop key matches style mixin prop, apply value
     if(mixinProp) {
@@ -45,7 +49,7 @@ const mixinMapperIgnoreMediaProps = (props = {}) => {
   return css`${stylesList}`;
 }
 
-const mixinMapper = (props = {}, config) => {
+const mixinMapper = (props: any = {}, config: IConfig) => {
 
   // Short-circuit if not props isn't strictly and object
   if(!isPlainObject(props)) return;

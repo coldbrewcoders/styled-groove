@@ -10,14 +10,14 @@
     "url": "https://github.com/coldbrewcoders/styled-groove/issues"
   },
   "scripts": {
-    "build": "jest && npx babel src --out-dir dist",
+    "build": "jest --silent && npx babel src --out-dir dist",
     "patch": "npm run build && npm version patch && npm publish",
     "minor": "npm run build && npm version minor && npm publish",
     "major": "npm run build && npm version major && npm publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "jest",
-    "test-coverage": "jest --coverage"
+    "test": "jest --silent",
+    "test-coverage": "jest --silent --coverage"
   },
   "main": "./index.js",
   "author": "coldbrewcoders",

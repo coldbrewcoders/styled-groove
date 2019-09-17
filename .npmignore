@@ -15,9 +15,7 @@ jest.config.js
 .babelrc.js
 .eslintrc.js
 .gitignore
-package-lock.json
 
 # Miscellaneous
-.DS_Store
 *.env*
 .vscode

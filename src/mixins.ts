@@ -3,7 +3,6 @@ import { css } from "styled-components";
 // Definition
 import { IMediaBreakpoints, IStyleMixins } from "./definitions";
 
-
 export const styleMixins: IStyleMixins = {
 
   // Display

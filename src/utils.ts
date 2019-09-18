@@ -92,7 +92,12 @@ export const processConfigObject = (config: IConfig): IConfig => {
       customConfig.mediaStrategy = MEDIA_STRATEGIES.DOWN;
       customConfig.mediaSizes = DEFAULT_MEDIA_SIZES_DOWN;
     }
-    else if(config.mediaStrategy !== MEDIA_STRATEGIES.UP) {
+    else if (config.mediaStrategy === MEDIA_STRATEGIES.UP) {
+      // If config overrides default media strategy, save in custom config object
+      customConfig.mediaStrategy = MEDIA_STRATEGIES.UP;
+      customConfig.mediaSizes = DEFAULT_MEDIA_SIZES_UP;
+    }
+    else {
       // Warn user of invalid media strategy value passed
       console.warn(`Styled-Groove: Invalid mediaStrategy value passed in config object, must be 'up' or 'down'. Passed value: ${config.mediaStrategy}.`);
     }
@@ -108,22 +113,23 @@ export const processConfigObject = (config: IConfig): IConfig => {
     else {
 
       // Get list of keys from passed custom media sizes config
-      const configMediaSizesKeys = Object.keys(config.mediaSizes);
+      const configMediaSizesKeys: string[] = Object.keys(config.mediaSizes);
 
       // Define list of allowed keys for config.mediaSizes
-      const allowedKeys = ["xl", "lg", "md", "sm", "xs"];
+      const allowedMediaKeys = new Array("xl", "lg", "md", "sm", "xs");
 
-      let isConfigMediaSizesValid = true;
+      // Boolean flag representation if the configurations media sizes are valid
+      let isConfigMediaSizesValid: boolean = true;
 
       // Iterate through keys of custom media sizes config
       for(let i = 0; i < configMediaSizesKeys.length; i++) {
 
         // Get current key
-        const currentKey = configMediaSizesKeys[i];
+        const currentMediaKey: string = configMediaSizesKeys[i];
 
         // Check that config.mediaSizes only contains valid keys
-        if(!allowedKeys.includes(currentKey)) {
-          console.warn(`Styled-Groove: Invalid mediaSizes value passed in config object. Object keys can only be 'xl', 'lg', 'md', 'sm' and 'xm'. Invalid object key: ${currentKey}.`);
+        if(!allowedMediaKeys.includes(currentMediaKey)) {
+          console.warn(`Styled-Groove: Invalid mediaSizes value passed in config object. Object keys can only be 'xl', 'lg', 'md', 'sm' and 'xm'. Invalid object key: ${currentMediaKey}.`);
           isConfigMediaSizesValid = false;
           break;
         }
@@ -157,7 +163,7 @@ export const processConfigObject = (config: IConfig): IConfig => {
     }
   }
 
-  // return validated config object;
+  // Return validated config object;
   return {
     ...defaultConfig,
     ...customConfig

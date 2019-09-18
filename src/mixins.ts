@@ -77,14 +77,6 @@ export const styleMixins: IStyleMixins = {
   textTransform: (value: string) => css`text-transform: ${value};`,
   light: () => css`font-weight: 300;`,
   bold: () => css`font-weight: bold;`,
-  underline: () => css`text-decoration: underline;`,
-  normal: () => css`font-weight: normal;`,
-  ellipsis: () => css`text-overflow: ellipsis;`,
-  noWrap: () => css`
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `,
 
   // Border
   border: (value: string) => css`border: ${value};`,

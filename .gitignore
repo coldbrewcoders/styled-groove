@@ -9,6 +9,9 @@
 # storybook
 /storybook-static
 
+# test-coverage reports
+/coverage
+
 # misc
 .DS_Store
 *.env*

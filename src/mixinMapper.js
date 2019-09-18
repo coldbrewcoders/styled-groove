@@ -11,13 +11,10 @@ import { processConfigObject } from "src/utils";
 import { MEDIA_STRATEGIES } from "src/definitions";
 
 
-export const mixinMapperIgnoreMediaProps = (props = {}) => {
+const mixinMapperIgnoreMediaProps = (props) => {
   
   // Get all prop keys
   const propKeys = Object.keys(props);
-
-  // If no passed props, short-circuit
-  if(propKeys.length === 0) return;
 
   // List for storage of all applied styles
   const stylesList = [];
@@ -41,13 +38,13 @@ export const mixinMapperIgnoreMediaProps = (props = {}) => {
 
   });
 
-  // Return all applicable styles as injected css
-  return css`${stylesList}`;
+  // Return list of mixinProps
+  return stylesList;
 }
 
 export const mixinMapper = (props = {}, config) => {
 
-  // Short-circuit if not props isn't strictly and object
+  // Short-circuit if props isn't strictly an object
   if(!isPlainObject(props)) return;
 
   // Get all prop keys from component
@@ -93,8 +90,16 @@ export const mixinMapper = (props = {}, config) => {
 
     // If prop key matches a media mixin prop...
     if(mediaProp) {
+      // Short-circuit if not media prop value isn't strictly an object or if object is empty
+      if(!isPlainObject(propValue) || Object.keys(propValue).length === 0) return;
+
       // Calculate CSS for all style mixin props within the media mixin prop value and add to media styles map
-      mediaStylesMap[propKey] = mediaProp`${mixinMapperIgnoreMediaProps(propValue)}`;
+      const mediaPropStylesList = mixinMapperIgnoreMediaProps(propValue);
+
+      // Short-circuit if no valid style mixin props found within media prop
+      if(mediaPropStylesList.length === 0) return;
+
+      mediaStylesMap[propKey] = mediaProp`${mediaPropStylesList}`;
     }
     
   });

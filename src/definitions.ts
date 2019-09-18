@@ -27,10 +27,8 @@ interface IConfig {
 
 // Interface for the styleMixins mapper
 interface IStyleMixins {
-
-  // Index signature
-  // https://basarat.gitbooks.io/typescript/docs/types/index-signatures.html
-  [key:string]: (value: string) => FlattenSimpleInterpolation;
+  // Index signature https://basarat.gitbooks.io/typescript/docs/types/index-signatures.html
+  [key:string]: mixin;
 };
 
 // Default media size ranges for media up strategy (default media strategy)

@@ -1,18 +1,18 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# dependencies
+# Dependencies
 /node_modules
 
-# production
+# Production
 /dist
 
-# storybook
+# Typescript
+/lib
+
+# sStorybook
 /storybook-static
 
-# test-coverage reports
-/coverage
-
-# misc
+# Miscellanous
 .DS_Store
 *.env*
 .vscode

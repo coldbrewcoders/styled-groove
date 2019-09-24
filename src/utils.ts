@@ -1,11 +1,13 @@
 import isPlainObject from "is-plain-object";
 
 // Definitions
-import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "src/definitions";
+import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "./definitions";
 
+// Interaces
+import { IMediaBreakpoints, IConfig } from "./definitions";
 
 // ** Default Config Parameters **/
-const defaultConfig = {
+const defaultConfig: IConfig = { 
   ignoreMediaMixins: false,
   mediaStrategy: MEDIA_STRATEGIES.UP,
   mediaSizes: DEFAULT_MEDIA_SIZES_UP
@@ -15,51 +17,48 @@ const defaultConfig = {
 /** Helper Methods **/
 
 // Validate custom media width ranges
-const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }, mediaStrategy) => {
+const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }: IMediaBreakpoints, mediaStrategy: string): boolean => {
 
   // Check that outer boundaries are one px apart (sm -> xs for down media strategy, lg -> xl for up media strategy)
   if(mediaStrategy === MEDIA_STRATEGIES.UP) {
     if((sm - xs) !== 1) {
-      console.warn(`Styled-Groove: Invalid config.mediaSizes, using defaults. For up media strategy, sm must be equal to xs + 1. Passed values: sm -> ${sm}, xs -> ${xs}.`);
+      console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. For up media strategy, sm must be equal to xs + 1. Passed values: sm -> ${sm}, xs -> ${xs}.`);
       return false;
     }
   }
-
-  // If media strategy is down
-  else {
+  else if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
     if((xl - lg) !== 1) {
-      console.warn(`Styled-Groove: Invalid custom config.mediaSizes, using defaults. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
+      console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
       return false;
     }
   }
 
   // Check that sizes are in proper order
-  if((xl > lg) && (lg > md) && (md > sm) && (sm > xs)) {
+  if((xl > lg) && (lg > md) && (md > sm)  && (sm > xs)) {
     return true;
-  }
-  else {
-    console.warn(`Styled-Groove: Invalid custom config.mediaSizes, using defaults. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
+  } else {
+    console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
     return false;
   }
-
 }
 
 
+
 /**
- * Config Options:
- *
+ * Config options:
+ * 
  *  ignoreMediaMixins: bool (default false)
  *    - If set to true, media mixin prop check will be skipped (optimization if not using media mixins)
- *
+ * 
  *  mediaStrategy: "up", "down" (default up)
  *    - Change direction of media strategy from up to down
- *
+ * 
  *  mediaSizes: obj -> { xl, lg, md, sm, xs }
  *    - will override default media width ranges
- *
+ * 
  **/
 
-export const processConfigObject = (config) => {
+export const processConfigObject = (config: IConfig): IConfig => {
 
   // If no config parameter passed, return default config values
   if(typeof config === "undefined") {
@@ -73,18 +72,18 @@ export const processConfigObject = (config) => {
   }
 
   // Get keys of config object
-  const configKeys = Object.keys(config)
+  const configKeys: string[] = Object.keys(config)
 
   // Short-circuit if no config props passed
   if(configKeys.length === 0) return defaultConfig;
 
   // Check if we are ignoring media mixins. (If this is the case, the other config params do not matter)
   if(Object.prototype.hasOwnProperty.call(config, "ignoreMediaMixins")) {
-    if(config.ignoreMediaMixins === true) return { ignoreMediaMixins: true, mediaStrategy: null, mediaSizes: {} };
+    if(config.ignoreMediaMixins === true) return { ignoreMediaMixins: true, mediaStrategy: undefined, mediaSizes: undefined };
   }
 
   // Store custom config properties
-  let customConfig = {};
+  let customConfig: IConfig = {};
 
   // Check if custom media strategy is passed
   if(Object.prototype.hasOwnProperty.call(config, "mediaStrategy")) {
@@ -94,7 +93,12 @@ export const processConfigObject = (config) => {
       customConfig.mediaStrategy = MEDIA_STRATEGIES.DOWN;
       customConfig.mediaSizes = DEFAULT_MEDIA_SIZES_DOWN;
     }
-    else if(config.mediaStrategy !== MEDIA_STRATEGIES.UP) {
+    else if (config.mediaStrategy === MEDIA_STRATEGIES.UP) {
+      // If config overrides default media strategy, save in custom config object
+      customConfig.mediaStrategy = MEDIA_STRATEGIES.UP;
+      customConfig.mediaSizes = DEFAULT_MEDIA_SIZES_UP;
+    }
+    else {
       // Warn user of invalid media strategy value passed
       console.warn(`Styled-Groove: Invalid mediaStrategy value passed in config object, must be 'up' or 'down'. Passed value: ${config.mediaStrategy}.`);
     }
@@ -110,21 +114,21 @@ export const processConfigObject = (config) => {
     else {
 
       // Get list of keys from passed custom media sizes config
-      const configMediaSizesKeys = Object.keys(config.mediaSizes);
+      const configMediaSizesKeys: string[] = Object.keys(config.mediaSizes);
 
       // Define list of allowed keys for config.mediaSizes
-      const allowedKeys = ["xl", "lg", "md", "sm", "xs"];
+      const allowedMediaKeys = new Array("xl", "lg", "md", "sm", "xs");
 
-      let isConfigMediaSizesValid = true;
+      let isConfigMediaSizesValid: boolean = true;
 
       // Iterate through keys of custom media sizes config
       for(let i = 0; i < configMediaSizesKeys.length; i++) {
 
         // Get current key
-        const currentKey = configMediaSizesKeys[i];
+        const currentMediaKey: string = configMediaSizesKeys[i];
 
         // Check that config.mediaSizes only contains valid keys
-        if(!allowedKeys.includes(currentKey)) {
+        if(!allowedMediaKeys.includes(currentMediaKey)) {
           console.warn(`Styled-Groove: Invalid mediaSizes value passed in config object. Object keys can only be 'xl', 'lg', 'md', 'sm' and 'xm'. Invalid object key: ${currentKey}.`);
           isConfigMediaSizesValid = false;
           break;
@@ -135,8 +139,8 @@ export const processConfigObject = (config) => {
       if(isConfigMediaSizesValid) {
 
         // Find current set media sizes and media strategy
-        const currentMediaSizes = customConfig.mediaSizes || defaultConfig.mediaSizes;
-        const currentMediaStrategy = customConfig.mediaStrategy || defaultConfig.mediaStrategy;
+        const currentMediaSizes: IMediaBreakpoints = customConfig.mediaSizes || defaultConfig.mediaSizes;
+        const currentMediaStrategy: string = customConfig.mediaStrategy || defaultConfig.mediaStrategy;
 
         // Create new media sizes by overriding current sizes with custom sizes
         const overriddenMediaSizes = {
@@ -159,7 +163,7 @@ export const processConfigObject = (config) => {
     }
   }
 
-  // return validated config object;
+  // Return validated config object;
   return {
     ...defaultConfig,
     ...customConfig

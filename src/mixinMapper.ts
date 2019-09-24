@@ -1,60 +1,68 @@
-import { css } from "styled-components";
+import { css, FlattenSimpleInterpolation } from "styled-components";
 import isPlainObject from "is-plain-object";
 
 // Mixins
-import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "src/mixins";
+import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "./mixins";
 
 // Utils
-import { processConfigObject } from "src/utils";
+import { processConfigObject } from "./utils";
 
 // Definitions
-import { MEDIA_STRATEGIES } from "src/definitions";
+import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP } from "./definitions";
 
+// Interfaces
+import { IConfig } from "./definitions";
 
-const mixinMapperIgnoreMediaProps = (props) => {
+// Types
+import { mixin } from "./definitions";
+
+// TODO: Is prop: any valid here, or do we want to be more specific with a special prop interface
+// TODO: What is the return type of this function
+const mixinMapperIgnoreMediaProps = (props: any = {}) => {
   
   // Get all prop keys
-  const propKeys = Object.keys(props);
+  const propKeys: string[] = Object.keys(props);
+
+  // If no passed props, short-circuit
+  if(propKeys.length === 0) return;
 
   // List for storage of all applied styles
-  const stylesList = [];
+  const stylesList: FlattenSimpleInterpolation[] = []; // TODO: Check that this is correct
 
   // Iterate through all props and find associated key-value style to apply (if applicable)
-  propKeys.forEach((propKey) => {
+  propKeys.forEach((propKey: string) => {
 
     // Get prop value
-    const propValue = props[propKey];
+    const propValue: any = props[propKey];
 
     // If falsy prop value found that isn't 'number: 0', short-circuit
     if(!propValue && propValue !== 0) return;
 
     // Check if prop key matches a style mixin prop
-    const mixinProp = styleMixins[propKey];
+    const mixinProp: mixin = styleMixins[propKey];
 
     // If prop key matches style mixin prop, apply value
-    if(mixinProp) {
-      stylesList.push(mixinProp(propValue));
-    }
+    if(mixinProp) stylesList.push(mixinProp(propValue));
 
   });
 
   // Return list of mixinProps
-  return stylesList;
+  return css`${stylesList}`;
 }
 
-export const mixinMapper = (props = {}, config) => {
+export const mixinMapper = (props: any = {}, config: IConfig) => {
 
   // Short-circuit if props isn't strictly an object
   if(!isPlainObject(props)) return;
 
   // Get all prop keys from component
-  const propKeys = Object.keys(props);
+  const propKeys: string[] = Object.keys(props);
 
   // If no passed props, short-circuit
   if(propKeys.length === 0) return;
 
   // Process config object to get configurable values
-  const { ignoreMediaMixins, mediaStrategy, mediaSizes } = processConfigObject(config);
+  const { ignoreMediaMixins, mediaStrategy, mediaSizes }: IConfig = processConfigObject(config);
 
   // Get media mixin object based on up or down media strategy (default is media strategy is up)
   const mediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(mediaSizes) : getMediaMixinsDown(mediaSizes);
@@ -62,6 +70,7 @@ export const mixinMapper = (props = {}, config) => {
   // List for storage of all applied styles
   const stylesList = [];
   const mediaStylesMap = {};
+  // const mediaStylesMap: { [ index:string ] : { message: string } } = {};
 
   // Iterate through all props and find associated key-value style to apply (if applicable)
   propKeys.forEach((propKey) => {

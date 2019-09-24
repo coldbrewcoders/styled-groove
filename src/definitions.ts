@@ -1,4 +1,5 @@
-import { FlattenSimpleInterpolation } from "styled-components"
+import { FlattenSimpleInterpolation } from "styled-components";
+
 
 // Enum to represent responsive media strategy
 enum MEDIA_STRATEGIES {
@@ -6,33 +7,74 @@ enum MEDIA_STRATEGIES {
   DOWN = "down"
 };
 
-// Types
-type mixin = (value: string) => FlattenSimpleInterpolation;
+// Type for value of a component prop
+type ComponentPropValue = number | string | object | boolean;
 
-// Interface for media breakpoints (pixel widths for different screen sizes)
+// Type for style mixins
+type Mixin = (value: string) => FlattenSimpleInterpolation;
+
+// Type for media mixins
+type MediaMixin = (literals: TemplateStringsArray, ...placeholders: any[]) => FlattenSimpleInterpolation;
+
+// Interface for default media breakpoints (pixel widths for different screen sizes)
 interface IMediaBreakpoints {
   readonly xl: number,
   readonly lg: number,
   readonly md: number,
   readonly sm: number,
   readonly xs: number
-}
+};
 
-// Interface for the styled-groove config object for customizing styled-groove
-interface IConfig {
-  ignoreMediaMixins?: boolean,
-  mediaStrategy?: string,
-  mediaSizes?: IMediaBreakpoints,
-}
+// Interface for custom media breakpoints (pixel widths for different screen sizes)
+interface ICustomMediaBreakpoints {
+  readonly xl?: number,
+  readonly lg?: number,
+  readonly md?: number,
+  readonly sm?: number,
+  readonly xs?: number
+};
+
+// Interface to access custom media breakpoint size
+interface ICustomMediaBreakpointSize {
+  [key: string]: number;
+};
 
 // Interface for the styleMixins mapper
 interface IStyleMixins {
-  // Index signature https://basarat.gitbooks.io/typescript/docs/types/index-signatures.html
-  [key:string]: mixin;
+  [key: string]: Mixin;
 };
 
-// Default media size ranges for media up strategy (default media strategy)
-const DEFAULT_MEDIA_SIZES_UP: IMediaBreakpoints = {
+// Interface for passed props object
+interface IComponentProps {
+  [key: string]: string | number | object;
+};
+
+// Interface for media mixins
+interface IMediaMixins {
+  [key: string]: MediaMixin;
+};
+
+// Interface for media styles map
+interface IMediaStylesMap {
+  [key: string]: FlattenSimpleInterpolation;
+};
+
+// Interface for the default styled-groove config object
+interface IConfig {
+  ignoreMediaMixins: boolean,
+  mediaStrategy: MEDIA_STRATEGIES,
+  mediaBreakpoints: IMediaBreakpoints,
+};
+
+// Interface for custom styled-groove config object
+interface ICustomConfig {
+  ignoreMediaMixins?: boolean,
+  mediaStrategy?: MEDIA_STRATEGIES,
+  mediaBreakpoints?: ICustomMediaBreakpoints,
+};
+
+// Default media breakpoints for media up strategy (default media strategy)
+const DEFAULT_MEDIA_BREAKPOINTS_UP: IMediaBreakpoints = {
   xl: 1200,
   lg: 992,
   md: 768,
@@ -40,8 +82,8 @@ const DEFAULT_MEDIA_SIZES_UP: IMediaBreakpoints = {
   xs: 575
 };
 
-// Default media size ranges for media down strategy
-const DEFAULT_MEDIA_SIZES_DOWN: IMediaBreakpoints = {
+// Default media breakpoints for media down strategy
+const DEFAULT_MEDIA_BREAKPOINTS_DOWN: IMediaBreakpoints = {
   xl: 1200,
   lg: 1199,
   md: 991,
@@ -53,10 +95,10 @@ const DEFAULT_MEDIA_SIZES_DOWN: IMediaBreakpoints = {
 export { MEDIA_STRATEGIES };
 
 // Types
-export { mixin };
+export { Mixin, MediaMixin, ComponentPropValue };
 
 // Interfaces
-export { IMediaBreakpoints, IConfig, IStyleMixins };
+export { IMediaBreakpoints, ICustomMediaBreakpoints, ICustomMediaBreakpointSize, IStyleMixins, IComponentProps, IMediaMixins, IMediaStylesMap, IConfig, ICustomConfig };
 
-// Default media sizes up/down
-export { DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN };
+// Default media breakpoints up/down
+export { DEFAULT_MEDIA_BREAKPOINTS_UP, DEFAULT_MEDIA_BREAKPOINTS_DOWN };

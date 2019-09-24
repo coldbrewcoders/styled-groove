@@ -1,15 +1,10 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
 # Dependencies
 /node_modules
-
-# Production
-/dist
 
 # Typescript
 /lib
 
-# sStorybook
+# Storybook
 /storybook-static
 
 # Miscellanous

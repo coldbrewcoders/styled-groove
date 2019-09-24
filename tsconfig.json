@@ -6,8 +6,8 @@
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
-    "types": ["react", "jest"]
+    "types": ["react", "jest"],
+    "baseUrl": "."
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "__tests__"]
+  "include": ["src"]
 }

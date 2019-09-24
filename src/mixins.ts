@@ -1,7 +1,8 @@
 import { css } from "styled-components";
 
-// Definition
-import { IMediaBreakpoints, IStyleMixins } from "./definitions";
+// Definitions
+import { IMediaBreakpoints, IStyleMixins, IMediaMixins } from "src/definitions";
+
 
 const styleMixins: IStyleMixins = {
 
@@ -153,7 +154,7 @@ const styleMixins: IStyleMixins = {
 // Where literals are the strings in the template and placeholders are the variable values.
 // https://stackoverflow.com/questions/49397538/typing-the-css-function-in-styled-components
 
-const getMediaMixinsUp = ({ xl, lg, md, sm, xs }: IMediaBreakpoints) => ({
+const getMediaMixinsUp = ({ xl, lg, md, sm, xs }: IMediaBreakpoints): IMediaMixins => ({
   _xs: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
     @media (max-width: ${xs}px) {
       ${css(literals, ...placeholders)}
@@ -181,7 +182,7 @@ const getMediaMixinsUp = ({ xl, lg, md, sm, xs }: IMediaBreakpoints) => ({
   `,    
 });
 
-const getMediaMixinsDown = ({ xl, lg, md, sm, xs }: IMediaBreakpoints) => ({
+const getMediaMixinsDown = ({ xl, lg, md, sm, xs }: IMediaBreakpoints): IMediaMixins => ({
   _xs: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
     @media (max-width: ${xs}px) {
       ${css(literals, ...placeholders)}

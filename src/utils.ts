@@ -1,64 +1,51 @@
 import isPlainObject from "is-plain-object";
 
 // Definitions
-import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP, DEFAULT_MEDIA_SIZES_DOWN } from "./definitions";
+import { DEFAULT_MEDIA_BREAKPOINTS_UP, DEFAULT_MEDIA_BREAKPOINTS_DOWN } from "src/definitions";
 
-// Interaces
-import { IMediaBreakpoints, IConfig } from "./definitions";
+// Enums
+import { MEDIA_STRATEGIES } from "src/definitions";
 
-// ** Default Config Parameters **/
+// Interfaces
+import { IMediaBreakpoints, IConfig, ICustomMediaBreakpointSize, ICustomMediaBreakpoints, ICustomConfig } from "src/definitions";
+
+
+// Default config object
 const defaultConfig: IConfig = { 
   ignoreMediaMixins: false,
   mediaStrategy: MEDIA_STRATEGIES.UP,
-  mediaSizes: DEFAULT_MEDIA_SIZES_UP
+  mediaBreakpoints: DEFAULT_MEDIA_BREAKPOINTS_UP
 };
 
-
-/** Helper Methods **/
-
-// Validate custom media width ranges
-const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }: IMediaBreakpoints, mediaStrategy: string): boolean => {
+// Validate custom media breakpoints
+const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }: IMediaBreakpoints, mediaStrategy: MEDIA_STRATEGIES): boolean => {
 
   // Check that outer boundaries are one px apart (sm -> xs for down media strategy, lg -> xl for up media strategy)
   if(mediaStrategy === MEDIA_STRATEGIES.UP) {
     if((sm - xs) !== 1) {
-      console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. For up media strategy, sm must be equal to xs + 1. Passed values: sm -> ${sm}, xs -> ${xs}.`);
+      console.warn(`Styled-Groove: Invalid custom config.mediaBreakpoints passed, using default breakpoints. For up media strategy, sm must be equal to xs + 1. Passed values: sm -> ${sm}, xs -> ${xs}.`);
       return false;
     }
   }
   else if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
     if((xl - lg) !== 1) {
-      console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
+      console.warn(`Styled-Groove: Invalid custom config.mediaBreakpoints passed, using default breakpoints. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
       return false;
     }
   }
 
-  // Check that sizes are in proper order
+  // Check that breakpoint sizes are in proper order
   if((xl > lg) && (lg > md) && (md > sm)  && (sm > xs)) {
     return true;
-  } else {
-    console.warn(`Styled-Groove: Invalid custom config.mediaSizes passed. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
+  } 
+  else {
+    console.warn(`Styled-Groove: Invalid custom config.mediaBreakpoints passed, using default breakpoints. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
     return false;
   }
 }
 
-
-
-/**
- * Config options:
- * 
- *  ignoreMediaMixins: bool (default false)
- *    - If set to true, media mixin prop check will be skipped (optimization if not using media mixins)
- * 
- *  mediaStrategy: "up", "down" (default up)
- *    - Change direction of media strategy from up to down
- * 
- *  mediaSizes: obj -> { xl, lg, md, sm, xs }
- *    - will override default media width ranges
- * 
- **/
-
-export const processConfigObject = (config: IConfig): IConfig => {
+// Process config object
+export const processConfigObject = (config: ICustomConfig): ICustomConfig | IConfig => {
 
   // If no config parameter passed, return default config values
   if(typeof config === "undefined") {
@@ -67,23 +54,23 @@ export const processConfigObject = (config: IConfig): IConfig => {
 
   // If config parameter was passed, but is not an object
   if(!isPlainObject(config)) {
-    console.warn(`Styled-Groove: config parameter must be an object, ignoring invalid config param. Passed config parameter: ${config}.`);
+    console.warn(`Styled-Groove: config parameter must be an object, ignoring invalid config object and using default settings. Passed config parameter: ${config}.`);
     return defaultConfig;
   }
 
   // Get keys of config object
-  const configKeys: string[] = Object.keys(config)
+  const configKeys: string[] = Object.keys(config);
 
   // Short-circuit if no config props passed
   if(configKeys.length === 0) return defaultConfig;
 
   // Check if we are ignoring media mixins. (If this is the case, the other config params do not matter)
   if(Object.prototype.hasOwnProperty.call(config, "ignoreMediaMixins")) {
-    if(config.ignoreMediaMixins === true) return { ignoreMediaMixins: true, mediaStrategy: undefined, mediaSizes: undefined };
+    if(config.ignoreMediaMixins === true) return { ignoreMediaMixins: true, mediaStrategy: undefined, mediaBreakpoints: undefined };
   }
 
-  // Store custom config properties
-  let customConfig: IConfig = {};
+  // Store custom config properties here
+  let customConfig: ICustomConfig = {};
 
   // Check if custom media strategy is passed
   if(Object.prototype.hasOwnProperty.call(config, "mediaStrategy")) {
@@ -91,70 +78,82 @@ export const processConfigObject = (config: IConfig): IConfig => {
     if(config.mediaStrategy === MEDIA_STRATEGIES.DOWN) {
       // If config overrides default media strategy, save in custom config object
       customConfig.mediaStrategy = MEDIA_STRATEGIES.DOWN;
-      customConfig.mediaSizes = DEFAULT_MEDIA_SIZES_DOWN;
+      customConfig.mediaBreakpoints = DEFAULT_MEDIA_BREAKPOINTS_DOWN;
     }
     else if (config.mediaStrategy === MEDIA_STRATEGIES.UP) {
       // If config overrides default media strategy, save in custom config object
       customConfig.mediaStrategy = MEDIA_STRATEGIES.UP;
-      customConfig.mediaSizes = DEFAULT_MEDIA_SIZES_UP;
+      customConfig.mediaBreakpoints = DEFAULT_MEDIA_BREAKPOINTS_UP;
     }
     else {
       // Warn user of invalid media strategy value passed
-      console.warn(`Styled-Groove: Invalid mediaStrategy value passed in config object, must be 'up' or 'down'. Passed value: ${config.mediaStrategy}.`);
+      console.warn(`Styled-Groove: Invalid mediaStrategy value passed in config object, must be 'up' or 'down'. Using 'up' media strategy as default. Passed value: ${config.mediaStrategy}.`);
     }
+
   }
 
-  // Check if custom media sizes passed
-  if(Object.prototype.hasOwnProperty.call(config, "mediaSizes")) {
+  // Check if passed custom media breakpoints are valid
+  if(Object.prototype.hasOwnProperty.call(config, "mediaBreakpoints")) {
 
-    // Check if custom media styles param is an object
-    if(!isPlainObject(config.mediaSizes)) {
-      console.warn("Styled-Groove: Invalid mediaSizes value passed in config object. Value must be an object.");
+    // Check if custom config media breakpoints param is an object
+    if(!isPlainObject(config.mediaBreakpoints)) {
+      console.warn("Styled-Groove: Invalid mediaBreakpoints value passed in config object. Value must be an object, using default media breakpoint sizes.");
     }
     else {
 
-      // Get list of keys from passed custom media sizes config
-      const configMediaSizesKeys: string[] = Object.keys(config.mediaSizes);
+      // Get list of keys from passed custom media breakpoints config
+      const configMediaBreakpointKeys: string[] = Object.keys(<ICustomMediaBreakpoints>config.mediaBreakpoints);
 
-      // Define list of allowed keys for config.mediaSizes
-      const allowedMediaKeys = new Array("xl", "lg", "md", "sm", "xs");
+      // Define list of allowed keys for config.mediaBreakpoints
+      const allowedMediaBreakpointKeys: string[] = ["xl", "lg", "md", "sm", "xs"];
 
-      let isConfigMediaSizesValid: boolean = true;
+      // Keep track if passed custom config has valid media breakpoints
+      let isConfigMediaBreakpointsValid: boolean = true;
 
-      // Iterate through keys of custom media sizes config
-      for(let i = 0; i < configMediaSizesKeys.length; i++) {
+      // Iterate through keys of custom media breakpoints
+      for(let i = 0; i < configMediaBreakpointKeys.length; i++) {
 
-        // Get current key
-        const currentMediaKey: string = configMediaSizesKeys[i];
+        // Get current media breakpoint key
+        const currentMediaBreakpointKey: string = configMediaBreakpointKeys[i];
 
-        // Check that config.mediaSizes only contains valid keys
-        if(!allowedMediaKeys.includes(currentMediaKey)) {
-          console.warn(`Styled-Groove: Invalid mediaSizes value passed in config object. Object keys can only be 'xl', 'lg', 'md', 'sm' and 'xm'. Invalid object key: ${currentKey}.`);
-          isConfigMediaSizesValid = false;
+        // Check that config.mediaBreakpoints only contains valid keys
+        if(!allowedMediaBreakpointKeys.includes(currentMediaBreakpointKey)) {
+          console.warn(`Styled-Groove: Invalid mediaBreakpoints value passed in config object. Object keys can only be 'xl', 'lg', 'md', 'sm' and 'xm'. Invalid object key: ${currentMediaBreakpointKey}.`);
+          isConfigMediaBreakpointsValid = false;
+          break;
+        }
+
+        // Get value for current media breakpoint key
+        const currentBreakpointValue: number | undefined = (<ICustomMediaBreakpointSize>config.mediaBreakpoints)[currentMediaBreakpointKey];
+
+        // Check that config.mediaSizes has numerical values for each key
+        if(typeof currentBreakpointValue !== "number") {
+          console.warn(`Styled-Groove: mediaBreakpoints object has invalid value. All values must be numbers, using default breakpoints. Invalid object property ${currentMediaBreakpointKey} had value of ${currentBreakpointValue}`);
+          isConfigMediaBreakpointsValid = false;
           break;
         }
 
       }
 
-      if(isConfigMediaSizesValid) {
+      if(isConfigMediaBreakpointsValid) {
 
-        // Find current set media sizes and media strategy
-        const currentMediaSizes: IMediaBreakpoints = customConfig.mediaSizes || defaultConfig.mediaSizes;
-        const currentMediaStrategy: string = customConfig.mediaStrategy || defaultConfig.mediaStrategy;
+        // Find current set media breakpoints and media strategy
+        const currentMediaBreakpoints: ICustomMediaBreakpoints = customConfig.mediaBreakpoints || defaultConfig.mediaBreakpoints;
+        const currentMediaStrategy: MEDIA_STRATEGIES = customConfig.mediaStrategy || defaultConfig.mediaStrategy;
 
-        // Create new media sizes by overriding current sizes with custom sizes
-        const overriddenMediaSizes = {
-          ...currentMediaSizes,
-          ...config.mediaSizes
+        // Create new media breakpoints by overriding current breakpoints with custom breakpoint values
+        const overriddenMediaBreakpoints = {
+          ...currentMediaBreakpoints,
+          ...config.mediaBreakpoints
         };
 
         // Check that overridden media width breakpoints are valid
-        if(areMediaWidthRangesValid(overriddenMediaSizes, currentMediaStrategy)) {
+        if(areMediaWidthRangesValid(<IMediaBreakpoints>overriddenMediaBreakpoints, currentMediaStrategy)) {
 
-          // Add overridden media sizes to custom config object
+          // Apply overridden media breakpoints to custom config object
           customConfig = {
             ...customConfig,
-            mediaSizes: overriddenMediaSizes
+            mediaBreakpoints: overriddenMediaBreakpoints
           };
 
         }

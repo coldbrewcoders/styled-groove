@@ -153,6 +153,7 @@ const styleMixins: IStyleMixins = {
 // Where literals are the strings in the template and placeholders are the variable values.
 // https://stackoverflow.com/questions/49397538/typing-the-css-function-in-styled-components
 
+// TODO: Make these dynamic to be able to have _xxl, etc.
 const getMediaMixinsUp = ({ xl, lg, md, sm, xs }: IMediaBreakpoints) => ({
   _xs: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
     @media (max-width: ${xs}px) {
@@ -178,7 +179,7 @@ const getMediaMixinsUp = ({ xl, lg, md, sm, xs }: IMediaBreakpoints) => ({
     @media (min-width: ${xl}px) {
       ${css(literals, ...placeholders)}
     }
-  `,    
+  `,
 });
 
 const getMediaMixinsDown = ({ xl, lg, md, sm, xs }: IMediaBreakpoints) => ({

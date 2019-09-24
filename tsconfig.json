@@ -6,7 +6,8 @@
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
-    "types": ["react", "jest"]
+    "types": ["react", "jest"],
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "__tests__"]

@@ -18,7 +18,8 @@
     "build-storybook": "build-storybook",
     "test": "jest"
   },
-  "main": "./index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "author": "coldbrewcoders",
   "license": "MIT",
   "keywords": [
@@ -35,13 +36,16 @@
     "is-plain-object": "3.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.6.0",
-    "@babel/core": "7.6.0",
+    "@babel/cli": "7.6.2",
+    "@babel/core": "7.6.2",
     "@babel/plugin-proposal-class-properties": "7.5.5",
     "@babel/plugin-proposal-export-default-from": "7.5.2",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "7.5.5",
+    "@babel/plugin-proposal-optional-chaining": "7.6.0",
     "@babel/plugin-transform-object-set-prototype-of-to-assign": "7.2.0",
     "@babel/plugin-transform-regenerator": "7.4.5",
+    "@babel/plugin-transform-typescript": "7.6.0",
     "@babel/polyfill": "7.6.0",
     "@babel/preset-env": "7.6.0",
     "@babel/preset-react": "7.0.0",
@@ -50,6 +54,7 @@
     "@types/styled-components": "4.1.19",
     "babel-eslint": "10.0.3",
     "babel-loader": "8.0.6",
+    "babel-plugin-module-resolver": "3.2.0",
     "babel-plugin-styled-components": "1.10.6",
     "core-js": "3.2.1",
     "jest": "24.9.0",

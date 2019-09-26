@@ -125,10 +125,23 @@ const PrimaryButton2 = styled(PrimaryButton)`
 | marginBottom  | (value) => css\`margin-bottom: ${value};`     | 
 | marginLeft    | (value) => css\`margin-left: ${value};`       |
 | marginRight   | (value) => css\`margin-right: ${value};`      |
+| marginX       | (value) => css\`                              |
+|               | margin-left: ${value};                        |
+|               | margin-right: ${value};                       |
+| marginY       | (value) => css\`                              |
+|               | margin-top: ${value};                         |
+|               | margin-bottom: ${value}; `                    |
 | padding       | (value) => css\`padding: ${value};`           |
 | paddingTop    | (value) => css\`padding-top: ${value};`       |
 | paddingBottom | (value) => css\`padding-bottom: ${value};`    |  
-| paddingLeft   | (value) => css\`padding-left: ${value};`      | 
+| paddingLeft   | (value) => css\`padding-left: ${value};`      |
+| paddingRight  | (value) => css\`padding-right: ${value};`     |
+| paddingX      | (value) => css\`                              |
+|               | padding-left: ${value};                       |
+|               | padding-right: ${value}; `                    |
+| paddingY      | (value) => css\`                              |
+|               | padding-top: ${value};                        |
+|               | padding-bottom: ${value}; `                   |
 
 ### Positioning
 
@@ -194,26 +207,7 @@ const PrimaryButton2 = styled(PrimaryButton)`
 | hide          | () => css\`display: none !important;`         |
 | whiteSpace    | (value) => css\`white-space: ${value};`       |
 | zIndex        | (value) => css\`z-index: ${value};`           |
-| isTall        | () => css\`height: 100%;`                     |
-| isWide        | () => css\`width: 100%;`                      |
-| marginX       | (value) => css\`                              |
-|               | margin-left: ${value};                       |
-|               | margin-right: ${value};                      |
-| marginY       | (value) => css\`                              |
-|               | margin-top: ${value};                        |
-|               | margin-bottom: ${value}; `                   |
-| paddingX         | (value) => css\`                           |
-|                  | padding-left: ${value};                   |
-|                  | padding-right: ${value}; `                |
-| paddingY         | (value) => css\`                           |
-|                  | padding-top: ${value};                    |
-|                  | padding-bottom: ${value}; `               |
-| fill             | () => css\` position: absolute;            |
-|                  | top: 0; bottom: 0; left: 0; right: 0;`    |  
-| noWrap           | () => css\`                                |
-|                  | white-space: nowrap;                      |
-|                  | overflow: hidden;                         |
-|                  | text-overflow: ellipsis;`                 |
+
 
 ## Flexbox Props
 

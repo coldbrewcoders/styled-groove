@@ -8,17 +8,16 @@ import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "./mixins";
 import { processConfigObject } from "./utils";
 
 // Definitions
-import { MEDIA_STRATEGIES, DEFAULT_MEDIA_SIZES_UP } from "./definitions";
+import { MEDIA_STRATEGIES, DEFAULT_MEDIA_BREAKPOINTS_UP } from "./definitions";
 
 // Interfaces
-import { IConfig } from "./definitions";
+import { IMediaBreakpoints, IMediaStylesMap, IComponentProps, IConfig, ICustomConfig, IMediaMixins } from "./definitions";
 
 // Types
-import { mixin } from "./definitions";
+import { Mixin, MediaMixin, ComponentPropValue } from "./definitions";
 
 
-/* Loop through the props and apply them to the mixins to return list of applicable mixins */
-const mixinMapperIgnoreMediaProps = (props: any = {}): FlattenSimpleInterpolation | undefined => {
+const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInterpolation | undefined => {
   
   // Get all prop keys
   const propKeys: string[] = Object.keys(props);
@@ -27,7 +26,7 @@ const mixinMapperIgnoreMediaProps = (props: any = {}): FlattenSimpleInterpolatio
   if (propKeys.length === 0) return;
 
   // List for storage of all applied styles
-  const stylesList: FlattenSimpleInterpolation[] = []; // TODO: Check that this is correct
+  const stylesList: FlattenSimpleInterpolation[] = [];
 
   // Iterate through all props and find associated key-value style to apply (if applicable)
   propKeys.forEach((propKey: string) => {
@@ -39,7 +38,7 @@ const mixinMapperIgnoreMediaProps = (props: any = {}): FlattenSimpleInterpolatio
     if(!propValue && propValue !== 0) return;
 
     // Check if prop key matches a style mixin prop
-    const mixinProp: mixin = styleMixins[propKey];
+    const mixinProp: Mixin = styleMixins[propKey];
 
     // If prop key matches style mixin prop, apply value
     if(mixinProp) stylesList.push(mixinProp(propValue));
@@ -50,7 +49,7 @@ const mixinMapperIgnoreMediaProps = (props: any = {}): FlattenSimpleInterpolatio
   return css`${stylesList}`;
 }
 
-export const mixinMapper = (props: any = {}, config: IConfig) => {
+export const mixinMapper = (props: IComponentProps, config: ICustomConfig): FlattenSimpleInterpolation | undefined => {
 
   // Short-circuit if props isn't strictly an object
   if (!isPlainObject(props)) return;
@@ -62,31 +61,31 @@ export const mixinMapper = (props: any = {}, config: IConfig) => {
   if (propKeys.length === 0) return;
 
   // Process config object to get configurable values
-  const { ignoreMediaMixins, mediaStrategy, mediaSizes = DEFAULT_MEDIA_SIZES_UP }: IConfig = processConfigObject(config);
+  const { ignoreMediaMixins, mediaStrategy, mediaBreakpoints = DEFAULT_MEDIA_BREAKPOINTS_UP }: ICustomConfig | IConfig = processConfigObject(config);
 
   // Get media mixin object based on up or down media strategy (default is media strategy is up)
-  const mediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(mediaSizes) : getMediaMixinsDown(mediaSizes);
+  const mediaMixins: IMediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(<IMediaBreakpoints>mediaBreakpoints) : getMediaMixinsDown(<IMediaBreakpoints>mediaBreakpoints);
 
   // List for storage of all applied styles
-  const stylesList: FlattenSimpleInterpolation[] = []; // TODO: Check that this is correct
-  const mediaStylesMap = new Map<string, FlattenSimpleInterpolation>(); // TODO: Is this better than an obj
-
+  const stylesList: FlattenSimpleInterpolation[] = [];
+  const mediaStylesMap: IMediaStylesMap = {};
+ 
   // Iterate through all props and find associated key-value style to apply (if applicable)
   propKeys.forEach((propKey: string) => {
 
     // Get prop value
-    const propValue: any = props[propKey];
+    const propValue: ComponentPropValue = props[propKey];
 
     // If falsy prop value found that isn't 'number: 0', short-circuit
     if (!propValue && propValue !== 0) return;
 
     // Check if prop key matches a style mixin prop
-    const mixinProp: mixin = styleMixins[propKey];
+    const mixinProp: Mixin = styleMixins[propKey];
 
     // If prop key matches a style mixin prop...
     if (mixinProp) {
       // Calculate CSS for style mixin prop and add value to styles list
-      stylesList.push(mixinProp(propValue));
+      stylesList.push(mixinProp(String(propValue)));
       return;
     }
 
@@ -94,7 +93,7 @@ export const mixinMapper = (props: any = {}, config: IConfig) => {
     if (ignoreMediaMixins) return;
 
     // Check if prop key matches media mixin prop
-    const mediaProp: (literals: TemplateStringsArray, ...placeholders: any[]) => FlattenSimpleInterpolation | undefined = mediaMixins[propKey];
+    const mediaProp: MediaMixin | undefined = mediaMixins[propKey];
 
     // If prop key matches a media mixin prop...
     if (mediaProp) {
@@ -102,10 +101,10 @@ export const mixinMapper = (props: any = {}, config: IConfig) => {
       if(!isPlainObject(propValue) || Object.keys(propValue).length === 0) return;
 
       // Calculate CSS for all style mixin props within the media mixin prop value and add to media styles map
-      const mediaPropStylesList: FlattenSimpleInterpolation | undefined = mixinMapperIgnoreMediaProps(propValue);
+      const mediaPropStylesList = mixinMapperIgnoreMediaProps(<IComponentProps>propValue);
 
       // Short-circuit if no valid style mixin props found within media prop
-      if (mediaPropStylesList && mediaPropStylesList.length === 0) return;
+      if(mediaPropStylesList && mediaPropStylesList.length === 0) return;
 
       mediaStylesMap[propKey] = mediaProp`${mediaPropStylesList}`;
     }
@@ -123,7 +122,7 @@ export const mixinMapper = (props: any = {}, config: IConfig) => {
     if (mediaStrategy === MEDIA_STRATEGIES.DOWN) {
 
       // Apply media styles to styles list (down media strategy)
-      if (mediaStylesMap.get("_xl")) stylesList.push(mediaStylesMap.get("_xl")); // FIXME: Figure this out
+      mediaStylesMap._xl && stylesList.push(mediaStylesMap._xl);
       mediaStylesMap._lg && stylesList.push(mediaStylesMap._lg);
       mediaStylesMap._md && stylesList.push(mediaStylesMap._md);
       mediaStylesMap._sm && stylesList.push(mediaStylesMap._sm);
@@ -147,4 +146,4 @@ export const mixinMapper = (props: any = {}, config: IConfig) => {
   return css`${stylesList}`;
 };
 
-export const curriedMixinMapper = (config: IConfig) => (props: any) => mixinMapper(props, config);
+export const curriedMixinMapper = (config: ICustomConfig) => (props: IComponentProps) => mixinMapper(props, config);

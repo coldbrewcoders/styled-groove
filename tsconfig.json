@@ -4,11 +4,11 @@
     "module": "commonjs",
     "lib": ["es6", "dom", "es2017"],
     "declaration": true,
+    "moduleResolution": "node",
     "outDir": "./lib",
     "strict": true,
     "types": ["react", "jest"],
-    "suppressImplicitAnyIndexErrors": true
+    "baseUrl": "."
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "__tests__"]
+  "include": ["src"]
 }

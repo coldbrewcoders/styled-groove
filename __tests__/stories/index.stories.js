@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { storiesOf } from "@storybook/react";
 
 // Styled Groove
-import applyGroove from "/src";
+import applyGroove from "../../lib";
 
 
 storiesOf("Style Prop Tests", module)
@@ -20,7 +20,7 @@ storiesOf("Style Prop Tests", module)
 
 
 storiesOf("Responsive Tests", module)
- .add("Responsive Color Test", () => {
+  .add("Responsive Color Test", () => {
 
     const BoxWithResponsiveColors = styled.div`
       width: 200px;
@@ -187,4 +187,3 @@ storiesOf("Custom Config Test", module)
     );
 
   });
-

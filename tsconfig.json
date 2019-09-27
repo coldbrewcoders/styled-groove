@@ -4,10 +4,12 @@
     "module": "commonjs",
     "lib": ["es6", "dom", "es2017"],
     "declaration": true,
+    "moduleResolution": "node",
     "outDir": "./lib",
     "strict": true,
     "types": ["react", "jest"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "esModuleInterop": true
   },
   "include": ["src"]
 }

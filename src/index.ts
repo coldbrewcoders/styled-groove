@@ -1,3 +1,3 @@
-import { mixinMapper as applyGroove } from "src/mixinMapper";
-export { curriedMixinMapper as applyGrooveCustomConfig } from "src/mixinMapper";
+import { mixinMapper as applyGroove } from "./mixinMapper";
+export { curriedMixinMapper as applyGrooveCustomConfig } from "./mixinMapper";
 export default applyGroove;

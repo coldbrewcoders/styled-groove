@@ -1,13 +1,13 @@
 import isPlainObject from "is-plain-object";
 
 // Definitions
-import { DEFAULT_MEDIA_BREAKPOINTS_UP, DEFAULT_MEDIA_BREAKPOINTS_DOWN } from "src/definitions";
+import { DEFAULT_MEDIA_BREAKPOINTS_UP, DEFAULT_MEDIA_BREAKPOINTS_DOWN } from "./definitions";
 
 // Enums
-import { MEDIA_STRATEGIES } from "src/definitions";
+import { MEDIA_STRATEGIES } from "./definitions";
 
 // Interfaces
-import { IMediaBreakpoints, IConfig, ICustomMediaBreakpointSize, ICustomMediaBreakpoints, ICustomConfig } from "src/definitions";
+import { IMediaBreakpoints, IConfig, ICustomMediaBreakpointSize, ICustomMediaBreakpoints, ICustomConfig } from "./definitions";
 
 
 // Default config object

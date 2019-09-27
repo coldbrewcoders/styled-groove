@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
 // Definitions
-import { IMediaBreakpoints, IStyleMixins, IMediaMixins } from "src/definitions";
+import { IMediaBreakpoints, IStyleMixins, IMediaMixins } from "./definitions";
 
 
 const styleMixins: IStyleMixins = {
@@ -179,7 +179,7 @@ const getMediaMixinsUp = ({ xl, lg, md, sm, xs }: IMediaBreakpoints): IMediaMixi
     @media (min-width: ${xl}px) {
       ${css(literals, ...placeholders)}
     }
-  `,    
+  `,
 });
 
 const getMediaMixinsDown = ({ xl, lg, md, sm, xs }: IMediaBreakpoints): IMediaMixins => ({

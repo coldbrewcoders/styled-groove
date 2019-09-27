@@ -1,4 +1,4 @@
-import applyGroove, { applyGrooveCustomConfig } from "src/";
+import applyGroove, { applyGrooveCustomConfig } from "../../lib";
 
 
 /** Unit Tests for applyGroove **/

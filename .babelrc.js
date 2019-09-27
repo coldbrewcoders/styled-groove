@@ -5,10 +5,11 @@ const plugins = [
   "@babel/plugin-proposal-object-rest-spread",
   "@babel/plugin-transform-object-set-prototype-of-to-assign",
   "@babel/plugin-transform-regenerator",
+  "@babel/plugin-transform-typescript",
   "@babel/plugin-proposal-export-default-from",
   "babel-plugin-styled-components",
   [
-    require.resolve('babel-plugin-module-resolver'),
+    require.resolve("babel-plugin-module-resolver"),
     {
       root: ["."]
     }
@@ -16,7 +17,7 @@ const plugins = [
   ]
 ];
 
-const presets =  [
+const presets = [
   [
     "@babel/preset-env",
     {

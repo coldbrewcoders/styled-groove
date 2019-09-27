@@ -2,19 +2,19 @@ import { css, FlattenSimpleInterpolation } from "styled-components";
 import isPlainObject from "is-plain-object";
 
 // Mixins
-import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "src/mixins";
+import { styleMixins, getMediaMixinsUp, getMediaMixinsDown } from "./mixins";
 
 // Utils
-import { processConfigObject } from "src/utils";
+import { processConfigObject } from "./utils";
 
 // Definitions
-import { MEDIA_STRATEGIES } from "src/definitions";
+import { MEDIA_STRATEGIES, DEFAULT_MEDIA_BREAKPOINTS_UP } from "./definitions";
 
 // Interfaces
-import { IMediaBreakpoints, IMediaStylesMap, IComponentProps, IConfig, ICustomConfig, IMediaMixins } from "src/definitions";
+import { IMediaBreakpoints, IMediaStylesMap, IComponentProps, IConfig, ICustomConfig, IMediaMixins } from "./definitions";
 
 // Types
-import { Mixin, MediaMixin, ComponentPropValue } from "src/definitions";
+import { Mixin, MediaMixin, ComponentPropValue } from "./definitions";
 
 
 const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInterpolation | undefined => {
@@ -23,7 +23,7 @@ const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInter
   const propKeys: string[] = Object.keys(props);
 
   // If no passed props, short-circuit
-  if(propKeys.length === 0) return;
+  if (propKeys.length === 0) return;
 
   // List for storage of all applied styles
   const stylesList: FlattenSimpleInterpolation[] = [];
@@ -52,16 +52,16 @@ const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInter
 export const mixinMapper = (props: IComponentProps, config: ICustomConfig): FlattenSimpleInterpolation | undefined => {
 
   // Short-circuit if props isn't strictly an object
-  if(!isPlainObject(props)) return;
+  if (!isPlainObject(props)) return;
 
   // Get all prop keys from component
   const propKeys: string[] = Object.keys(props);
 
   // If no passed props, short-circuit
-  if(propKeys.length === 0) return;
+  if (propKeys.length === 0) return;
 
   // Process config object to get configurable values
-  const { ignoreMediaMixins, mediaStrategy, mediaBreakpoints }: ICustomConfig | IConfig = processConfigObject(config);
+  const { ignoreMediaMixins, mediaStrategy, mediaBreakpoints = DEFAULT_MEDIA_BREAKPOINTS_UP }: ICustomConfig | IConfig = processConfigObject(config);
 
   // Get media mixin object based on up or down media strategy (default is media strategy is up)
   const mediaMixins: IMediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(<IMediaBreakpoints>mediaBreakpoints) : getMediaMixinsDown(<IMediaBreakpoints>mediaBreakpoints);
@@ -77,26 +77,26 @@ export const mixinMapper = (props: IComponentProps, config: ICustomConfig): Flat
     const propValue: ComponentPropValue = props[propKey];
 
     // If falsy prop value found that isn't 'number: 0', short-circuit
-    if(!propValue && propValue !== 0) return;
+    if (!propValue && propValue !== 0) return;
 
     // Check if prop key matches a style mixin prop
     const mixinProp: Mixin = styleMixins[propKey];
 
     // If prop key matches a style mixin prop...
-    if(mixinProp) {
+    if (mixinProp) {
       // Calculate CSS for style mixin prop and add value to styles list
       stylesList.push(mixinProp(String(propValue)));
       return;
     }
 
     // If config object specifies to ignore media mixins, short circuit
-    if(ignoreMediaMixins) return;
+    if (ignoreMediaMixins) return;
 
     // Check if prop key matches media mixin prop
     const mediaProp: MediaMixin | undefined = mediaMixins[propKey];
 
     // If prop key matches a media mixin prop...
-    if(mediaProp) {
+    if (mediaProp) {
       // Short-circuit if not media prop value isn't strictly an object or if object is empty
       if(!isPlainObject(propValue) || Object.keys(propValue).length === 0) return;
 
@@ -112,14 +112,14 @@ export const mixinMapper = (props: IComponentProps, config: ICustomConfig): Flat
   });
 
   // If not ignoring media mixins and component contained media mixin props...
-  if(!ignoreMediaMixins && Object.keys(mediaStylesMap).length) {
+  if (!ignoreMediaMixins && Object.keys(mediaStylesMap).length) {
 
     /** NOTE: Media styles must be applied in a specific order to work properly due to the nature of CSS media queries.
      *  For up media strategy, apply styles in xs -> xl order (default media strategy)
      *  For down media strategy, apply styles in xl -> xs order
     **/
 
-    if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
+    if (mediaStrategy === MEDIA_STRATEGIES.DOWN) {
 
       // Apply media styles to styles list (down media strategy)
       mediaStylesMap._xl && stylesList.push(mediaStylesMap._xl);

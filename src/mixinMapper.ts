@@ -22,9 +22,6 @@ const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInter
   // Get all prop keys
   const propKeys: string[] = Object.keys(props);
 
-  // If no passed props, short-circuit
-  if (propKeys.length === 0) return;
-
   // List for storage of all applied styles
   const stylesList: FlattenSimpleInterpolation[] = [];
 
@@ -57,14 +54,14 @@ export const mixinMapper = (props: IComponentProps, config: ICustomConfig): Flat
   // Get all prop keys from component
   const propKeys: string[] = Object.keys(props);
 
-  // If no passed props, short-circuit
-  if (propKeys.length === 0) return;
+  // Short-circuit if props object is empty
+  if(propKeys.length === 0) return;
 
   // Process config object to get configurable values
   const { ignoreMediaMixins, mediaStrategy, mediaBreakpoints = DEFAULT_MEDIA_BREAKPOINTS_UP }: ICustomConfig | IConfig = processConfigObject(config);
 
   // Get media mixin object based on up or down media strategy (default is media strategy is up)
-  const mediaMixins: IMediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(<IMediaBreakpoints>mediaBreakpoints) : getMediaMixinsDown(<IMediaBreakpoints>mediaBreakpoints);
+  const mediaMixins: IMediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(mediaBreakpoints as IMediaBreakpoints) : getMediaMixinsDown(mediaBreakpoints as IMediaBreakpoints);
 
   // List for storage of all applied styles
   const stylesList: FlattenSimpleInterpolation[] = [];
@@ -101,7 +98,7 @@ export const mixinMapper = (props: IComponentProps, config: ICustomConfig): Flat
       if(!isPlainObject(propValue) || Object.keys(propValue).length === 0) return;
 
       // Calculate CSS for all style mixin props within the media mixin prop value and add to media styles map
-      const mediaPropStylesList = mixinMapperIgnoreMediaProps(<IComponentProps>propValue);
+      const mediaPropStylesList = mixinMapperIgnoreMediaProps(propValue as IComponentProps);
 
       // Short-circuit if no valid style mixin props found within media prop
       if(mediaPropStylesList && mediaPropStylesList.length === 0) return;
@@ -146,4 +143,4 @@ export const mixinMapper = (props: IComponentProps, config: ICustomConfig): Flat
   return css`${stylesList}`;
 };
 
-export const curriedMixinMapper = (config: ICustomConfig) => (props: IComponentProps) => mixinMapper(props, config);
+export const curriedMixinMapper = (config: ICustomConfig) => (props: IComponentProps): any => mixinMapper(props, config);

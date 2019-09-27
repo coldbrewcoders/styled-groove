@@ -1,6 +1,7 @@
 import { css } from "styled-components";
 
-// Definitions
+// Interfaces
+import { FlattenSimpleInterpolation } from "styled-components";
 import { IMediaBreakpoints, IStyleMixins, IMediaMixins } from "./definitions";
 
 
@@ -31,14 +32,8 @@ const styleMixins: IStyleMixins = {
   marginBottom: (value: string) => css`margin-bottom: ${value};`,
   marginLeft: (value: string) => css`margin-left: ${value};`,
   marginRight: (value: string) => css`margin-right: ${value};`,
-  marginX: (value: string) => css`
-    margin-left: ${value};
-    margin-right: ${value};
-  `,
-  marginY: (value: string) => css`
-    margin-top: ${value};
-    margin-bottom: ${value};
-  `,
+  marginX: (value: string) => css`margin-left: ${value}; margin-right: ${value};`,
+  marginY: (value: string) => css`margin-top: ${value}; margin-bottom: ${value};`,
 
   // Padding
   padding: (value: string) => css`padding: ${value};`,
@@ -46,14 +41,8 @@ const styleMixins: IStyleMixins = {
   paddingBottom: (value: string) => css`padding-bottom: ${value};`,
   paddingLeft: (value: string) => css`padding-left: ${value};`,
   paddingRight: (value: string) => css`padding-right: ${value};`,
-  paddingX: (value: string) => css`
-    padding-left: ${value};
-    padding-right: ${value};
-  `,
-  paddingY: (value: string) => css`
-    padding-top: ${value};
-    padding-bottom: ${value};
-  `,
+  paddingX: (value: string) => css`padding-left: ${value}; padding-right: ${value};`,
+  paddingY: (value: string) => css`padding-top: ${value}; padding-bottom: ${value};`,
 
   // Positioning
   top: (value: string) => css`top: ${value};`,
@@ -91,22 +80,10 @@ const styleMixins: IStyleMixins = {
   borderTopRightRadius: (value: string) => css`border-top-right-radius: ${value};`,
   borderBottomRightRadius: (value: string) => css`border-bottom-right-radius: ${value};`,
   borderBottomLeftRadius: (value: string) => css`border-bottom-left-radius: ${value};`,
-  borderRightRadius: (value: string) => css`
-    border-top-right-radius: ${value};
-    border-bottom-right-radius: ${value};
-  `,
-  borderLeftRadius: (value: string) => css`
-    border-top-left-radius: ${value};
-    border-bottom-left-radius: ${value};
-  `,
-  borderTopRadius: (value: string) => css`
-    border-top-left-radius: ${value};
-    border-top-right-radius: ${value};
-  `,
-  borderBottomRadius: (value: string) => css`
-    border-bottom-left-radius: ${value};
-    border-bottom-right-radius: ${value};
-  `,
+  borderRightRadius: (value: string) => css`border-top-right-radius: ${value}; border-bottom-right-radius: ${value};`,
+  borderLeftRadius: (value: string) => css`border-top-left-radius: ${value}; border-bottom-left-radius: ${value};`,
+  borderTopRadius: (value: string) => css`border-top-left-radius: ${value}; border-top-right-radius: ${value};`,
+  borderBottomRadius: (value: string) => css`border-bottom-left-radius: ${value}; border-bottom-right-radius: ${value};`,
   boxShadow: (value: string) => css`box-shadow: ${value};`,
 
   // Background
@@ -150,64 +127,24 @@ const styleMixins: IStyleMixins = {
   wordWrap: (value: string) => css`word-wrap: ${value};`
 };
 
-// The signature for a tagged template should be (literals: TemplateStringsArray, ...placeholders: any[]) => string 
+// The signature for a tagged template should be (literals: TemplateStringsArray, ...placeholders: any[]) => string
 // Where literals are the strings in the template and placeholders are the variable values.
 // https://stackoverflow.com/questions/49397538/typing-the-css-function-in-styled-components
 
 const getMediaMixinsUp = ({ xl, lg, md, sm, xs }: IMediaBreakpoints): IMediaMixins => ({
-  _xs: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (max-width: ${xs}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _sm: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (min-width: ${sm}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _md: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (min-width: ${md}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _lg: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (min-width: ${lg}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _xl: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (min-width: ${xl}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
+  _xs: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (max-width: ${xs}px) { ${css(literals, ...placeholders)} }`,
+  _sm: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (min-width: ${sm}px) { ${css(literals, ...placeholders)} }`,
+  _md: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (min-width: ${md}px) { ${css(literals, ...placeholders)} }`,
+  _lg: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (min-width: ${lg}px) { ${css(literals, ...placeholders)} }`,
+  _xl: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (min-width: ${xl}px) { ${css(literals, ...placeholders)} }`,
 });
 
 const getMediaMixinsDown = ({ xl, lg, md, sm, xs }: IMediaBreakpoints): IMediaMixins => ({
-  _xs: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (max-width: ${xs}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _sm: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (max-width: ${sm}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _md: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (max-width: ${md}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _lg: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (max-width: ${lg}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,
-  _xl: (literals: TemplateStringsArray, ...placeholders: any[]) => css`
-    @media (min-width: ${xl}px) {
-      ${css(literals, ...placeholders)}
-    }
-  `,  
+  _xs: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (max-width: ${xs}px) { ${css(literals, ...placeholders)} }`,
+  _sm: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (max-width: ${sm}px) { ${css(literals, ...placeholders)} }`,
+  _md: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (max-width: ${md}px) { ${css(literals, ...placeholders)} }`,
+  _lg: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (max-width: ${lg}px) { ${css(literals, ...placeholders)} }`,
+  _xl: (literals: TemplateStringsArray, ...placeholders: any[]): FlattenSimpleInterpolation => css`@media (min-width: ${xl}px) { ${css(literals, ...placeholders)} }`,
 });
 
 export { styleMixins, getMediaMixinsUp, getMediaMixinsDown };

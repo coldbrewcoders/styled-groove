@@ -1,11 +1,14 @@
 # Dependencies
-/node_modules
+node_modules/
 
 # Typescript
-/lib
+lib/
+
+# Jest 
+coverage/
 
 # Storybook
-/storybook-static
+storybook-static/
 
 # Miscellanous
 .DS_Store

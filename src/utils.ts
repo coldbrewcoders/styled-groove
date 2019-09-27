@@ -11,7 +11,7 @@ import { IMediaBreakpoints, IConfig, ICustomMediaBreakpointSize, ICustomMediaBre
 
 
 // Default config object
-const defaultConfig: IConfig = { 
+const defaultConfig: IConfig = {
   ignoreMediaMixins: false,
   mediaStrategy: MEDIA_STRATEGIES.UP,
   mediaBreakpoints: DEFAULT_MEDIA_BREAKPOINTS_UP
@@ -35,9 +35,9 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }: IMediaBreakpoints, med
   }
 
   // Check that breakpoint sizes are in proper order
-  if((xl > lg) && (lg > md) && (md > sm)  && (sm > xs)) {
+  if((xl > lg) && (lg > md) && (md > sm) && (sm > xs)) {
     return true;
-  } 
+  }
   else {
     console.warn(`Styled-Groove: Invalid custom config.mediaBreakpoints passed, using default breakpoints. The following condition was violated: (xl > lg > md > sm > xs). Passed values: xl -> ${xl}, lg -> ${lg}, md -> ${md}, sm -> ${sm}, xs -> ${xs}.`);
     return false;
@@ -102,13 +102,13 @@ export const processConfigObject = (config: ICustomConfig): ICustomConfig | ICon
     else {
 
       // Get list of keys from passed custom media breakpoints config
-      const configMediaBreakpointKeys: string[] = Object.keys(<ICustomMediaBreakpoints>config.mediaBreakpoints);
+      const configMediaBreakpointKeys: string[] = Object.keys(config.mediaBreakpoints as ICustomMediaBreakpoints);
 
       // Define list of allowed keys for config.mediaBreakpoints
       const allowedMediaBreakpointKeys: string[] = ["xl", "lg", "md", "sm", "xs"];
 
       // Keep track if passed custom config has valid media breakpoints
-      let isConfigMediaBreakpointsValid: boolean = true;
+      let isConfigMediaBreakpointsValid = true;
 
       // Iterate through keys of custom media breakpoints
       for(let i = 0; i < configMediaBreakpointKeys.length; i++) {
@@ -124,9 +124,9 @@ export const processConfigObject = (config: ICustomConfig): ICustomConfig | ICon
         }
 
         // Get value for current media breakpoint key
-        const currentBreakpointValue: number | undefined = (<ICustomMediaBreakpointSize>config.mediaBreakpoints)[currentMediaBreakpointKey];
+        const currentBreakpointValue: number | undefined = (config.mediaBreakpoints as ICustomMediaBreakpointSize)[currentMediaBreakpointKey];
 
-        // Check that config.mediaSizes has numerical values for each key
+        // Check that config.mediaBreakpoints has numerical values for each key
         if(typeof currentBreakpointValue !== "number") {
           console.warn(`Styled-Groove: mediaBreakpoints object has invalid value. All values must be numbers, using default breakpoints. Invalid object property ${currentMediaBreakpointKey} had value of ${currentBreakpointValue}`);
           isConfigMediaBreakpointsValid = false;
@@ -148,7 +148,7 @@ export const processConfigObject = (config: ICustomConfig): ICustomConfig | ICon
         };
 
         // Check that overridden media width breakpoints are valid
-        if(areMediaWidthRangesValid(<IMediaBreakpoints>overriddenMediaBreakpoints, currentMediaStrategy)) {
+        if(areMediaWidthRangesValid(overriddenMediaBreakpoints as IMediaBreakpoints, currentMediaStrategy)) {
 
           // Apply overridden media breakpoints to custom config object
           customConfig = {

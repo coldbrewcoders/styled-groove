@@ -46,19 +46,19 @@ const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInter
   return css`${stylesList}`;
 }
 
-export const mixinMapper = (props: IComponentProps, config: ICustomConfig): FlattenSimpleInterpolation | undefined => {
+export const mixinMapper = (props?: IComponentProps, config?: ICustomConfig): FlattenSimpleInterpolation | undefined => {
 
   // Short-circuit if props isn't strictly an object
   if (!isPlainObject(props)) return;
 
   // Get all prop keys from component
-  const propKeys: string[] = Object.keys(props);
+  const propKeys: string[] = Object.keys(props as IComponentProps);
 
   // Short-circuit if props object is empty
   if(propKeys.length === 0) return;
 
   // Process config object to get configurable values
-  const { ignoreMediaMixins, mediaStrategy, mediaBreakpoints = DEFAULT_MEDIA_BREAKPOINTS_UP }: ICustomConfig | IConfig = processConfigObject(config);
+  const { ignoreMediaMixins, mediaStrategy, mediaBreakpoints = DEFAULT_MEDIA_BREAKPOINTS_UP }: ICustomConfig | IConfig = processConfigObject(config as ICustomConfig);
 
   // Get media mixin object based on up or down media strategy (default is media strategy is up)
   const mediaMixins: IMediaMixins = (mediaStrategy === MEDIA_STRATEGIES.UP) ? getMediaMixinsUp(mediaBreakpoints as IMediaBreakpoints) : getMediaMixinsDown(mediaBreakpoints as IMediaBreakpoints);
@@ -71,7 +71,7 @@ export const mixinMapper = (props: IComponentProps, config: ICustomConfig): Flat
   propKeys.forEach((propKey: string) => {
 
     // Get prop value
-    const propValue: ComponentPropValue = props[propKey];
+    const propValue: ComponentPropValue = (props as IComponentProps)[propKey];
 
     // If falsy prop value found that isn't 'number: 0', short-circuit
     if (!propValue && propValue !== 0) return;

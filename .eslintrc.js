@@ -31,7 +31,11 @@ module.exports = {
     {
       "files": ["*.ts", ".tsx"],
       "rules": {
-        "no-undef": 0
+        "no-undef": 0,
+        "import/no-unresolved": 0,
+        "import/namespace": 0,
+        "import/named": 0,
+        "import/default": 0
       }
     }
   ],

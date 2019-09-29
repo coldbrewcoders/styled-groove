@@ -103,7 +103,7 @@ storiesOf("Custom Config Test", module)
     `;
 
     return (
-      <BoxWithUpMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>XS -> 550px</BoxWithUpMediaStrategy>
+      <BoxWithUpMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>{"XS -> 550px"}</BoxWithUpMediaStrategy>
     );
   })
   .add("Custom Media Width Test (Down Media Strategy)", () => {
@@ -121,7 +121,7 @@ storiesOf("Custom Config Test", module)
     `;
 
     return (
-      <BoxWithDownMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>XL -> 1000px</BoxWithDownMediaStrategy>
+      <BoxWithDownMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>{"XL -> 1000px"}</BoxWithDownMediaStrategy>
     );
   })
   .add("Invalid Custom Media With Test **Should See Console Warning**)", () => {

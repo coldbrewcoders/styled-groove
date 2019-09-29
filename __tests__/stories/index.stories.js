@@ -99,7 +99,7 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaSizes: { xs: 550, sm: 551 } })}
+      ${(props) => applyGroove(props, { mediaBreakpoints: { xs: 550, sm: 551 } })}
     `;
 
     return (
@@ -117,7 +117,7 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaSizes: { xl: 1000, lg: 999 } })}
+      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaBreakpoints: { xl: 1000, lg: 999 } })}
     `;
 
     return (
@@ -126,7 +126,7 @@ storiesOf("Custom Config Test", module)
   })
   .add("Invalid Custom Media With Test **Should See Console Warning**)", () => {
 
-    const BoxWithInvalidCustomMediaSizes = styled.div`
+    const BoxWithInvalidCustomMediaBreakpoints = styled.div`
       width: 200px;
       height: 200px;
       margin: auto;
@@ -135,19 +135,19 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaSizes: { lg: 1000, md: 1050 } })}
+      ${(props) => applyGroove(props, { mediaBreakpoints: { lg: 1000, md: 1050 } })}
     `;
 
-    // Default mediaSizes will be applied, (see warning in console)
+    // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaSizes _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaSizes>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaBreakpoints>
     );
 
   })
   .add("Invalid Custom Media With Test (Up Media Strategy, **should see warning**)", () => {
 
-    const BoxWithInvalidCustomMediaSizes = styled.div`
+    const BoxWithInvalidCustomMediaBreakpoints = styled.div`
       width: 200px;
       height: 200px;
       margin: auto;
@@ -156,19 +156,19 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaSizes: { sm: 551, xs: 549} })}
+      ${(props) => applyGroove(props, { mediaBreakpoints: { sm: 551, xs: 549} })}
     `;
 
-    // Default mediaSizes will be applied, (see warning in console)
+    // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaSizes _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaSizes>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaB>
     );
 
   })
   .add("Invalid Custom Media With Test (Down Media Strategy, **should see warning**)", () => {
 
-    const BoxWithInvalidCustomMediaSizes = styled.div`
+    const BoxWithInvalidCustomMediaBreakpoints = styled.div`
       width: 200px;
       height: 200px;
       margin: auto;
@@ -177,13 +177,13 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaSizes: { xl: 1201, lg: 1999} })}
+      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaBreakpoints: { xl: 1201, lg: 1999} })}
     `;
 
-    // Default mediaSizes will be applied, (see warning in console)
+    // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaSizes _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaSizes>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaB>
     );
 
   });

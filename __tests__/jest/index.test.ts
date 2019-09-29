@@ -265,9 +265,9 @@ test("applyGroove(): config edge cases and errors", () => {
   expect(applyGroove({ position: "relative" }, [])).toEqual(["position: ", "relative", ";"]);
   expect(applyGroove({ position: "relative" }, { ignoreMediaMixins: false })).toEqual(["position: ", "relative", ";"]);
   expect(applyGroove({ position: "relative" }, { mediaStrategy: "invalidValue" })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: 7 })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: { invalidProp: "blah" } })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: { xs: 300, sm: 302 } })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaStrategy: "down", mediaSizes: { xl: 1000, lg: 950 } })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: { xl: 1000, lg: 1200 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: 7 })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { invalidProp: "blah" } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { xs: 300, sm: 302 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaStrategy: "down", mediaBreakpoints: { xl: 1000, lg: 950 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { xl: 1000, lg: 1200 } })).toEqual(["position: ", "relative", ";"]);
 });

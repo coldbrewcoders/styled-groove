@@ -14,7 +14,7 @@ jest.config.js
 .eslintrc.js
 .eslintignore
 .gitignore
-.tsconfig.json
+tsconfig.json
 
 # Miscellaneous
 *.env*

@@ -270,4 +270,7 @@ test("applyGroove(): config edge cases and errors", () => {
   expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { xs: 300, sm: 302 } })).toEqual(["position: ", "relative", ";"]);
   expect(applyGroove({ position: "relative" }, { mediaStrategy: "down", mediaBreakpoints: { xl: 1000, lg: 950 } })).toEqual(["position: ", "relative", ";"]);
   expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { xl: 1000, lg: 1200 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { md: {} } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { md: "asdfasdf" } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { md: NaN } })).toEqual(["position: ", "relative", ";"]);
 });

@@ -27,7 +27,8 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }: IMediaBreakpoints, med
       return false;
     }
   }
-  else if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
+  else {
+    // Using down media strategy
     if((xl - lg) !== 1) {
       console.warn(`Styled-Groove: Invalid custom config.mediaBreakpoints passed, using default breakpoints. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
       return false;
@@ -127,7 +128,7 @@ export const processConfigObject = (config: ICustomConfig): ICustomConfig | ICon
         const currentBreakpointValue: number | undefined = (config.mediaBreakpoints as ICustomMediaBreakpointSize)[currentMediaBreakpointKey];
 
         // Check that config.mediaBreakpoints has numerical values for each key
-        if(typeof currentBreakpointValue !== "number") {
+        if(typeof currentBreakpointValue !== "number" || isNaN(currentBreakpointValue)) {
           console.warn(`Styled-Groove: mediaBreakpoints object has invalid value. All values must be numbers, using default breakpoints. Invalid object property ${currentMediaBreakpointKey} had value of ${currentBreakpointValue}`);
           isConfigMediaBreakpointsValid = false;
           break;

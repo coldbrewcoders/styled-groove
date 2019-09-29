@@ -162,7 +162,7 @@ storiesOf("Custom Config Test", module)
     // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaB>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaBreakpoints>
     );
 
   })
@@ -183,7 +183,7 @@ storiesOf("Custom Config Test", module)
     // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaB>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaBreakpoints>
     );
 
   });

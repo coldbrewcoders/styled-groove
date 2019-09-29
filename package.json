@@ -20,8 +20,8 @@
     "test-coverage": "jest --silent --coverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "author": "coldbrewcoders",
   "license": "MIT",
   "keywords": [
@@ -35,16 +35,17 @@
     "groove"
   ],
   "dependencies": {
-    "is-plain-object": "3.0.0"
+    "is-plain-object": "3.0.0",
+    "@types/styled-components": "4.x"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
     "@storybook/react": "5.2.1",
     "@types/jest": "24.0.18",
-    "@types/styled-components": "4.1.19",
     "@typescript-eslint/eslint-plugin": "2.3.1",
     "@typescript-eslint/parser": "2.3.1",
     "babel-loader": "8.0.6",
+    "babel-plugin-module-resolver": "3.2.0",
     "eslint": "6.4.0",
     "eslint-import-resolver-babel-module": "5.1.0",
     "eslint-plugin-babel": "5.3.0",

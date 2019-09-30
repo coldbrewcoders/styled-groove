@@ -104,7 +104,7 @@ test("applyGroove(): Style Props (no config obj)", () => {
   expect(applyGroove({ backgroundSize: "40px 40px" })).toEqual(["background-size: ", "40px 40px", ";"]);
   expect(applyGroove({ backgroundImage: "https://test.com/img.jpg" })).toEqual(["background-image: url(", "https://test.com/img.jpg", ");"]);
   expect(applyGroove({ backgroundColor: "#666" })).toEqual(["background-color: ", "#666", ";"]);
-  expect(applyGroove({ backgroundColorHover: "#fff" })).toEqual(["&&{&:hover{background-color: ", "#fff", ";}}"]);
+  expect(applyGroove({ backgroundHoverColor: "#fff" })).toEqual(["&&{&:hover{background-color: ", "#fff", ";}}"]);
   expect(applyGroove({ backgroundAttachment: "initial" })).toEqual(["background-attachment: ", "initial", ";"]);
   expect(applyGroove({ backgroundClip: "initial" })).toEqual(["background-clip: ", "initial", ";"]);
   expect(applyGroove({ backgroundOrigin: "content-box" })).toEqual(["background-origin: ", "content-box", ";"]);

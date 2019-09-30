@@ -1,6 +1,7 @@
-import { css, FlattenSimpleInterpolation } from "styled-components";
+import { css } from "styled-components";
 
 // Interfaces
+import { FlattenSimpleInterpolation } from "styled-components";
 import { IMediaBreakpoints, IStyleMixins, IMediaMixins } from "./definitions";
 
 

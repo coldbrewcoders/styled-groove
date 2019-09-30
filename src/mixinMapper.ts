@@ -1,4 +1,4 @@
-import { css, FlattenSimpleInterpolation } from "styled-components";
+import { css } from "styled-components";
 import isPlainObject from "is-plain-object";
 
 // Mixins
@@ -11,10 +11,11 @@ import { processConfigObject } from "./utils";
 import { MEDIA_STRATEGIES, DEFAULT_MEDIA_BREAKPOINTS_UP } from "./definitions";
 
 // Interfaces
+import { FlattenSimpleInterpolation } from "styled-components";
 import { IMediaBreakpoints, IMediaStylesMap, IComponentProps, IConfig, ICustomConfig, IMediaMixins } from "./definitions";
 
 // Types
-import { Mixin, MediaMixin, ComponentPropValue } from "./definitions";
+import { Mixin, MediaMixin, ComponentPropValue, MixinMapper, CurriedMixinMapper } from "./definitions";
 
 
 const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInterpolation | undefined => {
@@ -46,7 +47,7 @@ const mixinMapperIgnoreMediaProps = (props: IComponentProps): FlattenSimpleInter
   return css`${stylesList}`;
 }
 
-export const mixinMapper = (props?: IComponentProps, config?: ICustomConfig): FlattenSimpleInterpolation | undefined => {
+export const mixinMapper: MixinMapper = (props?: IComponentProps, config?: ICustomConfig): FlattenSimpleInterpolation | undefined => {
 
   // Short-circuit if props isn't strictly an object
   if (!isPlainObject(props)) return;
@@ -143,4 +144,4 @@ export const mixinMapper = (props?: IComponentProps, config?: ICustomConfig): Fl
   return css`${stylesList}`;
 };
 
-export const curriedMixinMapper = (config: ICustomConfig) => (props: IComponentProps): any => mixinMapper(props, config);
+export const curriedMixinMapper: CurriedMixinMapper = (config?: ICustomConfig) => (props?: IComponentProps): FlattenSimpleInterpolation | undefined => mixinMapper(props, config);

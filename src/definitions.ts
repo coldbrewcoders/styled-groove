@@ -1,3 +1,4 @@
+// Interfaces
 import { FlattenSimpleInterpolation } from "styled-components";
 
 
@@ -7,14 +8,32 @@ enum MEDIA_STRATEGIES {
   DOWN = "down"
 }
 
+// Enum to represent allowed keys for config.mediaBreakpoints
+enum MEDIA_BREAKPOINT_KEYS {
+  XS = "xs",
+  SM = "sm",
+  MD = "md",
+  LG = "lg",
+  XL = "xl"
+}
+
 // Type for value of a component prop
 type ComponentPropValue = number | string | object | boolean;
+
+// Type for media breakpoint key
+type MediaBreakpointKey = MEDIA_BREAKPOINT_KEYS.XS | MEDIA_BREAKPOINT_KEYS.SM | MEDIA_BREAKPOINT_KEYS.MD | MEDIA_BREAKPOINT_KEYS.LG | MEDIA_BREAKPOINT_KEYS.XL;
 
 // Type for style mixins
 type Mixin = (value: string) => FlattenSimpleInterpolation;
 
 // Type for media mixins
 type MediaMixin = (literals: TemplateStringsArray, ...placeholders: any[]) => FlattenSimpleInterpolation;
+
+// Type for mixinMapper
+type MixinMapper = (props?: IComponentProps, config?: ICustomConfig) => FlattenSimpleInterpolation | undefined;
+
+// Type for curriedMixinMapper
+type CurriedMixinMapper = (config?: ICustomConfig) => MixinMapper;
 
 // Interface for default media breakpoints (pixel widths for different screen sizes)
 interface IMediaBreakpoints {
@@ -91,11 +110,12 @@ const DEFAULT_MEDIA_BREAKPOINTS_DOWN: IMediaBreakpoints = {
   xs: 575
 };
 
+
 // Enums
-export { MEDIA_STRATEGIES };
+export { MEDIA_STRATEGIES, MEDIA_BREAKPOINT_KEYS };
 
 // Types
-export { Mixin, MediaMixin, ComponentPropValue };
+export { Mixin, MediaMixin, ComponentPropValue, MediaBreakpointKey, MixinMapper, CurriedMixinMapper };
 
 // Interfaces
 export { IMediaBreakpoints, ICustomMediaBreakpoints, ICustomMediaBreakpointSize, IStyleMixins, IComponentProps, IMediaMixins, IMediaStylesMap, IConfig, ICustomConfig };

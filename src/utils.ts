@@ -4,7 +4,10 @@ import isPlainObject from "is-plain-object";
 import { DEFAULT_MEDIA_BREAKPOINTS_UP, DEFAULT_MEDIA_BREAKPOINTS_DOWN } from "./definitions";
 
 // Enums
-import { MEDIA_STRATEGIES } from "./definitions";
+import { MEDIA_STRATEGIES, MEDIA_BREAKPOINT_KEYS } from "./definitions";
+
+// Types
+import { MediaBreakpointKey } from "./definitions";
 
 // Interfaces
 import { IMediaBreakpoints, IConfig, ICustomMediaBreakpointSize, ICustomMediaBreakpoints, ICustomConfig } from "./definitions";
@@ -27,7 +30,8 @@ const areMediaWidthRangesValid = ({ xl, lg, md, sm, xs }: IMediaBreakpoints, med
       return false;
     }
   }
-  else if(mediaStrategy === MEDIA_STRATEGIES.DOWN) {
+  else {
+    // Using down media strategy
     if((xl - lg) !== 1) {
       console.warn(`Styled-Groove: Invalid custom config.mediaBreakpoints passed, using default breakpoints. For down media strategy, lg must be equal to xl - 1. Passed values: lg -> ${lg}, xl -> ${xl}.`);
       return false;
@@ -104,9 +108,6 @@ export const processConfigObject = (config: ICustomConfig): ICustomConfig | ICon
       // Get list of keys from passed custom media breakpoints config
       const configMediaBreakpointKeys: string[] = Object.keys(config.mediaBreakpoints as ICustomMediaBreakpoints);
 
-      // Define list of allowed keys for config.mediaBreakpoints
-      const allowedMediaBreakpointKeys: string[] = ["xl", "lg", "md", "sm", "xs"];
-
       // Keep track if passed custom config has valid media breakpoints
       let isConfigMediaBreakpointsValid = true;
 
@@ -114,11 +115,11 @@ export const processConfigObject = (config: ICustomConfig): ICustomConfig | ICon
       for(let i = 0; i < configMediaBreakpointKeys.length; i++) {
 
         // Get current media breakpoint key
-        const currentMediaBreakpointKey: string = configMediaBreakpointKeys[i];
+        const currentMediaBreakpointKey: MediaBreakpointKey | string = configMediaBreakpointKeys[i];
 
         // Check that config.mediaBreakpoints only contains valid keys
-        if(!allowedMediaBreakpointKeys.includes(currentMediaBreakpointKey)) {
-          console.warn(`Styled-Groove: Invalid mediaBreakpoints value passed in config object. Object keys can only be 'xl', 'lg', 'md', 'sm' and 'xm'. Invalid object key: ${currentMediaBreakpointKey}.`);
+        if(!Object.values(MEDIA_BREAKPOINT_KEYS).includes(currentMediaBreakpointKey as MediaBreakpointKey)) {
+          console.warn(`Styled-Groove: Invalid mediaBreakpoints value passed in config object. Object keys can only be 'xl', 'lg', 'md', 'sm' and 'xs'. Invalid object key: ${currentMediaBreakpointKey}.`);
           isConfigMediaBreakpointsValid = false;
           break;
         }
@@ -127,7 +128,7 @@ export const processConfigObject = (config: ICustomConfig): ICustomConfig | ICon
         const currentBreakpointValue: number | undefined = (config.mediaBreakpoints as ICustomMediaBreakpointSize)[currentMediaBreakpointKey];
 
         // Check that config.mediaBreakpoints has numerical values for each key
-        if(typeof currentBreakpointValue !== "number") {
+        if(typeof currentBreakpointValue !== "number" || isNaN(currentBreakpointValue)) {
           console.warn(`Styled-Groove: mediaBreakpoints object has invalid value. All values must be numbers, using default breakpoints. Invalid object property ${currentMediaBreakpointKey} had value of ${currentBreakpointValue}`);
           isConfigMediaBreakpointsValid = false;
           break;

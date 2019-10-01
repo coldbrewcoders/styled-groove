@@ -1,4 +1,4 @@
-import applyGroove, { applyGrooveCustomConfig } from "../../lib";
+import applyGroove, { applyGrooveCustomConfig } from "../../src";
 
 
 /** Unit Tests for applyGroove **/
@@ -104,7 +104,7 @@ test("applyGroove(): Style Props (no config obj)", () => {
   expect(applyGroove({ backgroundSize: "40px 40px" })).toEqual(["background-size: ", "40px 40px", ";"]);
   expect(applyGroove({ backgroundImage: "https://test.com/img.jpg" })).toEqual(["background-image: url(", "https://test.com/img.jpg", ");"]);
   expect(applyGroove({ backgroundColor: "#666" })).toEqual(["background-color: ", "#666", ";"]);
-  expect(applyGroove({ backgroundColorHover: "#fff" })).toEqual(["&&{&:hover{background-color: ", "#fff", ";}}"]);
+  expect(applyGroove({ backgroundHoverColor: "#fff" })).toEqual(["&&{&:hover{background-color: ", "#fff", ";}}"]);
   expect(applyGroove({ backgroundAttachment: "initial" })).toEqual(["background-attachment: ", "initial", ";"]);
   expect(applyGroove({ backgroundClip: "initial" })).toEqual(["background-clip: ", "initial", ";"]);
   expect(applyGroove({ backgroundOrigin: "content-box" })).toEqual(["background-origin: ", "content-box", ";"]);
@@ -265,9 +265,12 @@ test("applyGroove(): config edge cases and errors", () => {
   expect(applyGroove({ position: "relative" }, [])).toEqual(["position: ", "relative", ";"]);
   expect(applyGroove({ position: "relative" }, { ignoreMediaMixins: false })).toEqual(["position: ", "relative", ";"]);
   expect(applyGroove({ position: "relative" }, { mediaStrategy: "invalidValue" })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: 7 })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: { invalidProp: "blah" } })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: { xs: 300, sm: 302 } })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaStrategy: "down", mediaSizes: { xl: 1000, lg: 950 } })).toEqual(["position: ", "relative", ";"]);
-  expect(applyGroove({ position: "relative" }, { mediaSizes: { xl: 1000, lg: 1200 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: 7 })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { invalidProp: "blah" } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { xs: 300, sm: 302 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaStrategy: "down", mediaBreakpoints: { xl: 1000, lg: 950 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { xl: 1000, lg: 1200 } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { md: {} } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { md: "asdfasdf" } })).toEqual(["position: ", "relative", ";"]);
+  expect(applyGroove({ position: "relative" }, { mediaBreakpoints: { md: NaN } })).toEqual(["position: ", "relative", ";"]);
 });

@@ -4,250 +4,333 @@
 [![NPM version](https://img.shields.io/npm/v/styled-groovy.svg?style=flat-square)](https://npmjs.org/package/styled-groove)
 [![Build Status](https://img.shields.io/travis/diegohaz/styled-theme/master.svg?style=flat-square)](https://travis-ci.org/diegohaz/styled-theme) [![Coverage Status](https://img.shields.io/codecov/c/github/diegohaz/styled-theme/master.svg?style=flat-square)](https://codecov.io/gh/diegohaz/styled-theme/branch/master)
 
-A library that provides dynamic, component-level, styling via React props. The intent is to build atop styled-components 💅🏻 and make styling a component easier and more robust.
+A library used with `styled-components` 💅🏻that provides dynamic, component-level styling via props. Extending your components with `styled-groove` allows for more flexibility and reusability in your styled components. `Styled-groove` also has rich feature support for responsive styling. 
+
 
 ## Install
-It only takes a single command to install styled-groove and get you grooving.
 
-    $ npm install --save styled-groove
-    or
-    $ yarn add styled-groove
+```
+$ npm install --save styled-groove
+or
+$ yarn add styled-groove
+```
 
-## Implementation without Theme
+
+## Quick Start
+
+Apply Groove to any styled component by adding the `applyGroove()` function to the bottom of your `styled` template.
 
 ```js
 import styled from "styled-components";
 import applyGroove from "styled-groove";
 
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: #fff;
+const Example = styled.div`
+  .
+  .
+  .
 
-  ${(props) => applyGroove(props)}
-`;
-```
-
-## Implementation with Theme
-https://www.styled-components.com/docs/advanced#theming
-```jsx
-import { ThemeProvider } from "styled-components";
-import applyGroove from "styled-groove";
-
-// Define what props.theme will look like
-const theme = {
-  applyGroove
-};
-
-...
-
-render(
-  <div>
-    <ThemeProvider theme={theme}>
-      <Title>Themed</Title>
-    </ThemeProvider>
-  </div>
-);
-```
-
-```js
-import styled from "styled-components";
-
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: #fff;
-
-  ${(props) => props.theme.applyGroove(props)}
+  ${props => applyGroove(props)}
 `;
 ```
 
 
 ## How It Works
-`styled-groove` in its simplest form is an object that contains CSS properties for use in components.
+`styled-groove` is a mixin that contains most of the CSS properties. The `applyGroove()` function examines the props passed to the component and maps them to the applicable styles so you don't have to.
 
-The applyGroove() function loops through the Component props and maps them to the applicable styles so you don't have to.
+The primary intent is to remove the repetition of having to declare multiple styled-components in favor of declaring one and, if needed, extending it on a per use basis.
 
-The intent is to remove the repitition of adding styles to component declarations and make applying styles dynamic based on the UI/UX needs.
 
 # Examples 
 ## Before & After
-By allowing styles to be applied in-line to the Components, there becomes less of a need to define new components 
-### Before
+By allowing styles to be applied to components in-line, there becomes less of a need to define new styled-components. This is a simple example, but highlights the main purpose of `styled-groove`.
+
+### Before:
 ```jsx
-const PrimaryButton1 = styled(PrimaryButton)`
+import styled from "styled-components";
+
+const Button1 = styled.button`
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
   margin-right: 4px;
-  ...
 `;
-const PrimaryButton2 = styled(PrimaryButton)`
+
+const Button2 = styled.button`
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
   margin-left: 4px;
-  ...
 `;
-<PrimaryButton1>Button 1</PrimaryButton1>
-<PrimaryButton2>Button 2</PrimaryButton2>
+
+.
+.
+.
+
+<Button1>Save</Button1>
+<Button2>Cancel</Button2>
 ```
-### After
+
+### After:
 ```jsx
-<PrimaryButton1 marginRight="4px">Button 1</PrimaryButton1>
-<PrimaryButton2 marginLeft="4px">Button 2</PrimaryButton2>
+import styled from "styled-components";
+import applyGroove from "styled-groove";
+
+const Button = styled.button`
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+
+  ${props => applyGroove(props)}
+`;
+
+.
+.
+.
+
+<Button marginRight="4px">Save</Button>
+<Button marginLeft="4px">Cancel</Button>
+```
+
+## Implementation with Theme
+https://www.styled-components.com/docs/advanced#theming
+
+If you're using a theme object with `styled-components`, you can add the `applyGrove()` function to it. Also, if you pass any custom config options (will be discussed below), this is a good way to standardize your config options across your app, only defining it once.
+
+```jsx
+import { ThemeProvider } from "styled-components";
+import applyGroove from "styled-groove";
+
+// Defining theme
+const theme = {
+  .
+  .
+  .
+
+  // Default settings
+  applyGroove
+};
+
+or
+
+import { ThemeProvider } from "styled-components";
+import { applyGrooveCustomConfig } from "styled-groove";
+
+// Defining theme
+const theme = {
+  ...,
+
+  // Custom config settings
+  applyGroove: applyGrooveCustomConfig({
+    mediaStrategy: "down",
+    mediaBreakpoints: { xs: 255, sm: 320, md: 450, lg: 799, xl: 800 }
+  })
+};
+
+...
+
+// Wrap your app in ThemeProvider
+<ThemeProvider theme={theme}>
+  ...
+</ThemeProvider>
+
+```
+
+Now we have access to the `applyGroove()` function in all of our styled-component templates.
+
+```js
+import styled from "styled-components";
+
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: #fff;
+
+  // Access to appGroove() in any styled-component
+  ${(props) => props.theme.applyGroove(props)}
+`;
 ```
 
 
+# Style Props:
 
-### Display
+### Display props:
 
 | Prop (key)    | Template Literal CSS Fn (value)               |
 | --------------|:----------------------------------------------:
 | display       | (value) => css\`display: ${value};`           |
 | position      | (value) => css\`position: ${value};`          |
 | float         | (value) => css\`float: ${value};`             |
+| clear         | (value) => css\`clear: ${value};`             |
 | overflow      | (value) => css\`overflow: ${value};`          |
 | overflowX     | (value) => css\`overflow-x: ${value};`        |
 | overflowY     | (value) => css\`overflow-y: ${value};`        |
+| visibility    | (value) => css\`visibility: ${value};`        |
+| zIndex        | (value) => css\`z-index: ${value};`           |
 
-### Sizing
 
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
+### Sizing props:
+
+| Prop (key)    | Template Literal CSS Fn (value)               |
+| --------------|:----------------------------------------------:
+| height        | (value) => css\`height: ${value};`            |
 | width         | (value) => css\`width: ${value};`             |
 | minHeight     | (value) => css\`min-height: ${value};`        | 
-| height        | (value) => css\`height: ${value};`            |
 | minWidth      | (value) => css\`min-width: ${value};`         |
 | maxHeight     | (value) => css\`max-height: ${value};`        |
 | maxWidth      | (value) => css\`max-width: ${value};`         |
 
-### Margin/Padding
 
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
-| margin        | (value) => css\`margin: ${value};`            |
-| marginTop     | (value) => css\`margin-top: ${value};`        |
-| marginBottom  | (value) => css\`margin-bottom: ${value};`     | 
-| marginLeft    | (value) => css\`margin-left: ${value};`       |
-| marginRight   | (value) => css\`margin-right: ${value};`      |
-| marginX       | (value) => css\`                              |
-|               | margin-left: ${value};                        |
-|               | margin-right: ${value};                       |
-| marginY       | (value) => css\`                              |
-|               | margin-top: ${value};                         |
-|               | margin-bottom: ${value}; `                    |
-| padding       | (value) => css\`padding: ${value};`           |
-| paddingTop    | (value) => css\`padding-top: ${value};`       |
-| paddingBottom | (value) => css\`padding-bottom: ${value};`    |  
-| paddingLeft   | (value) => css\`padding-left: ${value};`      |
-| paddingRight  | (value) => css\`padding-right: ${value};`     |
-| paddingX      | (value) => css\`                              |
-|               | padding-left: ${value};                       |
-|               | padding-right: ${value}; `                    |
-| paddingY      | (value) => css\`                              |
-|               | padding-top: ${value};                        |
-|               | padding-bottom: ${value}; `                   |
+### Margin props:
 
-### Positioning
+| Prop (key)    | Template Literal CSS Fn (value)                                 |
+| --------------|:----------------------------------------------------------------:
+| margin        | (value) => css\`margin: ${value};`                              |
+| marginTop     | (value) => css\`margin-top: ${value};`                          |
+| marginBottom  | (value) => css\`margin-bottom: ${value};`                       | 
+| marginLeft    | (value) => css\`margin-left: ${value};`                         |
+| marginRight   | (value) => css\`margin-right: ${value};`                        |
+| marginX       | (value) => css\`margin-left: ${value}; margin-right: ${value};` |
+| marginY       | (value) => css\`margin-top: ${value}; margin-bottom: ${value};` |                           |
 
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
+
+### Padding props:
+
+| Prop (key)    | Template Literal CSS Fn (value)                                   |
+| --------------|:------------------------------------------------------------------:
+| padding       | (value) => css\`padding: ${value};`                               |
+| paddingTop    | (value) => css\`padding-top: ${value};`                           |
+| paddingBottom | (value) => css\`padding-bottom: ${value};`                        |  
+| paddingLeft   | (value) => css\`padding-left: ${value};`                          |
+| paddingRight  | (value) => css\`padding-right: ${value};`                         |
+| paddingX      | (value) => css\`padding-left: ${value}; padding-right: ${value};` |
+| paddingY      | (value) => css\`padding-top: ${value}; padding-bottom: ${value};` |                         |
+
+
+### Positioning props:
+
+| Prop (key)    | Template Literal CSS Fn (value)               |
+| --------------|:----------------------------------------------:
 | top           | (value) => css\`top: ${value};`               |
 | bottom        | (value) => css\`bottom: ${value};`            |
 | left          | (value) => css\`left: ${value};`              |
 | right         | (value) => css\`right: ${value};`             |
 
-### Typography
 
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
+### Typography props:
+
+| Prop (key)    | Template Literal CSS Fn (value)               |
+| --------------|:----------------------------------------------:
 | color         | (value) => css\`color: ${value};`             |
 | fontSize      | (value) => css\`font-size: ${value};`         |
 | fontWeight    | (value) => css\`font-weight: ${value};`       |
+| fontFamily    | (value) => css\`font-family: ${value};`       |
+| fontStyle     | (value) => css\`font-style: ${value};`        |
 | textAlign     | (value) => css\`text-align: ${value};`        |
 | textDecoration| (value) => css\`text-decoration: ${value};`   |
 | hoverColor    | (value) => css\`&&{&:hover{color: ${value};}}`|
 | lineHeight    | (value) => css\`line-height: ${value};`       |
 | letterSpacing | (value) => css\`letter-spacing: ${value};`    |
-
-#### Typography extra
-
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
+| hyphens       | (value) => css\`hyphens: ${value};`           |
+| textOverflow  | (value) => css\`text-overflow: ${value};`     |
+| textShadow    | (value) => css\`text-shadow: ${value};`       |
+| textTransform | (value) => css\`text-transform: ${value};`    |
 | light         | () => css\`font-weight: 300;`                 |
 | bold          | () => css\`font-weight: bold;`                |
-| underline     | () => css\`text-decoration: underline;`       |
-| normal        | () => css\`font-weight: normal;`              |
-| ellipsis      | () => css\`text-overflow: ellipsis;`          |
-
-### Border
-
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
-| border        | (value) => css\`border: ${value};`            |
-| borderTop     | (value) => css\`border-top: ${value};`        |
-| borderBottom  | (value) => css\`border-bottom: ${value};`     |
-| borderRight   | (value) => css\`border-right: ${value};`      |
-| borderLeft    | (value) => css\`border-left: ${value};`       |
-| borderColor   | (value) => css\`border-color: ${value};`      |
-| borderRadius  | (value) => css\`border-radius: ${value};`     |
-
-### Background
-
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
-| background         | (value) => css\`background: ${value};`           |
-| backgroundPosition | (value) => css\`background-position: ${value};`  |
-| backgroundSize     | (value) => css\`background-size: ${value};`      |
-| backgroundImage    | (value) => css\`background-image: url(${value});`|
-| backgroundColor    | (value) => css\`background-color: ${value};`     |
-| backgroundCover    | () => css\`background-size: cover;`              |
 
 
-### Misc and custom Props
+### Border props:
 
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
-| cursor        | (value) => css\`cursor: ${value};`            |
-| hide          | () => css\`display: none !important;`         |
-| whiteSpace    | (value) => css\`white-space: ${value};`       |
-| zIndex        | (value) => css\`z-index: ${value};`           |
-
-
-## Flexbox Props
-
-| Prop (key)    | Template Literal CSS Fn (value)              |
-| --------------|:---------------------------------------------:
-| isFlex        | () => css\`                                   |
-|               | display: flex;                               |
-|               | flex-wrap: wrap;`                            |
-| direction     | (value) => css\`flex-direction: ${value};`    |
-| wrap          | (value) => css\`flex-wrap: ${value};`         |
-| justifyContent| (value) => css\`justify-content: ${value};`   |
-| spaced        | () => css\`justify-content: space-between;`   |
-| around        | () => css\`justify-content: space-around;`    |
-| alignItems    | (value) => css\`align-items: ${value};`       |
-| alignContent  | (value) => css\`align-content: ${value};`     |
-| order         | (value) => css\`order: ${value};`             |
-| grow          | (value) => css\`flex-grow: ${value};`         |
-| shrink        | (value) => css\`flex-shrink: ${value};`       |
-| basis         | (value) => css\`flex-basis: ${value};`        |
-| alignSelf     | (value) => css\`align-self: ${value};`        |
-| centered      | () => css\`                                   |
-|               | align-content: center;                       |
-|               | align-items: center;                         |
-|               | justify-content: center; `                   |
-| hCentered     | () => css\`justify-content: center;`          |
-| vCentered     | () => css\`align-items: center;`              |
-
-## Responsive Props
+| Prop (key)              | Template Literal CSS Fn (value)                                                                     |
+| ------------------------|:----------------------------------------------------------------------------------------------------:
+| border                  | (value) => css\`border: ${value};`                                                                  |
+| borderTop               | (value) => css\`border-top: ${value};`                                                              |
+| borderBottom            | (value) => css\`border-bottom: ${value};`                                                           |
+| borderRight             | (value) => css\`border-right: ${value};`                                                            |
+| borderLeft              | (value) => css\`border-left: ${value};`                                                             |
+| borderColor             | (value) => css\`border-color: ${value};`                                                            |
+| borderRadius            | (value) => css\`border-radius: ${value};`                                                           |
+| borderTopLeftRadius     | (value) => css\`border-top-left-radius: ${value};`                                                  |
+| borderTopRightRadius    | (value) => css\`border-top-right-radius: ${value};`                                                 |
+| borderBottomRightRadius | (value) => css\`border-bottom-right-radius: ${value};`                                              |
+| borderBottomLeftRadius  | (value) => css\`border-bottom-left-radius: ${value};`                                               |
+| borderRightRadius       | (value) => css\`border-top-right-radius: ${value}; border-bottom-right-radius ${value};`            |
+| borderLeftRadius        | (value) => css\`border-top-left-radius: ${value}; border-bottom-left-radius ${value};`              |
+| borderTopRadius         | (value) => css\`border-top-left-radius: ${value}; border-top-right-radius: ${value};`               |
+| borderBottomRadius      | (value: string) => css\`border-bottom-left-radius: ${value}; border-bottom-right-radius: ${value};` |
+| boxShadow               | (value) => css\`box-shadow: ${value};`                                                              |
 
 
+### Background props:
 
-## Responsive Groove
-## Common Uses
+| Prop (key)            | Template Literal CSS Fn (value)                                   |
+| ----------------------|:------------------------------------------------------------------:
+| background            | (value) => css\`background: ${value};`                            |
+| backgroundPosition    | (value) => css\`background-position: ${value};`                   |
+| backgroundRepeat      | (value) => css\`background-repeat: ${value};`                     |
+| backgroundSize        | (value) => css\`background-size: ${value};`                       |
+| backgroundImage       | (value) => css\`background-image: url(${value});`                 |
+| backgroundColor       | (value) => css\`background-color: ${value};`                      |
+| backgroundHoverColor  | (value: string) => css\`&&{&:hover{background-color: ${value};}}` |
+| backgroundAttachment  | (value) => css\`background-attachment: ${value};`                 |
+| backgroundClip        | (value) => css\`background-clip: ${value};`                       |
+| backgroundOrigin      | (value) => css\`background-origin: ${value};`                     |
+| objectFit             | (value) => css\`object-fit: ${value};`                            |
+
+
+## Flexbox Props:
+
+| Prop (key)      | Template Literal CSS Fn (value)              |
+| ----------------|:---------------------------------------------:
+| flex            | (value) => css\`flex: ${value};`             |
+| flexDirection   | (value) => css\`flex-direction: ${value};`   |
+| flexWrap        | (value) => css\`flex-wrap: ${value};`        |
+| justifyContent  | (value) => css\`justify-content: ${value};`  |
+| alignItems      | (value) => css\`align-items: ${value};`      |
+| alignContent    | (value) => css\`align-content: ${value};`    |
+| alignSelf       | (value) => css\`align-self: ${value};`       |
+| order           | (value) => css\`order: ${value};`            |
+| flexGrow        | (value) => css\`flex-grow: ${value};`        |
+| flexShrink      | (value) => css\`flex-shrink: ${value};`      |
+| flexBasis       | (value) => css\`flex-basis: ${value};`       |
+
+
+### Misc props:
+
+| Prop (key)      | Template Literal CSS Fn (value)               |
+| ----------------|:----------------------------------------------:
+| cursor          | (value) => css\`cursor: ${value};`            |
+| direction       | (value) => css\`direction: ${value};`         |
+| opacity         | (value) => css\`opacity: ${value};`           |
+| overflowWrap    | (value) => css\`overflow-wrap: ${value};`     |
+| pointerEvents   | (value) => css\`pointer-events: ${value};`    |
+| transform       | (value) => css\`transform: ${value};`         |
+| transition      | (value) => css\`transition: ${value};`        |
+| transitionDelay | (value) => css\`transition-delay: ${value};`  |
+| userSelect      | (value) => css\`user-select: ${value};`       |
+| whiteSpace      | (value) => css\`white-space: ${value};`       |
+| wordSpacing     | (value) => css\`word-spacing: ${value};`      |
+| wordWrap        | (value) => css\`word-wrap: ${value};`         |
+
+
+## More Examples:
 
 Example 1:
 
 ```jsx
 import styled from "styled-components";
 import applyGroove from "styled-groove";
-
 
 const color1 = "#DA78F4";
 const color2 = "#252025";
@@ -314,95 +397,9 @@ const PyramidBlock = styled.div`
 ![Example 2](./assets/common-example-2.png)
 
 
-## Flexbox
-### Basic Flexbox
-A basic `display: flex` Flexbox in a container.
 
-![](assets/BasicFlexbox.png)
-#### How its achieved: 
 
-```jsx
-import applyGroove from "styled-groove";
-import styled from "styled-components";
-
-const Container = styled.div`
-  background-color: #eee;
-  padding: 30px;
-  color: #fff;
-  font-size: 30px;
-`;
-
-const Flexbox = styled.div`
-  background-color: #c95eeb;
-  width: 200px;
-  height: 200px;
-`;
-
-function App() {
-  return (
-    <Container backgroundColor="#eee">
-      <Flexbox isFlex>Groovy</Flexbox>
-    </Container>
-  );
-}
-```
-
-### Horizontally Centered Flexbox
-Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `justify-content` being "center".
-
-![](assets/HorizontalCenterFlexbox.png)
-
-#### How its achieved: 
-
-```jsx
-return (
-  <Container fontSize="30px" backgroundColor="#eee">
-    <Flexbox isFlex hCentered>
-      Groovy
-    </Flexbox>
-  </Container>
-);
-```
-
-### Vertically Centered Flexbox
-Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of `align-items\` being "center".
-
-![](assets/VerticalCenterFlexbox.png)
-
-#### How its achieved: 
-
-```jsx
-return (
-  <Container fontSize="30px" backgroundColor="#eee">
-    <Flexbox isFlex vCentered>
-      Groovy
-    </Flexbox>
-  </Container>
-);
-```
-
-### Centered Flexbox
-Adding horizontal alignment is as simple as passing one `hCentered` prop. It will take care of justify-content and `align-items\` being "center".
-
-![](assets/CenteredFlexbox.png)
-#### How its achieved: 
-
-```jsx
-return (
-  <Container fontSize="30px" backgroundColor="#eee">
-    <Flexbox isFlex centered>
-      Groovy
-    </Flexbox>
-  </Container>
-);
-```
-#
 ## Tasks To Do
-- [x] Make a todo list
-- [ ] Refactor isFlex -> flex
-- [ ] Remove hCentered & vCentered
-- [ ] Convert library to TypeScript
-- [ ] Add 100% code coverage
-- [ ] Fix responsive props
 - [ ] Add responsive props documentation
-- [ ] Beef up documentation
+- [ ] Add responsive props examples
+- [ ] Add custom config documentation

@@ -35,7 +35,7 @@ const Example = styled.div`
 
 
 ## How It Works
-`styled-groove` is a mixin that contains most of the CSS properties. The `applyGroove()` function examines the props passed to the component and maps them to the applicable styles so you don't have to.
+`styled-groove` is a mixin that contains most CSS properties. The `applyGroove()` function examines the props passed to the component, finds applicable styles and injects them as valid CSS to style your component.
 
 The primary intent is to remove the repetition of having to declare multiple styled-components in favor of declaring one and, if needed, extending it on a per use basis.
 
@@ -106,19 +106,18 @@ const Button = styled.button`
 ## Implementation with Theme
 https://www.styled-components.com/docs/advanced#theming
 
-If you're using a theme object with `styled-components`, you can add the `applyGrove()` function to it. Also, if you pass any custom config options (will be discussed below), this is a good way to standardize your config options across your app, only defining it once.
+If you're using a theme object with `styled-components`, you can add `applyGrove` to make it available in every styled-component definition. Also, if you use any custom config options (config options will be discussed below), this is an ideal implementation for your customizations to be applied throughout your entire app.
 
 ```jsx
 import { ThemeProvider } from "styled-components";
 import applyGroove from "styled-groove";
 
-// Defining theme
 const theme = {
   .
   .
   .
 
-  // Default settings
+  // Default settings for applyGroove
   applyGroove
 };
 
@@ -131,7 +130,7 @@ import { applyGrooveCustomConfig } from "styled-groove";
 const theme = {
   ...,
 
-  // Custom config settings
+  // Custom config for applyGroove
   applyGroove: applyGrooveCustomConfig({
     mediaStrategy: "down",
     mediaBreakpoints: { xs: 255, sm: 320, md: 450, lg: 799, xl: 800 }
@@ -140,14 +139,14 @@ const theme = {
 
 ...
 
-// Wrap your app in ThemeProvider
+// Wrap your app in styled-component's ThemeProvider
 <ThemeProvider theme={theme}>
   ...
 </ThemeProvider>
 
 ```
 
-Now we have access to the `applyGroove()` function in all of our styled-component templates.
+Now we have access to `applyGroove` in all of our styled components via the theme object.
 
 ```js
 import styled from "styled-components";
@@ -324,82 +323,113 @@ const Title = styled.h1`
 | wordWrap        | (value) => css\`word-wrap: ${value};`         |
 
 
-## More Examples:
 
-Example 1:
+#### Example 1:
 
 ```jsx
+import React from "react";
 import styled from "styled-components";
 import applyGroove from "styled-groove";
 
-const color1 = "#DA78F4";
-const color2 = "#252025";
+const colorA = "#1d2033";
+const colorB = "#0ac6ad";
+
+const Row = styled.div`
+  width: 100vw;
+  height: 33vh;
+  display: flex;
+  align-items: center;
+  ${props => applyGroove(props)}
+`;
 
 const Text = styled.p`
-  font-size: 20px;
+  font-size: 52px;
+  font-family: "Arial, sans-serif";
   margin: 0;
-  font-family: 'Arial, sans-serif';
   ${props => applyGroove(props)}
 `;
 
-const Div = styled.div`
-  ${props => applyGroove(props)}
-`;
+export default () => (
+  <div>
+    <Row backgroundColor={colorA}>
+      <Text color={colorB} marginLeft="24px">Start🕺</Text>
+    </Row>
+    <Row backgroundColor={colorB} justifyContent="center">
+      <Text color={colorA}>Groovin'</Text>
+    </Row>
+    <Row backgroundColor={colorA} justifyContent="flex-end">
+      <Text color={colorB} marginRight="24px">💃Now!</Text>
+    </Row>
+  </div>
+);
 
-...
-
-<Div width="300px">
-  <Div backgroundColor={color2}>
-    <Text color={color1}>Start</Text>
-  </Div>
-  <Div textAlign="center" backgroundColor={color1}>
-    <Text color={color2}>Groovin'</Text>
-  </Div>
-  <Div textAlign="right" backgroundColor={color2}>
-    <Text color={color1}>Now!</Text>
-  </Div>
-</Div>
 ```
 
-![Example 1](./assets/common-example-1.png)
+![Example 1](./assets/example1.png)
+
+
+[![Edit Example 1](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/example-1-rrp8c?autoresize=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FExampleOne.jsx&moduleview=1)
 
 
 
-Example 2: 
+#### Example 2: 
 
 ```jsx
+import React from "react";
 import styled from "styled-components";
 import applyGroove from "styled-groove";
 
+const colorA = "#1d2033";
+const colorB = "#0ac6ad";
+
 const Container = styled.div`
-  background-color: #DA78F4;
-  width: 500px;
+  background-color: ${colorA};
+  width: 100vw;
+  height: 100vh;
 `;
 
-const PyramidBlock = styled.div`
-  background-color: #252025;
-  height: 50px;
+const Block = styled.div`
+  background-color: ${colorB};
+  height: 10vh;
   margin: auto;
   ${props => applyGroove(props)}
 `;
 
-...
+const Text = styled.p`
+  color: ${colorA};
+  font-size: 30px;
+  font-family: "helvetica, sans-serif";
+  margin: 0;
+  ${props => applyGroove(props)}
+`;
 
-<Container width="300px">
-  <PyramidBlock width="25%" />
-  <PyramidBlock width="40%" />
-  <PyramidBlock width="55%" />
-  <PyramidBlock width="70%" />
-  <PyramidBlock width="85%" />
-  <PyramidBlock width="100%" />
-</Container>
+export default () => (
+  <Container>
+    <Block width="100vw" />
+    <Block width="80vw" />
+    <Block width="60vw" />
+    <Block width="40vw" />
+    <Block width="20vw" display="flex" justifyContent="center">
+      <Text>Styled</Text>
+    </Block>
+    <Block width="20vw" display="flex" justifyContent="center" alignItems="flex-end">
+      <Text bold>Groove</Text>
+    </Block>
+    <Block width="40vw" />
+    <Block width="60vw" />
+    <Block width="80vw" />
+    <Block width="100vw" />
+  </Container>
+);
 ```
-![Example 2](./assets/common-example-2.png)
+
+![Example 2](./assets/example2.png)
+
+[![Edit Example 2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/eloquent-benz-se33j?autoresize=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FExampleTwo.jsx&moduleview=1)
 
 
 
 
-## Tasks To Do
-- [ ] Add responsive props documentation
-- [ ] Add responsive props examples
-- [ ] Add custom config documentation
+### Missing Documentation:
+- Responsive Style Features
+- Config Object Documentation

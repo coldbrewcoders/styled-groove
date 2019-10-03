@@ -430,6 +430,14 @@ export default () => (
 
 
 
-### Missing Documentation:
-- Responsive Style Features
-- Config Object Documentation
+# Documentation
+### Add responsive documentation section
+### Add config option documentation section
+### Add codesandbox links and examples
+### Make a section on why this is better than styled-system
+### Add code coverage and other badges
+### Clean up styling prop table
+
+# Marketing
+### Post on reddit / react out to styled-components to be featured library
+### Reach out to styled-components developers for some sort of promo / feature

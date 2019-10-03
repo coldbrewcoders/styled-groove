@@ -1,8 +1,21 @@
-# these items will be ignored when creating package
-package-lock.json
-.babelrc.js
-.eslintrc.js
+# Source Files
 src/
 assets/
-.gitignore
+__tests__/
+coverage/
 TODO.md
+
+# Storybook
+.storybook/
+storybook-static/
+
+# Config Files
+jest.config.js
+.eslintrc.js
+.eslintignore
+.gitignore
+tsconfig.json
+
+# Miscellaneous
+*.env*
+.vscode

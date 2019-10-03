@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { storiesOf } from "@storybook/react";
 
 // Styled Groove
-import applyGroove from "/src";
+import applyGroove from "../../lib";
 
 
 storiesOf("Style Prop Tests", module)
@@ -20,7 +20,7 @@ storiesOf("Style Prop Tests", module)
 
 
 storiesOf("Responsive Tests", module)
- .add("Responsive Color Test", () => {
+  .add("Responsive Color Test", () => {
 
     const BoxWithResponsiveColors = styled.div`
       width: 200px;
@@ -99,11 +99,11 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaSizes: { xs: 550, sm: 551 } })}
+      ${(props) => applyGroove(props, { mediaBreakpoints: { xs: 550, sm: 551 } })}
     `;
 
     return (
-      <BoxWithUpMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>XS -> 550px</BoxWithUpMediaStrategy>
+      <BoxWithUpMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>{"XS -> 550px"}</BoxWithUpMediaStrategy>
     );
   })
   .add("Custom Media Width Test (Down Media Strategy)", () => {
@@ -117,16 +117,16 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaSizes: { xl: 1000, lg: 999 } })}
+      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaBreakpoints: { xl: 1000, lg: 999 } })}
     `;
 
     return (
-      <BoxWithDownMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>XL -> 1000px</BoxWithDownMediaStrategy>
+      <BoxWithDownMediaStrategy _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>{"XL -> 1000px"}</BoxWithDownMediaStrategy>
     );
   })
   .add("Invalid Custom Media With Test **Should See Console Warning**)", () => {
 
-    const BoxWithInvalidCustomMediaSizes = styled.div`
+    const BoxWithInvalidCustomMediaBreakpoints = styled.div`
       width: 200px;
       height: 200px;
       margin: auto;
@@ -135,19 +135,19 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaSizes: { lg: 1000, md: 1050 } })}
+      ${(props) => applyGroove(props, { mediaBreakpoints: { lg: 1000, md: 1050 } })}
     `;
 
-    // Default mediaSizes will be applied, (see warning in console)
+    // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaSizes _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaSizes>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaBreakpoints>
     );
 
   })
   .add("Invalid Custom Media With Test (Up Media Strategy, **should see warning**)", () => {
 
-    const BoxWithInvalidCustomMediaSizes = styled.div`
+    const BoxWithInvalidCustomMediaBreakpoints = styled.div`
       width: 200px;
       height: 200px;
       margin: auto;
@@ -156,19 +156,19 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaSizes: { sm: 551, xs: 549} })}
+      ${(props) => applyGroove(props, { mediaBreakpoints: { sm: 551, xs: 549} })}
     `;
 
-    // Default mediaSizes will be applied, (see warning in console)
+    // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaSizes _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaSizes>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaBreakpoints>
     );
 
   })
   .add("Invalid Custom Media With Test (Down Media Strategy, **should see warning**)", () => {
 
-    const BoxWithInvalidCustomMediaSizes = styled.div`
+    const BoxWithInvalidCustomMediaBreakpoints = styled.div`
       width: 200px;
       height: 200px;
       margin: auto;
@@ -177,14 +177,13 @@ storiesOf("Custom Config Test", module)
       padding-top: 64px;
       border: 1px solid black;
 
-      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaSizes: { xl: 1201, lg: 1999} })}
+      ${(props) => applyGroove(props, { mediaStrategy: "down", mediaBreakpoints: { xl: 1201, lg: 1999} })}
     `;
 
-    // Default mediaSizes will be applied, (see warning in console)
+    // Default mediaBreakpoints will be applied, (see warning in console)
 
     return (
-      <BoxWithInvalidCustomMediaSizes _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaSizes>
+      <BoxWithInvalidCustomMediaBreakpoints _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }}>See Console Warning</BoxWithInvalidCustomMediaBreakpoints>
     );
 
   });
-

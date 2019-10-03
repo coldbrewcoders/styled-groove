@@ -1,7 +1,6 @@
-const path = require("path");
 
 module.exports = {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
     "es6": true,
@@ -10,6 +9,7 @@ module.exports = {
   },
   "plugins": [
     "babel",
+    "@typescript-eslint",
     "import",
     "react",
     "react-hooks",
@@ -18,16 +18,35 @@ module.exports = {
   "extends": [
     "eslint:recommended",
     "plugin:import/errors",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": 0
+      }
+    },
+    {
+      "files": ["*.ts", ".tsx"],
+      "rules": {
+        "no-undef": 0,
+        "import/no-unresolved": 0,
+        "import/namespace": 0,
+        "import/named": 0,
+        "import/default": 0
+      }
+    }
   ],
   "parserOptions": {
-    "ecmaFeatures": {
-      "impliedStrict": true,
-      "jsx": true,
-      "react": true
-    },
-    "ecmaVersion": 2018,
-    "sourceType": "module"
+  "ecmaFeatures": {
+    "impliedStrict": true,
+    "jsx": true,
+    "react": true
+  },
+  "ecmaVersion": 2018,
+  "sourceType": "module"
   },
   "rules": {
     // General Rules
@@ -58,6 +77,10 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": 0,
     
+    // Typescript rules
+    "@typescript-eslint/interface-name-prefix": ["warn", { "prefixWithI": "always" }],
+    "@typescript-eslint/no-explicit-any": 0,
+
     // Jest rules
     "jest/no-disabled-tests": "warn",
     "jest/no-focused-tests": "error",
@@ -75,7 +98,9 @@ module.exports = {
       "node": {
         "extensions": [
           ".js",
-          ".jsx"
+          ".jsx",
+          ".ts",
+          ".tsx"
         ]
       }
     }

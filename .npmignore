@@ -1,20 +1,20 @@
 # Source Files
 src/
 assets/
-testing/
+__tests__/
 coverage/
 TODO.md
 
 # Storybook
 .storybook/
-stories/
 storybook-static/
 
 # Config Files
 jest.config.js
-.babelrc.js
 .eslintrc.js
+.eslintignore
 .gitignore
+tsconfig.json
 
 # Miscellaneous
 *.env*

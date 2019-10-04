@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - 10
+
+branches:
+  only:
+  - master
+  - develop
+
+before_install:
+  - npm install
+
+script:
+  - npm run build
+  - npm run test-coverage
+
+cache:
+  directories:
+    - node_modules

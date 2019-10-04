@@ -3,7 +3,6 @@ src/
 assets/
 __tests__/
 coverage/
-TODO.md
 
 # Storybook
 .storybook/
@@ -15,7 +14,10 @@ jest.config.js
 .eslintignore
 .gitignore
 tsconfig.json
+.travis.yml
 
 # Miscellaneous
 *.env*
 .vscode
+TODO.md
+CODE_OF_CONDUCT.md

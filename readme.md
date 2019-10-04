@@ -1,8 +1,10 @@
 # styled-groove 💃🕺
 
-[![Generated with nod](https://img.shields.io/badge/generator-nod-2196F3.svg?style=flat-square)](https://github.com/coldbrewcoders)
-[![NPM version](https://img.shields.io/npm/v/styled-groovy.svg?style=flat-square)](https://npmjs.org/package/styled-groove)
-[![Build Status](https://img.shields.io/travis/diegohaz/styled-theme/master.svg?style=flat-square)](https://travis-ci.org/diegohaz/styled-theme) [![Coverage Status](https://img.shields.io/codecov/c/github/diegohaz/styled-theme/master.svg?style=flat-square)](https://codecov.io/gh/diegohaz/styled-theme/branch/master)
+![npm](https://img.shields.io/npm/v/styled-groove)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/styled-groove)
+![Travis (.org) branch](https://img.shields.io/travis/coldbrewcoders/styled-groove/master)
+![Coveralls github branch](https://img.shields.io/coveralls/github/coldbrewcoders/styled-groove/master)
+![GitHub](https://img.shields.io/github/license/coldbrewcoders/styled-groove)
 
 A library used with `styled-components` 💅🏻that provides dynamic, component-level styling via props. Extending your components with `styled-groove` allows for more flexibility and reusability in your styled components. `Styled-groove` also has rich feature support for responsive styling. 
 

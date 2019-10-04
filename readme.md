@@ -3,7 +3,7 @@
 ![npm](https://img.shields.io/npm/v/styled-groove)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/styled-groove)
 ![Travis (.org) branch](https://img.shields.io/travis/coldbrewcoders/styled-groove/master)
-![Coveralls github branch](https://img.shields.io/coveralls/github/coldbrewcoders/styled-groove/master)
+[![Coverage Status](https://coveralls.io/repos/github/coldbrewcoders/styled-groove/badge.svg?branch=master)](https://coveralls.io/github/coldbrewcoders/styled-groove?branch=master)
 ![GitHub](https://img.shields.io/github/license/coldbrewcoders/styled-groove)
 
 A library used with `styled-components` 💅🏻that provides dynamic, component-level styling via props. Extending your components with `styled-groove` allows for more flexibility and reusability in your styled components. `Styled-groove` also has rich feature support for responsive styling. 

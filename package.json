@@ -27,6 +27,7 @@
   "license": "MIT",
   "keywords": [
     "styled-components",
+    "css-in-js",
     "styled",
     "style",
     "theme",

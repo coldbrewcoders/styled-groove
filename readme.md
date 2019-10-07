@@ -362,7 +362,7 @@ export default () => (
       <Text color={colorB} marginLeft="24px">Start🕺</Text>
     </Row>
     <Row backgroundColor={colorB} justifyContent="center">
-      <Text color={colorA}>Groovin'</Text>
+      <Text color={colorA}>Groovin</Text>
     </Row>
     <Row backgroundColor={colorA} justifyContent="flex-end">
       <Text color={colorB} marginRight="24px">💃Now!</Text>

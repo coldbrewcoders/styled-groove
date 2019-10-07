@@ -441,11 +441,11 @@ export default () => (
 
 # Media Props
 
-Using media props, you can adjust the styles applied to your components at different screen widths via media breakpoints. This makes it easy to build responsive components that look great on any device. Here is how it works...
+Using media props, you can adjust the styles applied to your components at different screen widths aka media breakpoints. This makes it easy to build responsive components that look great on any device. Here is an illustration of how it works...
 
 ![Media Up Strategy](./assets/media-up-strategy.JPG)
 
-`Styled-groove` uses the up media strategy by default, similar to bootstrap. If you'd prefer to use the down media strategy or to change the media breakpoint values, this can be achieved via custom configuration (will be discussed later).
+`Styled-groove` uses the up media strategy by default, similar to bootstrap. If you'd prefer to use the down media strategy or to change the media breakpoint size values, this can be achieved via custom configuration (will be discussed later).
 
 There are 5 media props you can use to apply styles at varying screen widths. They are `_xs`, `_sm`, `_md`, `_lg` and `_xl`. Each media prop expects an object as its value which contains key -> value pairs of style props to apply when the screen width triggers its corresponding media breakpoint.
 
@@ -475,16 +475,16 @@ export default () => (
 );
 ```
 
-#### TODO: add code sandbox link
+[![Edit Media Props Example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/cool-ramanujan-7of90?autoresize=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FMediaPropsExample.jsx)
 
-Here, the box will change colors as the screen width changes. From XS (<= 575px) -> to XL (>= 1200px), the box will change based on the colors of the rainbow (ROYGBIV, minus the IV). Here we are only using the `backgroundColor` style prop inside the media prop object, but you can pass in any combination and as many or as few style props as you need. 
+Here we are only using the `backgroundColor` style prop inside the media prop object, but you can pass in any combination and as many or as few style props as you need. 
 
 This example uses all of the available media props, but you can use as many or as few as your component requires. Also, you can arrange the media props in any order you like and the results will be the same. However, we do recommend writing them in ascending or descending order for readability purposes.
 
 
 # Custom Configuration
 
-The `applyGrove` function has an optional 2nd argument that allows you to customize its behavior. All properties of the config object are optional and if not passed or passed in an invalid format, `styled-groove` will use its default values. The config object has the following available properties:
+The `applyGrove` function has an optional 2nd argument that allows you to customize its behavior. We call this the config object. All properties of the config object are optional and if properties are not passed or passed in an invalid format, `styled-groove` will use its default values. The config object has the following available properties:
 
 | Config Object Properties  | Options                                                                                     |
 | --------------------------|:--------------------------------------------------------------------------------------------|
@@ -504,12 +504,12 @@ This config options allows you to flip the way media props are applied. Default 
 
 #### mediaBreakpoints
 
-This allows you to override the default media breakpoints. You can pass any sizes as long as they pass the following validations:
+This allows you to override the default media breakpoints. You can pass any sizes as long as they respect the following rules:
 1. XL > LG > MD > SM > XS
-2. If mediaStrategy is "up", SM - XS must be 1. (This prevents width coverage gaps)
-3. If mediaStrategy is "down", XL - LG must be 1. (This prevents width coverage gaps)
+2. If mediaStrategy is "up", SM - XS must be 1. (This prevents a gap in media prop coverage)
+3. If mediaStrategy is "down", XL - LG must be 1. (This prevents a gap in media prop coverage)
 
 
 #### ignoreMediaMixins
 
-When set to true, `styled-groove` will look look for any media props. Only set this to false if you know your component will not be using any media props. This will result in a small optimization of render speed.
+When set to true, `styled-groove` will not look for any media props. Only set this to true if you know your component will not be using any media props. This will result in a small optimization of render speed.

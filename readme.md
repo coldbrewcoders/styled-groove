@@ -168,161 +168,161 @@ const Title = styled.h1`
 
 ### Display props:
 
-| Prop (key)    | Template Literal CSS Fn (value)               |
-| --------------|:----------------------------------------------:
-| display       | (value) => css\`display: ${value};`           |
-| position      | (value) => css\`position: ${value};`          |
-| float         | (value) => css\`float: ${value};`             |
-| clear         | (value) => css\`clear: ${value};`             |
-| overflow      | (value) => css\`overflow: ${value};`          |
-| overflowX     | (value) => css\`overflow-x: ${value};`        |
-| overflowY     | (value) => css\`overflow-y: ${value};`        |
-| visibility    | (value) => css\`visibility: ${value};`        |
-| zIndex        | (value) => css\`z-index: ${value};`           |
+| Prop          | Injected CSS                |
+| ------------- |:----------------------------|
+| display       | `display: ${value};`        |
+| position      | `position: ${value};`       |
+| float         | `float: ${value};`          |
+| clear         | `clear: ${value};`          |
+| overflow      | `overflow: ${value};`       |
+| overflowX     | `overflow-x: ${value};`     |
+| overflowY     | `overflow-y: ${value};`     |
+| visibility    | `visibility: ${value};`     |
+| zIndex        | `z-index: ${value};`        |
 
 
 ### Sizing props:
 
-| Prop (key)    | Template Literal CSS Fn (value)               |
-| --------------|:----------------------------------------------:
-| height        | (value) => css\`height: ${value};`            |
-| width         | (value) => css\`width: ${value};`             |
-| minHeight     | (value) => css\`min-height: ${value};`        | 
-| minWidth      | (value) => css\`min-width: ${value};`         |
-| maxHeight     | (value) => css\`max-height: ${value};`        |
-| maxWidth      | (value) => css\`max-width: ${value};`         |
+| Prop          | Injected CSS              |
+| --------------|:--------------------------|
+| height        | `height: ${value};`       |
+| width         | `width: ${value};`        |
+| minHeight     | `min-height: ${value};`   | 
+| minWidth      | `min-width: ${value};`    |
+| maxHeight     | `max-height: ${value};`   |
+| maxWidth      | `max-width: ${value};`    |
 
 
 ### Margin props:
 
-| Prop (key)    | Template Literal CSS Fn (value)                                 |
-| --------------|:----------------------------------------------------------------:
-| margin        | (value) => css\`margin: ${value};`                              |
-| marginTop     | (value) => css\`margin-top: ${value};`                          |
-| marginBottom  | (value) => css\`margin-bottom: ${value};`                       | 
-| marginLeft    | (value) => css\`margin-left: ${value};`                         |
-| marginRight   | (value) => css\`margin-right: ${value};`                        |
-| marginX       | (value) => css\`margin-left: ${value}; margin-right: ${value};` |
-| marginY       | (value) => css\`margin-top: ${value}; margin-bottom: ${value};` |                           |
+| Prop          | Injected CSS                                     |
+| --------------|:-------------------------------------------------|
+| margin        | `margin: ${value};`                              |
+| marginTop     | `margin-top: ${value};`                          |
+| marginBottom  | `margin-bottom: ${value};`                       | 
+| marginLeft    | `margin-left: ${value};`                         |
+| marginRight   | `margin-right: ${value};`                        |
+| marginX       | `margin-left: ${value}; margin-right: ${value};` |
+| marginY       | `margin-top: ${value}; margin-bottom: ${value};` |
 
 
 ### Padding props:
 
-| Prop (key)    | Template Literal CSS Fn (value)                                   |
-| --------------|:------------------------------------------------------------------:
-| padding       | (value) => css\`padding: ${value};`                               |
-| paddingTop    | (value) => css\`padding-top: ${value};`                           |
-| paddingBottom | (value) => css\`padding-bottom: ${value};`                        |  
-| paddingLeft   | (value) => css\`padding-left: ${value};`                          |
-| paddingRight  | (value) => css\`padding-right: ${value};`                         |
-| paddingX      | (value) => css\`padding-left: ${value}; padding-right: ${value};` |
-| paddingY      | (value) => css\`padding-top: ${value}; padding-bottom: ${value};` |                         |
+| Prop          | Injected CSS                                       |
+| --------------|:---------------------------------------------------|
+| padding       | `padding: ${value};`                               |
+| paddingTop    | `padding-top: ${value};`                           |
+| paddingBottom | `padding-bottom: ${value};`                        |  
+| paddingLeft   | `padding-left: ${value};`                          |
+| paddingRight  | `padding-right: ${value};`                         |
+| paddingX      | `padding-left: ${value}; padding-right: ${value};` |
+| paddingY      | `padding-top: ${value}; padding-bottom: ${value};` |
 
 
 ### Positioning props:
 
-| Prop (key)    | Template Literal CSS Fn (value)               |
-| --------------|:----------------------------------------------:
-| top           | (value) => css\`top: ${value};`               |
-| bottom        | (value) => css\`bottom: ${value};`            |
-| left          | (value) => css\`left: ${value};`              |
-| right         | (value) => css\`right: ${value};`             |
+| Prop          | Injected CSS                   |
+| --------------|:-------------------------------|
+| top           | `top: ${value};`               |
+| bottom        | `bottom: ${value};`            |
+| left          | `left: ${value};`              |
+| right         | `right: ${value};`             |
 
 
 ### Typography props:
 
-| Prop (key)    | Template Literal CSS Fn (value)               |
-| --------------|:----------------------------------------------:
-| color         | (value) => css\`color: ${value};`             |
-| fontSize      | (value) => css\`font-size: ${value};`         |
-| fontWeight    | (value) => css\`font-weight: ${value};`       |
-| fontFamily    | (value) => css\`font-family: ${value};`       |
-| fontStyle     | (value) => css\`font-style: ${value};`        |
-| textAlign     | (value) => css\`text-align: ${value};`        |
-| textDecoration| (value) => css\`text-decoration: ${value};`   |
-| hoverColor    | (value) => css\`&&{&:hover{color: ${value};}}`|
-| lineHeight    | (value) => css\`line-height: ${value};`       |
-| letterSpacing | (value) => css\`letter-spacing: ${value};`    |
-| hyphens       | (value) => css\`hyphens: ${value};`           |
-| textOverflow  | (value) => css\`text-overflow: ${value};`     |
-| textShadow    | (value) => css\`text-shadow: ${value};`       |
-| textTransform | (value) => css\`text-transform: ${value};`    |
-| light         | () => css\`font-weight: 300;`                 |
-| bold          | () => css\`font-weight: bold;`                |
+| Prop          | Injected CSS                   |
+| --------------|:-------------------------------|
+| color         | `color: ${value};`             |
+| fontSize      | `font-size: ${value};`         |
+| fontWeight    | `font-weight: ${value};`       |
+| fontFamily    | `font-family: ${value};`       |
+| fontStyle     | `font-style: ${value};`        |
+| textAlign     | `text-align: ${value};`        |
+| textDecoration| `text-decoration: ${value};`   |
+| hoverColor    | `&&{&:hover{color: ${value};}}`|
+| lineHeight    | `line-height: ${value};`       |
+| letterSpacing | `letter-spacing: ${value};`    |
+| hyphens       | `hyphens: ${value};`           |
+| textOverflow  | `text-overflow: ${value};`     |
+| textShadow    | `text-shadow: ${value};`       |
+| textTransform | `text-transform: ${value};`    |
+| light         | `font-weight: 300;`            |
+| bold          | `font-weight: bold;`           |
 
 
 ### Border props:
 
-| Prop (key)              | Template Literal CSS Fn (value)                                                                     |
-| ------------------------|:----------------------------------------------------------------------------------------------------:
-| border                  | (value) => css\`border: ${value};`                                                                  |
-| borderTop               | (value) => css\`border-top: ${value};`                                                              |
-| borderBottom            | (value) => css\`border-bottom: ${value};`                                                           |
-| borderRight             | (value) => css\`border-right: ${value};`                                                            |
-| borderLeft              | (value) => css\`border-left: ${value};`                                                             |
-| borderColor             | (value) => css\`border-color: ${value};`                                                            |
-| borderRadius            | (value) => css\`border-radius: ${value};`                                                           |
-| borderTopLeftRadius     | (value) => css\`border-top-left-radius: ${value};`                                                  |
-| borderTopRightRadius    | (value) => css\`border-top-right-radius: ${value};`                                                 |
-| borderBottomRightRadius | (value) => css\`border-bottom-right-radius: ${value};`                                              |
-| borderBottomLeftRadius  | (value) => css\`border-bottom-left-radius: ${value};`                                               |
-| borderRightRadius       | (value) => css\`border-top-right-radius: ${value}; border-bottom-right-radius ${value};`            |
-| borderLeftRadius        | (value) => css\`border-top-left-radius: ${value}; border-bottom-left-radius ${value};`              |
-| borderTopRadius         | (value) => css\`border-top-left-radius: ${value}; border-top-right-radius: ${value};`               |
-| borderBottomRadius      | (value: string) => css\`border-bottom-left-radius: ${value}; border-bottom-right-radius: ${value};` |
-| boxShadow               | (value) => css\`box-shadow: ${value};`                                                              |
+| Prop                    | Injected CSS                                                                  |
+| ------------------------|:------------------------------------------------------------------------------|
+| border                  | `border: ${value};`                                                           |
+| borderTop               | `border-top: ${value};`                                                       |
+| borderBottom            | `border-bottom: ${value};`                                                    |
+| borderRight             | `border-right: ${value};`                                                     |
+| borderLeft              | `border-left: ${value};`                                                      |
+| borderColor             | `border-color: ${value};`                                                     |
+| borderRadius            | `border-radius: ${value};`                                                    |
+| borderTopLeftRadius     | `border-top-left-radius: ${value};`                                           |
+| borderTopRightRadius    | `border-top-right-radius: ${value};`                                          |
+| borderBottomRightRadius | `border-bottom-right-radius: ${value};`                                       |
+| borderBottomLeftRadius  | `border-bottom-left-radius: ${value};`                                        |
+| borderRightRadius       | `border-top-right-radius: ${value}; border-bottom-right-radius ${value};`     |
+| borderLeftRadius        | `border-top-left-radius: ${value}; border-bottom-left-radius ${value};`       |
+| borderTopRadius         | `border-top-left-radius: ${value}; border-top-right-radius: ${value};`        |
+| borderBottomRadius      | `border-bottom-left-radius: ${value}; border-bottom-right-radius: ${value};`  |
+| boxShadow               | `box-shadow: ${value};`                                                       |
 
 
 ### Background props:
 
-| Prop (key)            | Template Literal CSS Fn (value)                                   |
-| ----------------------|:------------------------------------------------------------------:
-| background            | (value) => css\`background: ${value};`                            |
-| backgroundPosition    | (value) => css\`background-position: ${value};`                   |
-| backgroundRepeat      | (value) => css\`background-repeat: ${value};`                     |
-| backgroundSize        | (value) => css\`background-size: ${value};`                       |
-| backgroundImage       | (value) => css\`background-image: url(${value});`                 |
-| backgroundColor       | (value) => css\`background-color: ${value};`                      |
-| backgroundHoverColor  | (value: string) => css\`&&{&:hover{background-color: ${value};}}` |
-| backgroundAttachment  | (value) => css\`background-attachment: ${value};`                 |
-| backgroundClip        | (value) => css\`background-clip: ${value};`                       |
-| backgroundOrigin      | (value) => css\`background-origin: ${value};`                     |
-| objectFit             | (value) => css\`object-fit: ${value};`                            |
+| Prop                  | Injected CSS                                |
+| ----------------------|:--------------------------------------------|
+| background            | `background: ${value};`                     |
+| backgroundPosition    | `background-position: ${value};`            |
+| backgroundRepeat      | `background-repeat: ${value};`              |
+| backgroundSize        | `background-size: ${value};`                |
+| backgroundImage       | `background-image: url(${value});`          |
+| backgroundColor       | `background-color: ${value};`               |
+| backgroundHoverColor  | `&&{&:hover{background-color: ${value};}}`  |
+| backgroundAttachment  | `background-attachment: ${value};`          |
+| backgroundClip        | `background-clip: ${value};`                |
+| backgroundOrigin      | `background-origin: ${value};`              |
+| objectFit             | `object-fit: ${value};`                     |
 
 
-## Flexbox Props:
+### Flexbox props:
 
-| Prop (key)      | Template Literal CSS Fn (value)              |
-| ----------------|:---------------------------------------------:
-| flex            | (value) => css\`flex: ${value};`             |
-| flexDirection   | (value) => css\`flex-direction: ${value};`   |
-| flexWrap        | (value) => css\`flex-wrap: ${value};`        |
-| justifyContent  | (value) => css\`justify-content: ${value};`  |
-| alignItems      | (value) => css\`align-items: ${value};`      |
-| alignContent    | (value) => css\`align-content: ${value};`    |
-| alignSelf       | (value) => css\`align-self: ${value};`       |
-| order           | (value) => css\`order: ${value};`            |
-| flexGrow        | (value) => css\`flex-grow: ${value};`        |
-| flexShrink      | (value) => css\`flex-shrink: ${value};`      |
-| flexBasis       | (value) => css\`flex-basis: ${value};`       |
+| Prop            | Injected CSS                    |
+| ----------------|:--------------------------------|
+| flex            | `flex: ${value};`               |
+| flexDirection   | `flex-direction: ${value};`     |
+| flexWrap        | `flex-wrap: ${value};`          |
+| justifyContent  | `justify-content: ${value};`    |
+| alignItems      | `align-items: ${value};`        |
+| alignContent    | `align-content: ${value};`      |
+| alignSelf       | `align-self: ${value};`         |
+| order           | `order: ${value};`              |
+| flexGrow        | `flex-grow: ${value};`          |
+| flexShrink      | `flex-shrink: ${value};`        |
+| flexBasis       | `flex-basis: ${value};`         |
 
 
 ### Misc props:
 
-| Prop (key)      | Template Literal CSS Fn (value)               |
-| ----------------|:----------------------------------------------:
-| cursor          | (value) => css\`cursor: ${value};`            |
-| direction       | (value) => css\`direction: ${value};`         |
-| opacity         | (value) => css\`opacity: ${value};`           |
-| overflowWrap    | (value) => css\`overflow-wrap: ${value};`     |
-| pointerEvents   | (value) => css\`pointer-events: ${value};`    |
-| transform       | (value) => css\`transform: ${value};`         |
-| transition      | (value) => css\`transition: ${value};`        |
-| transitionDelay | (value) => css\`transition-delay: ${value};`  |
-| userSelect      | (value) => css\`user-select: ${value};`       |
-| whiteSpace      | (value) => css\`white-space: ${value};`       |
-| wordSpacing     | (value) => css\`word-spacing: ${value};`      |
-| wordWrap        | (value) => css\`word-wrap: ${value};`         |
+| Prop            | Injected CSS                    |
+| ----------------|:--------------------------------|
+| cursor          | `cursor: ${value};`             |
+| direction       | `direction: ${value};`          |
+| opacity         | `opacity: ${value};`            |
+| overflowWrap    | `overflow-wrap: ${value};`      |
+| pointerEvents   | `pointer-events: ${value};`     |
+| transform       | `transform: ${value};`          |
+| transition      | `transition: ${value};`         |
+| transitionDelay | `transition-delay: ${value};`   |
+| userSelect      | `user-select: ${value};`        |
+| whiteSpace      | `white-space: ${value};`        |
+| wordSpacing     | `word-spacing: ${value};`       |
+| wordWrap        | `word-wrap: ${value};`          |
 
 
 
@@ -333,6 +333,7 @@ import React from "react";
 import styled from "styled-components";
 import applyGroove from "styled-groove";
 
+
 const colorA = "#1d2033";
 const colorB = "#0ac6ad";
 
@@ -341,6 +342,8 @@ const Row = styled.div`
   height: 33vh;
   display: flex;
   align-items: center;
+
+  // Apply groove to your styled component
   ${props => applyGroove(props)}
 `;
 
@@ -348,6 +351,8 @@ const Text = styled.p`
   font-size: 52px;
   font-family: "Arial, sans-serif";
   margin: 0;
+
+  // Apply groove to your styled component
   ${props => applyGroove(props)}
 `;
 
@@ -394,6 +399,8 @@ const Block = styled.div`
   background-color: ${colorB};
   height: 10vh;
   margin: auto;
+
+  // Apply groove to your styled component
   ${props => applyGroove(props)}
 `;
 
@@ -402,6 +409,8 @@ const Text = styled.p`
   font-size: 30px;
   font-family: "helvetica, sans-serif";
   margin: 0;
+
+  // Apply groove to your styled component
   ${props => applyGroove(props)}
 `;
 
@@ -430,16 +439,77 @@ export default () => (
 [![Edit Example 2](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/eloquent-benz-se33j?autoresize=1&fontsize=14&hidenavigation=1&module=%2Fsrc%2FExampleTwo.jsx&moduleview=1)
 
 
+# Media Props
+
+Using media props, you can adjust the styles applied to your components at different screen widths via media breakpoints. This makes it easy to build responsive components that look great on any device. Here is how it works...
+
+![Media Up Strategy](./assets/media-up-strategy.JPG)
+
+`Styled-groove` uses the up media strategy by default, similar to bootstrap. If you'd prefer to use the down media strategy or to change the media breakpoint values, this can be achieved via custom configuration (will be discussed later).
+
+There are 5 media props you can use to apply styles at varying screen widths. They are `_xs`, `_sm`, `_md`, `_lg` and `_xl`. Each media prop expects an object as its value which contains key -> value pairs of style props to apply when the screen width triggers its corresponding media breakpoint.
+
+#### Responsive Example: 
+
+```jsx
+import React from "react";
+import styled from "styled-components";
+import applyGroove from "styled-groove";
 
 
-# Documentation
-### Add responsive documentation section
-### Add config option documentation section
-### Add codesandbox links and examples
-### Make a section on why this is better than styled-system
-### Add code coverage and other badges
-### Clean up styling prop table
+const BoxWithResponsiveColors = styled.div`
+  width: 200px;
+  height: 200px;
+  margin: auto;
+  text-align: center;
+  color: white;
+  padding-top: 64px;
+  border: 1px solid black;
 
-# Marketing
-### Post on reddit / react out to styled-components to be featured library
-### Reach out to styled-components developers for some sort of promo / feature
+  // Apply groove to your styled component
+  ${props => applyGroove(props)}
+`;
+
+export default () => (
+  <BoxWithResponsiveColors _xs={{ backgroundColor: "red" }} _sm={{ backgroundColor: "orange" }} _md={{ backgroundColor: "yellow" }} _lg={{ backgroundColor: "green" }} _xl={{ backgroundColor: "blue" }} />
+);
+```
+
+#### TODO: add code sandbox link
+
+Here, the box will change colors as the screen width changes. From XS (<= 575px) -> to XL (>= 1200px), the box will change based on the colors of the rainbow (ROYGBIV, minus the IV). Here we are only using the `backgroundColor` style prop inside the media prop object, but you can pass in any combination and as many or as few style props as you need. 
+
+This example uses all of the available media props, but you can use as many or as few as your component requires. Also, you can arrange the media props in any order you like and the results will be the same. However, we do recommend writing them in ascending or descending order for readability purposes.
+
+
+# Custom Configuration
+
+The `applyGrove` function has an optional 2nd argument that allows you to customize its behavior. All properties of the config object are optional and if not passed or passed in an invalid format, `styled-groove` will use its default values. The config object has the following available properties:
+
+| Config Object Properties  | Options                                                                                     |
+| --------------------------|:--------------------------------------------------------------------------------------------|
+| mediaStrategy             | `"up" or "down" (default is "up")`                                                          |
+| mediaBreakpoints          | `{ xs?: number, sm?: number, md?: number, lg?: number, xl?: number }`                       |
+|                           | `defaults for "up" media strategy: { xs: 575 , sm: 576 , md: 768 , lg: 992 , xl: 1200 }`    |
+|                           | `defaults for "down" media strategy: { xs: 575 , sm: 767 , md: 991 , lg: 1199 , xl: 1200 }` |
+| ignoreMediaMixins         | `true or false (default is false)`                                                          |
+
+
+#### mediaStrategy
+
+This config options allows you to flip the way media props are applied. Default is "up", but if set to "down", media props will behave in the following way:
+
+![Media Up Strategy](./assets/media-down-strategy.JPG)
+
+
+#### mediaBreakpoints
+
+This allows you to override the default media breakpoints. You can pass any sizes as long as they pass the following validations:
+1. XL > LG > MD > SM > XS
+2. If mediaStrategy is "up", SM - XS must be 1. (This prevents width coverage gaps)
+3. If mediaStrategy is "down", XL - LG must be 1. (This prevents width coverage gaps)
+
+
+#### ignoreMediaMixins
+
+When set to true, `styled-groove` will look look for any media props. Only set this to false if you know your component will not be using any media props. This will result in a small optimization of render speed.
